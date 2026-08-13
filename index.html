@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iceland Market Monitor</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f5f7fa;
+      color: #172033;
+    }
+
+    header {
+      background: #061b3a;
+      color: white;
+      padding: 22px 40px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 6px 0 0;
+      color: #cbd5e1;
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 30px;
+    }
+
+    .intro {
+      margin-bottom: 30px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid #e1e6ed;
+      border-radius: 10px;
+      padding: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 15px;
+      color: #516071;
+    }
+
+    .number {
+      font-size: 30px;
+      font-weight: bold;
+      margin: 12px 0;
+      color: #071c3d;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #6c7785;
+    }
+
+    footer {
+      margin-top: 60px;
+      background: #061b3a;
+      color: #cbd5e1;
+      padding: 25px 40px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>ICELAND MARKET MONITOR</h1>
+  <p>Quantitative analysis of Icelandic financial markets</p>
+</header>
+
+<main>
+
+  <div class="intro">
+    <h2>Market Overview</h2>
+    <p>
+      A quantitative overview of valuation, earnings and financial-market
+      conditions in Iceland.
+    </p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>CAPE — OMXI15</h3>
+      <div class="number">21.2</div>
+      <div class="note">30-year average: 21.0</div>
+    </div>
+
+    <div class="card">
+      <h3>P/E — OMXI15</h3>
+      <div class="number">13.6</div>
+      <div class="note">Trailing twelve months</div>
+    </div>
+
+    <div class="card">
+      <h3>CAPE Earnings Yield</h3>
+      <div class="number">4.7%</div>
+      <div class="note">Inverse of CAPE</div>
+    </div>
+
+    <div class="card">
+      <h3>5Y Government Yield</h3>
+      <div class="number">7.16%</div>
+      <div class="note">Non-indexed Icelandic government bonds</div>
+    </div>
+
+    <div class="card">
+      <h3>Inflation</h3>
+      <div class="number">5.1%</div>
+      <div class="note">12-month CPI</div>
+    </div>
+
+  </div>
+
+</main>
+
+<footer>
+  Iceland Market Monitor · Published by SB Economics · Brynjar Örn Ólafsson
+</footer>
+
+</body>
+</html>
