@@ -1,141 +1,939 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="is">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iceland Market Monitor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #f5f7fa;
-      color: #172033;
+<title>Iceland Market Monitor | SB Economics</title>
+
+<style>
+
+:root {
+    --navy: #071d3b;
+    --navy2: #0b2b55;
+    --blue: #1769e0;
+    --lightblue: #eef5ff;
+    --bg: #f5f7fa;
+    --card: #ffffff;
+    --border: #dfe5ec;
+    --text: #172033;
+    --muted: #687587;
+    --green: #18864b;
+    --red: #c83b32;
+    --orange: #d88116;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* HEADER */
+
+header {
+    background: var(--navy);
+    color: white;
+    padding: 0 34px;
+}
+
+.header-inner {
+    max-width: 1500px;
+    margin: auto;
+    min-height: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.logo {
+    width: 32px;
+    height: 40px;
+    display: flex;
+    align-items: end;
+    gap: 3px;
+}
+
+.logo span {
+    width: 5px;
+    background: white;
+    border-radius: 1px;
+}
+
+.logo span:nth-child(1) { height: 15px; }
+.logo span:nth-child(2) { height: 25px; }
+.logo span:nth-child(3) { height: 35px; }
+.logo span:nth-child(4) { height: 22px; }
+
+.brand-title {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+
+.brand-subtitle {
+    font-size: 12px;
+    color: #cbd6e5;
+    margin-top: 4px;
+}
+
+nav {
+    display: flex;
+    gap: 28px;
+    font-size: 14px;
+}
+
+nav a {
+    color: #d8e2ef;
+    text-decoration: none;
+    padding: 27px 0 23px;
+}
+
+nav a:hover,
+nav a.active {
+    color: white;
+    border-bottom: 3px solid #3c8cff;
+}
+
+/* MAIN */
+
+main {
+    max-width: 1500px;
+    margin: auto;
+    padding: 28px 30px 45px;
+}
+
+.page-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 22px;
+    gap: 30px;
+}
+
+.page-heading h1 {
+    margin: 0 0 8px;
+    font-size: 27px;
+}
+
+.page-heading p {
+    margin: 0;
+    max-width: 800px;
+    color: var(--muted);
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+.updated {
+    text-align: right;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.updated strong {
+    color: var(--text);
+}
+
+/* KPI CARDS */
+
+.kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.kpi {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 18px;
+    min-height: 145px;
+}
+
+.kpi-label {
+    font-size: 13px;
+    font-weight: 700;
+    min-height: 34px;
+}
+
+.kpi-value {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 13px 0 8px;
+    color: var(--navy);
+}
+
+.kpi-note {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.tag {
+    display: inline-block;
+    margin-top: 9px;
+    padding: 4px 7px;
+    font-size: 10px;
+    border-radius: 4px;
+    background: var(--lightblue);
+    color: var(--blue);
+}
+
+/* CHARTS */
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.panel {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 17px;
+}
+
+.panel h2 {
+    font-size: 15px;
+    margin: 0 0 4px;
+}
+
+.panel-subtitle {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 15px;
+}
+
+.chart {
+    height: 220px;
+    position: relative;
+    border-left: 1px solid #cfd6df;
+    border-bottom: 1px solid #cfd6df;
+    margin: 25px 12px 25px 36px;
+    background:
+        linear-gradient(to bottom,
+        transparent 24%,
+        #edf0f4 25%,
+        transparent 26%,
+        transparent 49%,
+        #edf0f4 50%,
+        transparent 51%,
+        transparent 74%,
+        #edf0f4 75%,
+        transparent 76%);
+}
+
+.chart svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.axis-labels {
+    display: flex;
+    justify-content: space-between;
+    color: #7a8695;
+    font-size: 9px;
+    margin: -18px 5px 0 32px;
+}
+
+.legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 13px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.legend-line {
+    width: 18px;
+    height: 3px;
+    background: var(--blue);
+}
+
+.legend-line.green { background: var(--green); }
+.legend-line.orange { background: var(--orange); }
+
+/* LOWER SECTION */
+
+.lower-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr;
+    gap: 14px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+th {
+    text-align: left;
+    color: var(--muted);
+    font-size: 10px;
+    padding: 8px 6px;
+    border-bottom: 1px solid var(--border);
+}
+
+td {
+    padding: 9px 6px;
+    border-bottom: 1px solid #edf0f3;
+}
+
+td.num,
+th.num {
+    text-align: right;
+}
+
+.highlight-row {
+    background: #eef5ff;
+    font-weight: 700;
+}
+
+.up {
+    color: var(--green);
+    font-weight: bold;
+}
+
+.down {
+    color: var(--red);
+    font-weight: bold;
+}
+
+.analysis-box {
+    margin-top: 14px;
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.analysis-box h3 {
+    margin: 0 0 10px;
+    font-size: 13px;
+}
+
+.analysis-box ul {
+    padding-left: 18px;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #475569;
+}
+
+/* NOTICE */
+
+.prototype {
+    margin-top: 16px;
+    padding: 12px 15px;
+    background: #fff8e8;
+    border: 1px solid #efddb5;
+    border-radius: 7px;
+    font-size: 11px;
+    color: #665523;
+}
+
+/* FOOTER */
+
+footer {
+    background: var(--navy);
+    color: #ccd7e6;
+    padding: 30px;
+}
+
+.footer-inner {
+    max-width: 1500px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 50px;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+footer strong {
+    color: white;
+}
+
+.footer-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 7px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 1100px) {
+
+    .kpi-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .lower-grid {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        display: none;
+    }
+}
+
+@media (max-width: 650px) {
+
+    main {
+        padding: 20px 15px;
     }
 
     header {
-      background: #061b3a;
-      color: white;
-      padding: 22px 40px;
+        padding: 0 15px;
     }
 
-    header h1 {
-      margin: 0;
-      font-size: 28px;
+    .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    header p {
-      margin: 6px 0 0;
-      color: #cbd5e1;
+    .page-heading {
+        display: block;
     }
 
-    main {
-      max-width: 1200px;
-      margin: 40px auto;
-      padding: 0 30px;
+    .updated {
+        text-align: left;
+        margin-top: 12px;
     }
 
-    .intro {
-      margin-bottom: 30px;
+    .footer-inner {
+        grid-template-columns: 1fr;
     }
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 18px;
-    }
-
-    .card {
-      background: white;
-      border: 1px solid #e1e6ed;
-      border-radius: 10px;
-      padding: 22px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    .card h3 {
-      margin-top: 0;
-      font-size: 15px;
-      color: #516071;
-    }
-
-    .number {
-      font-size: 30px;
-      font-weight: bold;
-      margin: 12px 0;
-      color: #071c3d;
-    }
-
-    .note {
-      font-size: 13px;
-      color: #6c7785;
-    }
-
-    footer {
-      margin-top: 60px;
-      background: #061b3a;
-      color: #cbd5e1;
-      padding: 25px 40px;
-      font-size: 13px;
-    }
-  </style>
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>ICELAND MARKET MONITOR</h1>
-  <p>Quantitative analysis of Icelandic financial markets</p>
+
+<div class="header-inner">
+
+    <div class="brand">
+
+        <div class="logo">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div>
+            <div class="brand-title">ICELAND MARKET MONITOR</div>
+            <div class="brand-subtitle">by SB Economics</div>
+        </div>
+
+    </div>
+
+    <nav>
+        <a class="active" href="#">Yfirlit</a>
+        <a href="#equities">Hlutabréf</a>
+        <a href="#rates">Vaxtamarkaður</a>
+        <a href="#international">Alþjóðlegt</a>
+        <a href="#methodology">Aðferðafræði</a>
+    </nav>
+
+</div>
+
 </header>
+
 
 <main>
 
-  <div class="intro">
-    <h2>Market Overview</h2>
-    <p>
-      A quantitative overview of valuation, earnings and financial-market
-      conditions in Iceland.
-    </p>
-  </div>
+<div class="page-heading">
 
-  <div class="cards">
+    <div>
+        <h1>Yfirlit — 2026</h1>
 
-    <div class="card">
-      <h3>CAPE — OMXI15</h3>
-      <div class="number">21.2</div>
-      <div class="note">30-year average: 21.0</div>
+        <p>
+            Tölulegt yfirlit yfir verðlagningu íslenskra hlutabréfa,
+            afkomu fyrirtækja, vaxtastig og samanburð við alþjóðlega markaði.
+        </p>
     </div>
 
-    <div class="card">
-      <h3>P/E — OMXI15</h3>
-      <div class="number">13.6</div>
-      <div class="note">Trailing twelve months</div>
+    <div class="updated">
+        Síðast uppfært<br>
+        <strong>13. ágúst 2026</strong>
     </div>
 
-    <div class="card">
-      <h3>CAPE Earnings Yield</h3>
-      <div class="number">4.7%</div>
-      <div class="note">Inverse of CAPE</div>
+</div>
+
+
+<!-- KPI CARDS -->
+
+<section class="kpi-grid" id="equities">
+
+<div class="kpi">
+    <div class="kpi-label">CAPE — OMXI15</div>
+    <div class="kpi-value">21,2</div>
+    <div class="kpi-note">30 ára meðaltal: 21,0</div>
+    <span class="tag">Nálægt langtímameðaltali</span>
+</div>
+
+<div class="kpi">
+    <div class="kpi-label">P/E — OMXI15</div>
+    <div class="kpi-value">13,6</div>
+    <div class="kpi-note">Hagnaður síðustu 12 mánaða</div>
+    <span class="tag">TTM</span>
+</div>
+
+<div class="kpi">
+    <div class="kpi-label">CAPE arðsemiskrafa</div>
+    <div class="kpi-value">4,7%</div>
+    <div class="kpi-note">Andhverfa CAPE</div>
+    <span class="tag">Hagsveifluleiðrétt</span>
+</div>
+
+<div class="kpi">
+    <div class="kpi-label">5 ára ríkisskuldabréf</div>
+    <div class="kpi-value">7,16%</div>
+    <div class="kpi-note">Óverðtryggð ávöxtunarkrafa</div>
+    <span class="tag">Vaxtamarkaður</span>
+</div>
+
+<div class="kpi">
+    <div class="kpi-label">Verðbólga</div>
+    <div class="kpi-value">5,1%</div>
+    <div class="kpi-note">12 mánaða breyting VNV</div>
+    <span class="tag">Hagkerfi</span>
+</div>
+
+<div class="kpi">
+    <div class="kpi-label">Raunhagnaður</div>
+    <div class="kpi-value">+8,0%</div>
+    <div class="kpi-note">Breyting síðustu 12 mánaða</div>
+    <span class="tag">OMXI15</span>
+</div>
+
+</section>
+
+
+<!-- CHARTS -->
+
+<section class="chart-grid">
+
+<div class="panel">
+
+    <h2>CAPE OMXI15</h2>
+    <div class="panel-subtitle">
+        Hlutfall raunvirðis á móti hagsveifluleiðréttum hagnaði
     </div>
 
-    <div class="card">
-      <h3>5Y Government Yield</h3>
-      <div class="number">7.16%</div>
-      <div class="note">Non-indexed Icelandic government bonds</div>
+    <div class="chart">
+
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+
+            <polyline
+                points="0,72 8,65 16,52 24,35 32,57 40,61 48,55 56,63 64,48 72,58 80,40 88,49 100,47"
+                fill="none"
+                stroke="#1769e0"
+                stroke-width="2"
+                vector-effect="non-scaling-stroke"/>
+
+            <line
+                x1="0"
+                y1="50"
+                x2="100"
+                y2="50"
+                stroke="#18864b"
+                stroke-width="1.5"
+                stroke-dasharray="5 4"
+                vector-effect="non-scaling-stroke"/>
+
+        </svg>
+
     </div>
 
-    <div class="card">
-      <h3>Inflation</h3>
-      <div class="number">5.1%</div>
-      <div class="note">12-month CPI</div>
+    <div class="axis-labels">
+        <span>1995</span>
+        <span>2005</span>
+        <span>2015</span>
+        <span>2026</span>
     </div>
 
-  </div>
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-line"></span> OMXI15 CAPE
+        </div>
+        <div class="legend-item">
+            <span class="legend-line green"></span> Langtímameðaltal
+        </div>
+    </div>
+
+</div>
+
+
+<div class="panel">
+
+    <h2>Raunhagnaður og raunvirði OMXI15</h2>
+    <div class="panel-subtitle">
+        Vísitala — þróun hagnaðar og markaðsvirðis
+    </div>
+
+    <div class="chart">
+
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+
+            <polyline
+                points="0,84 10,80 20,74 30,69 40,64 50,57 60,55 70,44 80,39 90,25 100,18"
+                fill="none"
+                stroke="#1769e0"
+                stroke-width="2"
+                vector-effect="non-scaling-stroke"/>
+
+            <polyline
+                points="0,84 10,83 20,79 30,72 40,70 50,67 60,64 70,58 80,53 90,43 100,38"
+                fill="none"
+                stroke="#18864b"
+                stroke-width="2"
+                vector-effect="non-scaling-stroke"/>
+
+        </svg>
+
+    </div>
+
+    <div class="axis-labels">
+        <span>2010</span>
+        <span>2015</span>
+        <span>2020</span>
+        <span>2026</span>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-line"></span> Raunhagnaður
+        </div>
+        <div class="legend-item">
+            <span class="legend-line green"></span> Raunvirði OMXI15
+        </div>
+    </div>
+
+</div>
+
+
+<div class="panel" id="rates">
+
+    <h2>Arðsemiskrafa hlutabréfa og ríkisskuldabréfa</h2>
+    <div class="panel-subtitle">
+        Samanburður á tekjuávöxtun og vaxtastigi
+    </div>
+
+    <div class="chart">
+
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+
+            <polyline
+                points="0,40 12,38 24,45 36,42 48,51 60,55 72,47 84,36 100,43"
+                fill="none"
+                stroke="#1769e0"
+                stroke-width="2"
+                vector-effect="non-scaling-stroke"/>
+
+            <polyline
+                points="0,62 12,60 24,63 36,66 48,70 60,72 72,68 84,55 100,60"
+                fill="none"
+                stroke="#d88116"
+                stroke-width="2"
+                vector-effect="non-scaling-stroke"/>
+
+        </svg>
+
+    </div>
+
+    <div class="axis-labels">
+        <span>2015</span>
+        <span>2019</span>
+        <span>2022</span>
+        <span>2026</span>
+    </div>
+
+    <div class="legend">
+        <div class="legend-item">
+            <span class="legend-line"></span> Hlutabréf
+        </div>
+        <div class="legend-item">
+            <span class="legend-line orange"></span> 5 ára ríkisskuldabréf
+        </div>
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- LOWER PANELS -->
+
+<section class="lower-grid">
+
+<div class="panel">
+
+<h2>Verðlagning og markaðsvísar</h2>
+
+<table>
+
+<thead>
+<tr>
+    <th>Mælikvarði</th>
+    <th class="num">Nú</th>
+    <th class="num">Viðmið</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+    <td>CAPE OMXI15</td>
+    <td class="num">21,2</td>
+    <td class="num">21,0</td>
+</tr>
+
+<tr>
+    <td>P/E OMXI15</td>
+    <td class="num">13,6</td>
+    <td class="num">—</td>
+</tr>
+
+<tr>
+    <td>CAPE arðsemiskrafa</td>
+    <td class="num">4,7%</td>
+    <td class="num">4,8%</td>
+</tr>
+
+<tr>
+    <td>5 ára ríkisskuldabréf</td>
+    <td class="num">7,16%</td>
+    <td class="num">—</td>
+</tr>
+
+<tr>
+    <td>Verðbólga</td>
+    <td class="num">5,1%</td>
+    <td class="num">—</td>
+</tr>
+
+<tr>
+    <td>Raunhagnaður OMXI15</td>
+    <td class="num up">+8,0%</td>
+    <td class="num">YoY</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+
+<div class="panel" id="international">
+
+<h2>Alþjóðlegur samanburður</h2>
+
+<table>
+
+<thead>
+<tr>
+    <th>Markaður</th>
+    <th class="num">CAPE</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr class="highlight-row">
+    <td>OMXI15 — Ísland</td>
+    <td class="num">21,2</td>
+</tr>
+
+<tr>
+    <td>S&amp;P 500 — Bandaríkin</td>
+    <td class="num">39,6</td>
+</tr>
+
+<tr>
+    <td>Evrópa</td>
+    <td class="num">—</td>
+</tr>
+
+<tr>
+    <td>Svíþjóð</td>
+    <td class="num">—</td>
+</tr>
+
+<tr>
+    <td>Danmörk</td>
+    <td class="num">—</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="analysis-box">
+<h3>Lesið úr samanburðinum</h3>
+
+<ul>
+<li>OMXI15 er nálægt eigin langtímameðaltali miðað við CAPE.</li>
+<li>Bandaríski hlutabréfamarkaðurinn stendur á mun hærra CAPE hlutfalli.</li>
+<li>Samanburður verður útvíkkaður eftir því sem gagnagrunnurinn þróast.</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>Helstu breytingar</h2>
+
+<table>
+
+<thead>
+<tr>
+    <th>Mælikvarði</th>
+    <th class="num">Breyting</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+    <td>CAPE</td>
+    <td class="num down">↓</td>
+</tr>
+
+<tr>
+    <td>P/E</td>
+    <td class="num down">↓</td>
+</tr>
+
+<tr>
+    <td>Raunhagnaður</td>
+    <td class="num up">↑</td>
+</tr>
+
+<tr>
+    <td>Langtímavextir</td>
+    <td class="num">→</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="analysis-box">
+
+<h3>Drifkraftar</h3>
+
+<ul>
+<li>Afkoma skráðra félaga hefur batnað.</li>
+<li>Langtímavextir eru áfram háir í sögulegu samhengi.</li>
+<li>Verðbólga hefur áhrif á raunávöxtun og ávöxtunarkröfu.</li>
+<li>Alþjóðlegt áhættuumhverfi hefur áhrif á íslenskan markað.</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+
+<div class="prototype">
+
+<strong>Frumgerð — Version 0.1:</strong>
+Tölur og línurit á þessari síðu eru enn sett inn handvirkt.
+Næsta útgáfa mun aðgreina gögn frá vefsíðunni þannig að uppfæra megi
+mælaborðið með CSV/Excel gagnaskrá.
+
+</div>
 
 </main>
 
-<footer>
-  Iceland Market Monitor · Published by SB Economics · Brynjar Örn Ólafsson
+
+<footer id="methodology">
+
+<div class="footer-inner">
+
+<div>
+
+<div class="footer-title">Iceland Market Monitor</div>
+
+Mánaðarlegt tölulegt yfirlit yfir íslenska fjármálamarkaði.
+Greiningin er unnin í upplýsingaskyni og felur ekki í sér
+fjárfestingarráðgjöf eða fjárfestingartilmæli.
+
+<br><br>
+
+<strong>Published by SB Economics</strong><br>
+Brynjar Örn Ólafsson
+
+</div>
+
+
+<div>
+
+<div class="footer-title">Aðferðafræði</div>
+
+CAPE<br>
+P/E og hagnaður<br>
+Raunvirði<br>
+Vaxtamarkaður<br>
+Alþjóðlegur samanburður
+
+</div>
+
+
+<div>
+
+<div class="footer-title">Gögn</div>
+
+Nasdaq Iceland<br>
+Hagstofa Íslands<br>
+Seðlabanki Íslands<br>
+Opinberar upplýsingar<br>
+Útreikningar SB Economics
+
+</div>
+
+</div>
+
 </footer>
 
 </body>
