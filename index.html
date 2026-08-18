@@ -31,6 +31,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -39,6 +40,7 @@ body {
     background: var(--bg);
     color: var(--text);
     line-height: 1.4;
+    overflow-x: hidden;
 }
 
 a {
@@ -63,7 +65,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 28px;
+    gap: 24px;
 }
 
 .brand-area {
@@ -85,6 +87,7 @@ a {
     display: flex;
     align-items: flex-end;
     gap: 3px;
+    flex-shrink: 0;
 }
 
 .market-mark span {
@@ -109,6 +112,7 @@ a {
     width: 1px;
     height: 34px;
     background: #333;
+    flex-shrink: 0;
 }
 
 .sb-logo {
@@ -116,6 +120,7 @@ a {
     width: 132px;
     max-height: 42px;
     object-fit: contain;
+    flex-shrink: 0;
 }
 
 .main-nav {
@@ -142,7 +147,8 @@ a {
 .header-tools {
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: flex-end;
+    flex-shrink: 0;
 }
 
 .language {
@@ -164,23 +170,8 @@ a {
 }
 
 .language .inactive {
-    color: #777;
+    color: #8a8a8a;
     cursor: default;
-}
-
-.primary-download {
-    display: inline-block;
-    padding: 9px 13px;
-    border: 1px solid #6b747d;
-    border-radius: 5px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.primary-download:hover {
-    background: #171717;
 }
 
 /* =========================
@@ -190,23 +181,43 @@ a {
 main {
     max-width: 1540px;
     margin: 0 auto;
-    padding: 27px 28px 45px;
+    padding: 30px 28px 45px;
 }
+
+/* =========================
+   INTRODUCTION
+   ========================= */
 
 .intro-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 40px;
-    margin-bottom: 23px;
+    align-items: center;
+    gap: 50px;
+    margin: 2px 0 28px;
+}
+
+.intro-copy {
+    max-width: 950px;
+    border-left: 3px solid var(--red);
+    padding: 5px 0 5px 18px;
+}
+
+.intro-label {
+    margin-bottom: 6px;
+    color: var(--slate-light);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
 }
 
 .intro-text {
-    max-width: 960px;
-    font-size: 16px;
-    line-height: 1.55;
-    color: #3f4b58;
     margin: 0;
+    color: #33404d;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.55;
+    letter-spacing: -.15px;
 }
 
 .updated {
@@ -285,10 +296,6 @@ main {
 
 .panel-header {
     padding: 15px 17px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 15px;
 }
 
 .panel-title {
@@ -301,23 +308,6 @@ main {
     margin: 3px 0 0;
     color: var(--muted);
     font-size: 10.5px;
-}
-
-.chart-download {
-    flex-shrink: 0;
-    display: inline-block;
-    text-decoration: none;
-    color: #355c88;
-    background: var(--blue-soft);
-    border: 1px solid #d8e3ef;
-    border-radius: 5px;
-    padding: 6px 8px;
-    font-size: 10px;
-    font-weight: 700;
-}
-
-.chart-download:hover {
-    background: #e4edf7;
 }
 
 .chart-grid {
@@ -496,15 +486,50 @@ td.num {
     margin-bottom: 14px;
 }
 
+.data-heading-row {
+    padding: 16px 17px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
 .data-intro {
-    padding: 0 17px 4px;
+    padding: 8px 17px 0;
     color: var(--muted);
     font-size: 10.5px;
-    max-width: 920px;
+    max-width: 960px;
+}
+
+.data-permission {
+    margin: 12px 17px 2px;
+    padding: 10px 12px;
+    background: var(--blue-soft);
+    border-left: 3px solid #7d9fc9;
+    color: #314b68;
+    font-size: 10.5px;
+    font-weight: 700;
 }
 
 .data-table-wrap {
-    padding: 7px 17px 17px;
+    padding: 10px 17px 17px;
+}
+
+.download-all {
+    display: inline-block;
+    flex-shrink: 0;
+    text-decoration: none;
+    color: #355c88;
+    background: var(--blue-soft);
+    border: 1px solid #d8e3ef;
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.download-all:hover {
+    background: #e4edf7;
 }
 
 .data-action {
@@ -553,7 +578,17 @@ td.num {
     margin: 0;
     color: var(--muted);
     font-size: 10px;
-    line-height: 1.55;
+    line-height: 1.6;
+}
+
+.method-item a {
+    color: #365f8e;
+    text-decoration: none;
+    border-bottom: 1px dotted #8098b2;
+}
+
+.method-item a:hover {
+    color: var(--navy);
 }
 
 /* =========================
@@ -597,7 +632,7 @@ footer {
 
 .footer-small {
     font-size: 10px;
-    line-height: 1.6;
+    line-height: 1.7;
     color: #aeb7c0;
 }
 
@@ -628,6 +663,7 @@ footer {
    ========================= */
 
 @media (max-width: 1280px) {
+
     .main-nav {
         display: none;
     }
@@ -635,18 +671,23 @@ footer {
     .kpi-grid {
         grid-template-columns: repeat(3, 1fr);
     }
+
+    .brand-area {
+        min-width: 0;
+    }
 }
 
 @media (max-width: 950px) {
+
     .chart-grid,
     .lower-grid,
     .method-grid {
         grid-template-columns: 1fr;
     }
 
-    .brand-divider,
     .sb-logo {
-        display: none;
+        width: 112px;
+        max-height: 38px;
     }
 
     .footer-inner {
@@ -655,41 +696,149 @@ footer {
 }
 
 @media (max-width: 650px) {
+
     .header-inner {
-        padding: 0 15px;
+        min-height: auto;
+        padding: 12px 15px 10px;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 9px 12px;
     }
+
+    .brand-area {
+        width: 100%;
+        min-width: 0;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .product-brand {
+        min-width: 0;
+        gap: 9px;
+    }
+
+    .market-mark {
+        width: 24px;
+        height: 31px;
+        gap: 2px;
+    }
+
+    .market-mark span {
+        width: 4px;
+    }
+
+    .market-mark span:nth-child(1) { height: 11px; }
+    .market-mark span:nth-child(2) { height: 19px; }
+    .market-mark span:nth-child(3) { height: 29px; }
+    .market-mark span:nth-child(4) { height: 17px; }
 
     .product-name {
-        font-size: 15px;
+        font-size: 14px;
+        line-height: 1.2;
+        white-space: normal;
     }
 
-    .header-tools .language {
+    .brand-divider {
         display: none;
     }
 
+    .sb-logo {
+        display: block;
+        width: 100px;
+        max-height: 34px;
+    }
+
+    .header-tools {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .language {
+        display: flex;
+        font-size: 10px;
+    }
+
+    .language span {
+        padding: 6px 8px;
+    }
+
     main {
-        padding: 20px 14px 35px;
+        padding: 22px 14px 35px;
     }
 
     .intro-row {
         display: block;
+        margin-bottom: 22px;
+    }
+
+    .intro-copy {
+        padding-left: 14px;
+    }
+
+    .intro-text {
+        font-size: 16px;
+        line-height: 1.55;
     }
 
     .updated {
         text-align: left;
         margin-top: 12px;
+        padding-left: 17px;
     }
 
     .kpi-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .kpi {
+        padding: 14px;
+        min-height: 145px;
+    }
+
     .kpi-value {
         font-size: 24px;
     }
 
+    .chart-wrap {
+        height: 225px;
+    }
+
+    .panel-content,
+    .data-table-wrap {
+        overflow-x: auto;
+    }
+
+    .lower-grid table,
+    .data-table-wrap table {
+        min-width: 520px;
+    }
+
+    .data-heading-row {
+        display: block;
+    }
+
+    .download-all {
+        margin-top: 10px;
+    }
+
     .footer-inner {
         padding: 25px 15px;
+        gap: 28px;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sb-logo {
+        width: 90px;
+    }
+
+    .product-name {
+        font-size: 13px;
     }
 }
 </style>
@@ -726,23 +875,18 @@ footer {
         <nav class="main-nav">
             <a class="active" href="#yfirlit">Yfirlit</a>
             <a href="#hlutabref">Hlutabréf</a>
-            <a href="#vaxtamarkadur">Vaxtamarkaður</a>
+            <a href="#vextir">Vextir</a>
             <a href="#althjodlegt">Alþjóðlegt</a>
             <a href="#gogn">Gögn</a>
             <a href="#adferdafraedi">Aðferðafræði</a>
         </nav>
 
         <div class="header-tools">
-
             <div class="language" aria-label="Tungumál">
                 <span class="active">IS</span>
-                <span class="inactive" title="Enska útgáfan verður bætt við síðar">EN</span>
+                <span class="inactive"
+                      title="Enska útgáfan verður bætt við síðar">EN</span>
             </div>
-
-            <a class="primary-download" href="#gogn">
-                ↓ Sækja gögn
-            </a>
-
         </div>
 
     </div>
@@ -755,11 +899,19 @@ footer {
 
     <section class="intro-row" id="yfirlit">
 
-        <p class="intro-text">
-            Tölulegt yfirlit yfir verðlagningu íslenskra eigna,
-            afkomu fyrirtækja, vaxtastig og þróun helstu hagvísa,
-            sett í sögulegt og alþjóðlegt samhengi.
-        </p>
+        <div class="intro-copy">
+
+            <div class="intro-label">
+                Markaðsyfirlit
+            </div>
+
+            <p class="intro-text">
+                Tölulegt yfirlit yfir verðlagningu íslenskra eigna,
+                afkomu fyrirtækja, vaxtastig og þróun helstu hagvísa,
+                sett í sögulegt og alþjóðlegt samhengi.
+            </p>
+
+        </div>
 
         <div class="updated">
             Síðast uppfært
@@ -806,7 +958,7 @@ footer {
             </span>
         </article>
 
-        <article class="kpi" id="vaxtamarkadur">
+        <article class="kpi" id="vextir">
             <div class="kpi-title">
                 5 ára ríkisskuldabréf
             </div>
@@ -855,22 +1007,13 @@ footer {
         <article class="panel">
 
             <div class="panel-header">
-                <div>
-                    <h2 class="panel-title">
-                        Hlutfall virðis á móti hagsveifluleiðréttum hagnaði (CAPE)
-                    </h2>
+                <h2 class="panel-title">
+                    Hlutfall virðis á móti hagsveifluleiðréttum hagnaði (CAPE)
+                </h2>
 
-                    <p class="panel-subtitle">
-                        OMXI15, mánaðarleg gögn
-                    </p>
-                </div>
-
-                <a
-                    class="chart-download"
-                    href="#gogn"
-                    title="Gögn verða tengd við beina niðurhalsskrá í útgáfu 0.2">
-                    ↓ Sækja gögn
-                </a>
+                <p class="panel-subtitle">
+                    OMXI15, mánaðarleg gögn
+                </p>
             </div>
 
             <div class="chart-body">
@@ -882,25 +1025,21 @@ footer {
                         viewBox="0 0 440 230"
                         preserveAspectRatio="none">
 
-                        <!-- Horizontal grid -->
                         <line class="grid-line" x1="42" y1="30" x2="425" y2="30"/>
                         <line class="grid-line" x1="42" y1="70" x2="425" y2="70"/>
                         <line class="grid-line" x1="42" y1="110" x2="425" y2="110"/>
                         <line class="grid-line" x1="42" y1="150" x2="425" y2="150"/>
                         <line class="grid-line" x1="42" y1="190" x2="425" y2="190"/>
 
-                        <!-- Axes -->
                         <line class="axis-line" x1="42" y1="20" x2="42" y2="195"/>
                         <line class="axis-line" x1="42" y1="195" x2="425" y2="195"/>
 
-                        <!-- Y labels -->
                         <text class="axis-text" x="18" y="193">10</text>
                         <text class="axis-text" x="18" y="153">20</text>
                         <text class="axis-text" x="18" y="113">30</text>
                         <text class="axis-text" x="18" y="73">40</text>
                         <text class="axis-text" x="18" y="33">50</text>
 
-                        <!-- Historical average -->
                         <line
                             class="series-red"
                             x1="42"
@@ -908,7 +1047,6 @@ footer {
                             x2="425"
                             y2="146"/>
 
-                        <!-- CAPE prototype series -->
                         <polyline
                             class="series-blue"
                             points="
@@ -938,7 +1076,6 @@ footer {
                             410,120
                             425,122"/>
 
-                        <!-- X labels -->
                         <text class="axis-text" x="39" y="214">1995</text>
                         <text class="axis-text" x="155" y="214">2005</text>
                         <text class="axis-text" x="278" y="214">2015</text>
@@ -970,22 +1107,13 @@ footer {
         <article class="panel">
 
             <div class="panel-header">
-                <div>
-                    <h2 class="panel-title">
-                        Raunhagnaður og raunvirði OMXI15
-                    </h2>
+                <h2 class="panel-title">
+                    Raunhagnaður og raunvirði OMXI15
+                </h2>
 
-                    <p class="panel-subtitle">
-                        Vísitala = 100 í janúar 2010
-                    </p>
-                </div>
-
-                <a
-                    class="chart-download"
-                    href="#gogn"
-                    title="Gögn verða tengd við beina niðurhalsskrá í útgáfu 0.2">
-                    ↓ Sækja gögn
-                </a>
+                <p class="panel-subtitle">
+                    Vísitala = 100 í janúar 2010
+                </p>
             </div>
 
             <div class="chart-body">
@@ -1012,7 +1140,6 @@ footer {
                         <text class="axis-text" x="14" y="73">250</text>
                         <text class="axis-text" x="14" y="33">300</text>
 
-                        <!-- Real earnings -->
                         <polyline
                             class="series-blue"
                             points="
@@ -1033,7 +1160,6 @@ footer {
                             405,24
                             425,18"/>
 
-                        <!-- Real OMXI15 -->
                         <polyline
                             class="series-slate"
                             points="
@@ -1080,27 +1206,18 @@ footer {
         </article>
 
 
-        <!-- EQUITY RETURN REQUIREMENT VS RATES -->
+        <!-- RETURN REQUIREMENT VS RATES -->
 
         <article class="panel">
 
             <div class="panel-header">
-                <div>
-                    <h2 class="panel-title">
-                        Arðsemiskrafa hlutabréfa og íslenskir vextir
-                    </h2>
+                <h2 class="panel-title">
+                    Arðsemiskrafa hlutabréfa og íslenskir vextir
+                </h2>
 
-                    <p class="panel-subtitle">
-                        Samanburður arðsemiskröfu til hlutabréfa og íslenskra vaxta (%)
-                    </p>
-                </div>
-
-                <a
-                    class="chart-download"
-                    href="#gogn"
-                    title="Gögn verða tengd við beina niðurhalsskrá í útgáfu 0.2">
-                    ↓ Sækja gögn
-                </a>
+                <p class="panel-subtitle">
+                    Samanburður arðsemiskröfu til hlutabréfa og íslenskra vaxta (%)
+                </p>
             </div>
 
             <div class="chart-body">
@@ -1127,7 +1244,6 @@ footer {
                         <text class="axis-text" x="17" y="73">9%</text>
                         <text class="axis-text" x="12" y="33">12%</text>
 
-                        <!-- Equity earnings yield -->
                         <polyline
                             class="series-blue"
                             points="
@@ -1144,7 +1260,6 @@ footer {
                             382,82
                             425,91"/>
 
-                        <!-- Icelandic rates -->
                         <polyline
                             class="series-slate"
                             points="
@@ -1198,12 +1313,10 @@ footer {
         <article class="panel">
 
             <div class="panel-header">
-                <div>
-                    <h2 class="panel-title">Helstu mælikvarðar</h2>
-                    <p class="panel-subtitle">
-                        Núverandi staða, 12 mánaða samanburður og langtímasamhengi
-                    </p>
-                </div>
+                <h2 class="panel-title">Helstu mælikvarðar</h2>
+                <p class="panel-subtitle">
+                    Núverandi staða, 12 mánaða samanburður og langtímasamhengi
+                </p>
             </div>
 
             <div class="panel-content">
@@ -1275,15 +1388,13 @@ footer {
         <article class="panel" id="althjodlegt">
 
             <div class="panel-header">
-                <div>
-                    <h2 class="panel-title">
-                        Alþjóðlegur samanburður
-                    </h2>
+                <h2 class="panel-title">
+                    Alþjóðlegur samanburður
+                </h2>
 
-                    <p class="panel-subtitle">
-                        CAPE — samanburður við erlenda markaði
-                    </p>
-                </div>
+                <p class="panel-subtitle">
+                    CAPE — samanburður við erlenda markaði
+                </p>
             </div>
 
             <div class="panel-content">
@@ -1341,15 +1452,13 @@ footer {
         <article class="panel">
 
             <div class="panel-header">
-                <div>
-                    <h2 class="panel-title">
-                        Staðan í stuttu máli
-                    </h2>
+                <h2 class="panel-title">
+                    Staðan í stuttu máli
+                </h2>
 
-                    <p class="panel-subtitle">
-                        Tölulegar athuganir úr nýjustu gögnum
-                    </p>
-                </div>
+                <p class="panel-subtitle">
+                    Tölulegar athuganir úr nýjustu gögnum
+                </p>
             </div>
 
             <div class="panel-content">
@@ -1389,7 +1498,7 @@ footer {
 
     <section class="panel data-panel" id="gogn">
 
-        <div class="panel-header">
+        <div class="data-heading-row">
 
             <div>
                 <h2 class="panel-title">
@@ -1397,20 +1506,24 @@ footer {
                 </h2>
 
                 <p class="panel-subtitle">
-                    Undirliggjandi gögn Iceland Market Monitor verða aðgengileg
+                    Undirliggjandi gögn Iceland Market Monitor eru aðgengileg
                     lesendum til niðurhals.
                 </p>
             </div>
 
-            <span class="chart-download">
+            <span class="download-all">
                 ↓ Sækja allt gagnasafnið
             </span>
 
         </div>
 
+        <div class="data-permission">
+            Öllum er heimil afnot gagnanna. Vinsamlegast getið heimildar.
+        </div>
+
         <p class="data-intro">
-            Markmiðið er að hægt verði að sækja bæði einstakar gagnaraðir
-            og sameinað gagnasafn. CSV hentar meðal annars R, Python og öðrum
+            Hægt verður að sækja bæði einstakar gagnaraðir og sameinað
+            gagnasafn. CSV hentar meðal annars R, Python og öðrum
             greiningarforritum en Excel-skrá verður einnig í boði.
         </p>
 
@@ -1479,32 +1592,46 @@ footer {
         <div class="method-grid">
 
             <article class="panel method-item">
+
                 <h3>CAPE</h3>
 
                 <p>
-                    Hlutfall markaðsvirðis á móti hagsveifluleiðréttum hagnaði.
-                    Hagnaður er leiðréttur fyrir verðlagi og sveiflum í afkomu
-                    yfir lengra tímabil.
+                    Útreikningur byggir á aðferðafræði
+                    <a href="https://shillerdata.com/"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        Dr. Robert J. Shiller
+                    </a>.
+                    Hlutfall virðis OMXI15 á móti hagsveifluleiðréttum
+                    hagnaði félaga í vísitölunni. Hagnaður er leiðréttur
+                    fyrir verðlagi með vísitölu neysluverðs.
                 </p>
+
             </article>
 
+
             <article class="panel method-item">
+
                 <h3>P/E (TTM)</h3>
 
                 <p>
-                    Hlutfall markaðsvirðis á móti hagnaði síðustu tólf mánaða.
-                    Mælikvarðinn endurspeglar nýjustu afkomu félaganna og getur
-                    því sveiflast meira en CAPE.
+                    Hlutfall virðis OMXI15 á móti hagnaði síðustu tólf
+                    mánaða. Mælikvarðinn endurspeglar nýjustu afkomu
+                    félaganna og getur því sveiflast meira en CAPE.
                 </p>
+
             </article>
 
+
             <article class="panel method-item">
+
                 <h3>Raunvirði og raunhagnaður</h3>
 
                 <p>
                     Nafnverð er leiðrétt með vísitölu neysluverðs svo þróun
                     markaðsvirðis og hagnaðar sé borin saman á föstu verðlagi.
                 </p>
+
             </article>
 
         </div>
@@ -1513,7 +1640,7 @@ footer {
 
 
     <div class="prototype-note">
-        <strong>Útgáfa 0.1.1:</strong>
+        <strong>Útgáfa 0.1.2:</strong>
         Framsetning síðunnar er komin í fastara form en línurit og nokkrar
         samanburðartölur eru enn frumgerð. Í útgáfu 0.2 verða gögn aðskilin
         frá HTML-síðunni og uppfærð úr sameiginlegri gagnaskrá.
@@ -1535,7 +1662,7 @@ footer {
 
             <div class="footer-small">
                 Iceland Market Monitor<br>
-                Brynjar Örn Ólafsson
+                © 2026 Brynjar Örn Ólafsson
             </div>
 
         </div>
