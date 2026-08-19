@@ -198,7 +198,7 @@ main {
 
 .intro-copy {
     max-width: 950px;
-    border-left: 3px solid var(--red);
+    border-left: 3px solid var(--navy);
     padding: 5px 0 5px 18px;
 }
 
@@ -803,16 +803,53 @@ footer {
         height: 225px;
     }
 
-    .panel-content,
-    .data-table-wrap {
-        overflow-x: auto;
-    }
+    /* Analytical tables fit the phone screen */
+.panel-content {
+    overflow-x: visible;
+}
 
-    .lower-grid table,
-    .data-table-wrap table {
-        min-width: 520px;
-    }
+.lower-grid {
+    min-width: 0;
+}
 
+.lower-grid .panel {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.lower-grid table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+}
+
+.lower-grid th,
+.lower-grid td {
+    white-space: normal;
+    overflow-wrap: break-word;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.lower-grid th:first-child,
+.lower-grid td:first-child {
+    width: 42%;
+}
+
+.lower-grid th:not(:first-child),
+.lower-grid td:not(:first-child) {
+    font-size: 8.5px;
+}
+
+/* Download-data table deliberately remains horizontally scrollable */
+.data-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.data-table-wrap table {
+    min-width: 520px;
+}
     .data-heading-row {
         display: block;
     }
