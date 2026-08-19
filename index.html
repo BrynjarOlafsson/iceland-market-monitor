@@ -478,7 +478,87 @@ td.num {
     font-weight: 700;
     color: var(--navy);
 }
+/* =========================
+   RECENT ANALYSIS
+   ========================= */
 
+.analysis-section {
+    margin-bottom: 14px;
+}
+
+.analysis-section-header {
+    margin-bottom: 11px;
+}
+
+.analysis-section-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.analysis-section-subtitle {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 10.5px;
+}
+
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 13px;
+}
+
+.analysis-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 17px;
+    display: flex;
+    flex-direction: column;
+    min-height: 205px;
+}
+
+.analysis-meta {
+    color: var(--muted);
+    font-size: 9.5px;
+    margin-bottom: 9px;
+}
+
+.analysis-card h3 {
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.35;
+    color: var(--navy);
+}
+
+.analysis-card p {
+    margin: 0 0 15px;
+    color: var(--muted);
+    font-size: 10.5px;
+    line-height: 1.55;
+}
+
+.analysis-link {
+    margin-top: auto;
+    color: #365f8e;
+    text-decoration: none;
+    font-size: 10.5px;
+    font-weight: 700;
+}
+
+.analysis-link:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 950px) {
+    .analysis-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .analysis-card {
+        min-height: 0;
+    }
+}
 /* =========================
    DATA SECTION
    ========================= */
@@ -1530,7 +1610,97 @@ footer {
         </article>
 
     </section>
+<!-- RECENT ANALYSIS -->
 
+<section class="analysis-section" id="greiningar">
+
+    <div class="analysis-section-header">
+        <h2 class="analysis-section-title">Nýlegar greiningar</h2>
+        <p class="analysis-section-subtitle">
+            Greinar um eignaverð, afkomu og verðlagningu fjármálamarkaða.
+        </p>
+    </div>
+
+    <div class="analysis-grid">
+
+        <article class="analysis-card">
+
+            <div class="analysis-meta">
+                Viðskiptablaðið · 19. júlí 2026
+            </div>
+
+            <h3>Samanburður eignaverðs 2026</h3>
+
+            <p>
+                Samanburður á verðlagningu íslenskra hlutabréfa,
+                fasteigna og ríkisskuldabréfa ásamt alþjóðlegum samanburði.
+            </p>
+
+            <a
+                class="analysis-link"
+                href="https://vb.is/skodun/samanburdur-eignaverds-2026-/"
+                target="_blank"
+                rel="noopener noreferrer">
+                Lesa grein →
+            </a>
+
+        </article>
+
+
+        <article class="analysis-card">
+
+            <div class="analysis-meta">
+                Innherji · 5. júlí 2026
+            </div>
+
+            <h3>
+                Verðlagning íslenskra hlutabréfa er enn hóflegri en vestanhafs
+            </h3>
+
+            <p>
+                CAPE íslenska markaðarins sett í sögulegt samhengi og borið
+                saman við verðlagningu bandaríska S&amp;P 500 markaðarins.
+            </p>
+
+            <a
+                class="analysis-link"
+                href="https://www.visir.is/g/20262905666d/verdlagning-islenskra-hlutabrefa-er-enn-hoflegri-en-vestanhafs"
+                target="_blank"
+                rel="noopener noreferrer">
+                Lesa grein →
+            </a>
+
+        </article>
+
+
+        <article class="analysis-card">
+
+            <div class="analysis-meta">
+                Innherji · 1. júní 2026
+            </div>
+
+            <h3>
+                Vöxtur hagnaðar félaga í Úrvalsvísitölunni umfram virði
+            </h3>
+
+            <p>
+                Þróun raunhagnaðar OMXI15 borin saman við þróun raunvirðis
+                vísitölunnar og breytingar á helstu virðishlutföllum.
+            </p>
+
+            <a
+                class="analysis-link"
+                href="https://www.visir.is/g/20262891388d/voxtur-hagnadar-fe-laga-i-ur-vals-visitolunni-um-fram-virdi"
+                target="_blank"
+                rel="noopener noreferrer">
+                Lesa grein →
+            </a>
+
+        </article>
+
+    </div>
+
+</section>
 
     <!-- DATA -->
 
