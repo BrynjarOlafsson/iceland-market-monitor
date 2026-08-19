@@ -170,9 +170,79 @@ a {
     font-weight: 700;
 }
 
+
 .language .inactive {
     color: #8a8a8a;
     cursor: default;
+}
+
+/* =========================
+   MOBILE / TABLET NAVIGATION
+   ========================= */
+
+.mobile-menu-toggle {
+    display: none;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 10px;
+    border: 1px solid #3c4249;
+    border-radius: 5px;
+    background: transparent;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.mobile-menu-toggle:hover {
+    background: #161616;
+}
+
+.mobile-menu-toggle:focus-visible {
+    outline: 2px solid #7d9fc9;
+    outline-offset: 2px;
+}
+
+.mobile-menu-icon {
+    font-size: 16px;
+    line-height: 1;
+}
+
+.mobile-nav {
+    display: none;
+    background: #080808;
+    border-top: 1px solid #252525;
+    border-bottom: 1px solid #252525;
+}
+
+.mobile-nav.open {
+    display: block;
+}
+
+.mobile-nav-inner {
+    max-width: 1540px;
+    margin: 0 auto;
+    padding: 8px 28px 12px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: end;
+    gap: 0 28px;
+}
+
+.mobile-nav a {
+    color: #d7dce2;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 9px 0;
+}
+
+.mobile-nav a:hover,
+.mobile-nav a:focus-visible {
+    color: #ffffff;
+}
+
+.header-tools {
+    gap: 8px;
 }
 
 /* =========================
@@ -749,6 +819,10 @@ footer {
         display: none;
     }
 
+    .mobile-menu-toggle {
+        display: inline-flex;
+    }
+
     .kpi-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -784,6 +858,27 @@ footer {
         flex-wrap: wrap;
         align-items: center;
         gap: 9px 12px;
+    }
+
+    .mobile-nav-inner {
+        padding: 7px 15px 11px;
+        grid-template-columns: 1fr;
+        justify-content: stretch;
+    }
+
+    .mobile-nav a {
+        display: block;
+        padding: 10px 4px;
+        border-bottom: 1px solid #202020;
+    }
+
+    .mobile-nav a:last-child {
+        border-bottom: none;
+    }
+
+    .mobile-menu-toggle {
+        font-size: 10px;
+        padding: 6px 8px;
     }
 
     .brand-area {
@@ -1001,14 +1096,43 @@ footer {
         </nav>
 
         <div class="header-tools">
+
             <div class="language" aria-label="Tungumál">
                 <span class="active">IS</span>
                 <span class="inactive"
                       title="Enska útgáfan verður bætt við síðar">EN</span>
             </div>
+
+            <button
+                class="mobile-menu-toggle"
+                id="mobileMenuToggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="mobileNav">
+
+                <span class="mobile-menu-icon" aria-hidden="true">☰</span>
+                <span>Valmynd</span>
+
+            </button>
+
         </div>
 
     </div>
+
+    <nav class="mobile-nav" id="mobileNav" aria-label="Valmynd">
+
+        <div class="mobile-nav-inner">
+            <a href="#yfirlit">Yfirlit</a>
+            <a href="#hlutabref">Hlutabréf</a>
+            <a href="#vextir">Vextir</a>
+            <a href="#althjodlegt">Alþjóðlegt</a>
+            <a href="#greiningar">Greiningar</a>
+            <a href="#gogn">Gögn</a>
+            <a href="#adferdafraedi">Aðferðafræði</a>
+        </div>
+
+    </nav>
+
 </header>
 
 
@@ -1920,6 +2044,34 @@ footer {
     </div>
 
 </footer>
+
+<script>
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileNav = document.getElementById('mobileNav');
+
+mobileMenuToggle.addEventListener('click', function () {
+    const isOpen = mobileNav.classList.toggle('open');
+
+    mobileMenuToggle.setAttribute(
+        'aria-expanded',
+        isOpen ? 'true' : 'false'
+    );
+});
+
+mobileNav.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+        mobileNav.classList.remove('open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    });
+});
+
+document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+        mobileNav.classList.remove('open');
+        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    }
+});
+</script>
 
 </body>
 </html>
