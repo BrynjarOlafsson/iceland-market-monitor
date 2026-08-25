@@ -73,7 +73,7 @@ a {
     display: flex;
     align-items: center;
     gap: 22px;
-    min-width: 340px;
+    min-width: 0;
 }
 
 .product-brand {
@@ -109,20 +109,7 @@ a {
     white-space: nowrap;
 }
 
-.brand-divider {
-    width: 1px;
-    height: 34px;
-    background: #333;
-    flex-shrink: 0;
-}
 
-.sb-logo {
-    display: block;
-    width: 132px;
-    max-height: 42px;
-    object-fit: contain;
-    flex-shrink: 0;
-}
 
 .main-nav {
     display: flex;
@@ -775,11 +762,6 @@ footer {
     gap: 44px;
 }
 
-.footer-logo {
-    width: 155px;
-    display: block;
-    margin-bottom: 13px;
-}
 
 .footer-small {
     font-size: 10px;
@@ -838,11 +820,6 @@ footer {
     .lower-grid,
     .method-grid {
         grid-template-columns: 1fr;
-    }
-
-    .sb-logo {
-        width: 112px;
-        max-height: 38px;
     }
 
     .footer-inner {
@@ -912,16 +889,6 @@ footer {
         font-size: 14px;
         line-height: 1.2;
         white-space: normal;
-    }
-
-    .brand-divider {
-        display: none;
-    }
-
-    .sb-logo {
-        display: block;
-        width: 100px;
-        max-height: 34px;
     }
 
     .header-tools {
@@ -1046,10 +1013,6 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    .sb-logo {
-        width: 90px;
-    }
-
     .product-name {
         font-size: 13px;
     }
@@ -1076,13 +1039,6 @@ footer {
                     ICELAND MARKET MONITOR
                 </div>
             </div>
-
-            <div class="brand-divider"></div>
-
-            <img
-                src="SB_economics_logo.png"
-                class="sb-logo"
-                alt="SB Economics">
         </div>
 
         <nav class="main-nav">
@@ -1987,12 +1943,6 @@ footer {
     <div class="footer-inner">
 
         <div>
-
-            <img
-                src="SB_economics_logo.png"
-                class="footer-logo"
-                alt="SB Economics">
-
             <div class="footer-small">
                 Iceland Market Monitor<br>
                 © 2026 Brynjar Örn Ólafsson
