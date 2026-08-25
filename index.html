@@ -1126,7 +1126,7 @@ footer {
 
         <article class="kpi">
             <div class="kpi-title">CAPE — OMXI15</div>
-            <div class="kpi-value">21,2</div>
+            <div class="kpi-value" id="capeOmxi15Value">21,2</div>
             <div class="kpi-average">
                 30 ára meðaltal: 21,0
             </div>
@@ -2021,6 +2021,59 @@ document.addEventListener('keydown', function (event) {
         mobileMenuToggle.setAttribute('aria-expanded', 'false');
     }
 });
+</script>
+
+<script>
+async function loadCapeKpiFromCsv() {
+    try {
+        const response = await fetch('market_data.csv', { cache: 'no-store' });
+
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const csvText = await response.text();
+        const lines = csvText.trim().split(/\r?\n/);
+
+        if (lines.length < 2) {
+            throw new Error('market_data.csv contains no data rows');
+        }
+
+        const headers = lines[0].split(',').map(header => header.trim());
+        const capeIndex = headers.indexOf('cape_omxi15');
+
+        if (capeIndex === -1) {
+            throw new Error('cape_omxi15 column not found');
+        }
+
+        let latestCape = null;
+
+        for (let i = lines.length - 1; i >= 1; i--) {
+            const cells = lines[i].split(',');
+            const value = parseFloat(cells[capeIndex]);
+
+            if (Number.isFinite(value)) {
+                latestCape = value;
+                break;
+            }
+        }
+
+        if (latestCape === null) {
+            throw new Error('No valid CAPE value found');
+        }
+
+        document.getElementById('capeOmxi15Value').textContent =
+            latestCape.toLocaleString('is-IS', {
+                minimumFractionDigits: 1,
+                maximumFractionDigits: 1
+            });
+
+    } catch (error) {
+        console.error('Could not load OMXI15 CAPE from market_data.csv:', error);
+    }
+}
+
+loadCapeKpiFromCsv();
 </script>
 
 </body>
