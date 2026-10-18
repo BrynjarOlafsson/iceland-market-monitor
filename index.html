@@ -1135,13 +1135,9 @@ footer {
 
         <article class="kpi">
             <div class="kpi-title">P/E — OMXI15 (TTM)</div>
-            <div class="kpi-value">13,6</div>
-            <div class="kpi-average">
-                Langtímameðaltal: —
-            </div>
-            <span class="position-label">
-                Sögulegur samanburður í vinnslu
-            </span>
+            <div class="kpi-value" id="peTtmValue">—</div>
+            <div class="kpi-average" id="peTtmContext">Gögn hlaðast...</div>
+            <span class="position-label" id="peTtmPosition">Bíð eftir gagnaskrá</span>
         </article>
 
         <article class="kpi">
@@ -1157,37 +1153,25 @@ footer {
             <div class="kpi-title">
                 5 ára ríkisskuldabréf
             </div>
-            <div class="kpi-value">7,16%</div>
-            <div class="kpi-average">
-                Langtímameðaltal: —
-            </div>
-            <span class="position-label">
-                Sögulegur samanburður í vinnslu
-            </span>
+            <div class="kpi-value" id="treasuryYieldValue">—</div>
+            <div class="kpi-average" id="treasuryYieldContext">Gögn hlaðast...</div>
+            <span class="position-label" id="treasuryYieldPosition">Bíð eftir gagnaskrá</span>
         </article>
 
         <article class="kpi">
             <div class="kpi-title">Verðbólga</div>
-            <div class="kpi-value">5,1%</div>
-            <div class="kpi-average">
-                Langtímameðaltal: —
-            </div>
-            <span class="position-label">
-                Sögulegur samanburður í vinnslu
-            </span>
+            <div class="kpi-value">—</div>
+            <div class="kpi-average">Verðbólgugögn ekki tengd</div>
+            <span class="position-label">Bíður gagnatengingar</span>
         </article>
 
         <article class="kpi">
             <div class="kpi-title">
                 Ársvöxtur hagnaðar OMXI15
             </div>
-            <div class="kpi-value">+8,0%</div>
-            <div class="kpi-average">
-                Langtímameðaltal: —
-            </div>
-            <span class="position-label">
-                Sögulegur samanburður í vinnslu
-            </span>
+            <div class="kpi-value" id="earningsGrowthValue">—</div>
+            <div class="kpi-average" id="earningsGrowthContext">Gögn hlaðast...</div>
+            <span class="position-label" id="earningsGrowthPosition">Bíð eftir gagnaskrá</span>
         </article>
 
     </section>
@@ -1341,9 +1325,9 @@ footer {
 
                         <tr>
                             <td>P/E OMXI15 (TTM)</td>
-                            <td class="num">13,6</td>
-                            <td class="num">—</td>
-                            <td class="num">—</td>
+                            <td class="num" id="peTableCurrent">—</td>
+<td class="num" id="peTableYearAgo">—</td>
+<td class="num" id="peTableAverage">—</td>
                         </tr>
 
                         <tr>
@@ -1355,23 +1339,23 @@ footer {
 
                         <tr>
                             <td>5 ára ríkisskuldabréf</td>
-                            <td class="num">7,16%</td>
-                            <td class="num">—</td>
-                            <td class="num">—</td>
+                            <td class="num" id="treasuryTableCurrent">—</td>
+<td class="num" id="treasuryTableYearAgo">—</td>
+<td class="num" id="treasuryTableAverage">—</td>
                         </tr>
 
                         <tr>
                             <td>Verðbólga</td>
-                            <td class="num">5,1%</td>
+                            <td class="num">—</td>
                             <td class="num">—</td>
                             <td class="num">—</td>
                         </tr>
 
                         <tr>
                             <td>Ársvöxtur hagnaðar OMXI15</td>
-                            <td class="num">+8,0%</td>
-                            <td class="num">—</td>
-                            <td class="num">—</td>
+                            <td class="num" id="growthTableCurrent">—</td>
+<td class="num" id="growthTableYearAgo">—</td>
+<td class="num" id="growthTableAverage">—</td>
                         </tr>
 
                     </tbody>
@@ -1392,7 +1376,7 @@ footer {
                 </h2>
 
                 <p class="panel-subtitle">
-                    CAPE — samanburður við erlenda markaði
+                    CAPE — samanburður við erlenda markaði; meðaltöl frá 2005
                 </p>
             </div>
 
@@ -1403,7 +1387,7 @@ footer {
                         <tr>
                             <th>Markaður</th>
                             <th class="num">CAPE</th>
-                            <th class="num">Langtímameðaltal</th>
+                            <th class="num">Meðaltal frá 2005</th>
                         </tr>
                     </thead>
 
@@ -1417,8 +1401,8 @@ footer {
 
                         <tr>
                             <td>S&amp;P 500 — Bandaríkin</td>
-                            <td class="num">39,6</td>
-                            <td class="num">—</td>
+                            <td class="num" id="sp500CapeCurrent">—</td>
+                            <td class="num" id="sp500CapeAverage">—</td>
                         </tr>
 
                     </tbody>
@@ -1430,8 +1414,8 @@ footer {
                         CAPE-samanburður verður birtur þegar gögnin hafa hlaðist.
                     </div>
 
-                    <div class="observation">
-                        CAPE S&amp;P 500 stendur umtalsvert hærra en CAPE OMXI15.
+                    <div class="observation" id="sp500ComparisonCommentary">
+                        Samanburður bíður gagnaskrár.
                     </div>
 
                     <div class="observation">
@@ -1466,9 +1450,8 @@ footer {
                     CAPE-samanburður verður birtur þegar gögnin hafa hlaðist.
                 </div>
 
-                <div class="observation">
-                    P/E síðustu tólf mánaða er 13,6 og stendur því lægra en
-                    hagsveifluleiðrétt CAPE hlutfall.
+                <div class="observation" id="peObservationText">
+                    P/E-samanburður bíður gagnaskrár.
                 </div>
 
                 <div class="observation" id="capeYieldObservation">
@@ -1729,10 +1712,9 @@ footer {
 
     <div class="prototype-note">
         <strong>Útgáfa 0.2 — gagnatenging:</strong>
-        OMXI15 CAPE, afleidd CAPE-arðsemiskrafa, söguleg viðmið, tengdar
-        athuganir og öll þrjú aðallínuritin byggjast nú á market_data.csv.
-        Önnur KPI-gildi og sumar samanburðartölur eru enn frumgerð og verða
-        tengd gagnaskránni í næstu áföngum.
+        CAPE, P/E (TTM), 5 ára óverðtryggðir ríkisvextir, raunhagnaðarvöxtur,
+        alþjóðlegur CAPE-samanburður og öll þrjú línurit byggjast á market_data.csv.
+        Verðbólgugögn hafa enn ekki verið tengd. Ekki er birt úrelt viðmiðunargildi.
     </div>
 
 </main>
@@ -1999,8 +1981,7 @@ function renderRealEarningsChart(rows) {
 
 
 /* Comparison chart: same monthly CSV, no smoothing or interpolating missing data.
-   The 2018-onward default avoids the extreme post-crisis reciprocal CAPE values
-   obscuring the economically relevant recent interest-rate comparison. */
+   The selected start date keeps the post-crisis bond/equity comparison legible. */
 function renderRatesHistoryChart(rows) {
     const svg = document.getElementById('ratesHistoryChart');
     if (!svg) return null;
@@ -2284,6 +2265,140 @@ async function loadCapeDataFromCsv() {
                 `CAPE arðsemiskrafa er ${currentYieldText}. ` +
                 `Sögulegt viðmið er ${averageYieldText}, reiknað sem ` +
                 `andhverfa meðaltals CAPE frá ${sinceYear}.`);
+
+        // Other indicators are extracted from the SAME CSV response, not separate downloads.
+        // Missing data is never treated as zero and period comparisons use exact months.
+        const validMonth = /^\d{4}-(0[1-9]|1[0-2])$/;
+        const colIndex = name => {
+            const idx = headers.indexOf(name);
+            if (idx === -1) throw new Error(`Required CSV column missing: ${name}`);
+            return idx;
+        };
+        const getSeries = (name, valid = value => Number.isFinite(value)) => {
+            const idx = colIndex(name);
+            const series = lines.slice(1).map(line => {
+                const cells = line.split(',');
+                const month = (cells[monthIndex] || '').trim();
+                const cell = (cells[idx] || '').trim();
+                return { month, value: cell === '' ? NaN : Number(cell) };
+            }).filter(row => validMonth.test(row.month) && valid(row.value))
+              .sort((a, b) => a.month.localeCompare(b.month));
+            if (new Set(series.map(item => item.month)).size !== series.length) {
+                throw new Error(`Duplicate months for ${name}`);
+            }
+            return series;
+        };
+        const priorMonth = (month, years) =>
+            `${Number(month.slice(0, 4)) - years}${month.slice(4)}`;
+        const findAt = (series, month) => series.find(item => item.month === month);
+        const fmtSigned = value =>
+            `${value > 0 ? '+' : value < 0 ? '−' : ''}${Math.abs(value).toLocaleString('is-IS', {
+                minimumFractionDigits: 1, maximumFractionDigits: 1
+            })}%`;
+        const showUnavailable = (ids, detail) => {
+            ids.forEach(id => setText(id, '—'));
+            if (detail) setText(detail, 'Gögn ekki tiltæk');
+        };
+
+        // P/E: no historical average is published because negative/near-zero
+        // earnings can make arithmetic averages of P/E economically misleading.
+        const peSeries = getSeries('pe_ttm');
+        if (peSeries.length) {
+            const current = peSeries[peSeries.length - 1];
+            const yearAgo = findAt(peSeries, priorMonth(current.month, 1));
+            setText('peTtmValue', fmtCape(current.value));
+            setText('peTtmContext', `Nýjasta mæling: ${formatMonth(current.month)}`);
+            setText('peTtmPosition', 'Hagnaður síðustu 12 mánaða');
+            setText('peTableCurrent', fmtCape(current.value));
+            setText('peTableYearAgo', yearAgo ? fmtCape(yearAgo.value) : '—');
+            setText('peTableAverage', '—');
+            const comparison = current.month === latest.month
+                ? `P/E síðustu tólf mánaða er ${fmtCape(current.value)} ` +
+                  `${current.value < latest.cape ? 'og er lægra' : current.value > latest.cape ? 'og er hærra' : 'og er jafnt'} ` +
+                  `en CAPE-hlutfallið (${capeNumber}).`
+                : `P/E síðustu tólf mánaða er ${fmtCape(current.value)} (${formatMonth(current.month).toLowerCase()}).`;
+            setText('peObservationText', comparison);
+        } else {
+            showUnavailable(['peTtmValue', 'peTableCurrent', 'peTableYearAgo', 'peTableAverage'], 'peTtmContext');
+            setText('peTtmPosition', 'Gögn ekki tiltæk');
+            setText('peObservationText', 'P/E-gögn eru ekki tiltæk.');
+        }
+
+        // Icelandic 5Y NI yields are stored in fractional form: 0.074 = 7.4%.
+        const treasurySeries = getSeries('yield_5y_ni', v => Number.isFinite(v) && v >= 0);
+        if (treasurySeries.length) {
+            const current = treasurySeries[treasurySeries.length - 1];
+            const yearAgo = findAt(treasurySeries, priorMonth(current.month, 1));
+            const mean = treasurySeries.reduce((total, row) => total + row.value, 0) /
+                treasurySeries.length;
+            const firstYear = treasurySeries[0].month.slice(0, 4);
+            setText('treasuryYieldValue', fmtYield(current.value * 100));
+            setText('treasuryYieldContext', `Meðaltal frá ${firstYear}: ${fmtYield(mean * 100)}`);
+            setText('treasuryYieldPosition', `Nýjasta mæling: ${formatMonth(current.month)}`);
+            setText('treasuryTableCurrent', fmtYield(current.value * 100));
+            setText('treasuryTableYearAgo', yearAgo ? fmtYield(yearAgo.value * 100) : '—');
+            setText('treasuryTableAverage', fmtYield(mean * 100));
+            if (current.month === latest.month) {
+                setText('capeYieldObservation',
+                    `CAPE arðsemiskrafa er ${currentYieldText}, samanborið við ` +
+                    `${fmtYield(current.value * 100)} ávöxtunarkröfu 5 ára ` +
+                    `óverðtryggðra ríkisskuldabréfa (${dateText.toLowerCase()}).`);
+            }
+        } else {
+            showUnavailable(['treasuryYieldValue', 'treasuryTableCurrent',
+                             'treasuryTableYearAgo', 'treasuryTableAverage'], 'treasuryYieldContext');
+            setText('treasuryYieldPosition', 'Gögn ekki tiltæk');
+        }
+
+        // Real, trailing-12-month earnings growth. Undefined when the base <= 0;
+        // do not describe recovery from a loss as a meaningful growth percentage.
+        const earningsSeries = getSeries('real_earnings_12m');
+        const growthAt = month => {
+            const current = findAt(earningsSeries, month);
+            const past = findAt(earningsSeries, priorMonth(month, 1));
+            return current && past && past.value > 0
+                ? 100 * (current.value / past.value - 1) : NaN;
+        };
+        if (earningsSeries.length) {
+            const current = earningsSeries[earningsSeries.length - 1];
+            const growth = growthAt(current.month);
+            const yearAgoGrowth = growthAt(priorMonth(current.month, 1));
+            const currentText = Number.isFinite(growth) ? fmtSigned(growth) : '—';
+            setText('earningsGrowthValue', currentText);
+            setText('earningsGrowthContext',
+                `Raunhagnaður, breyting síðustu 12 mán. · ${formatMonth(current.month)}`);
+            setText('earningsGrowthPosition', Number.isFinite(growth)
+                ? (growth < 0 ? 'Hagnaður dregst saman' : growth > 0 ? 'Hagnaður eykst' : 'Óbreyttur hagnaður')
+                : 'Ársvöxtur ekki skilgreindur');
+            setText('growthTableCurrent', currentText);
+            setText('growthTableYearAgo', Number.isFinite(yearAgoGrowth)
+                ? fmtSigned(yearAgoGrowth) : '—');
+            setText('growthTableAverage', '—');
+        } else {
+            showUnavailable(['earningsGrowthValue', 'growthTableCurrent',
+                             'growthTableYearAgo', 'growthTableAverage'], 'earningsGrowthContext');
+            setText('earningsGrowthPosition', 'Gögn ekki tiltæk');
+        }
+
+        const spSeries = getSeries('cape_sp500', v => Number.isFinite(v) && v > 0);
+        if (spSeries.length) {
+            const current = spSeries[spSeries.length - 1];
+            // The supplied U.S. series starts in 2005; this is NOT its all-time Shiller mean.
+            const spAverage = spSeries.reduce((total, row) => total + row.value, 0) /
+                spSeries.length;
+            setText('sp500CapeCurrent', fmtCape(current.value));
+            setText('sp500CapeAverage', fmtCape(spAverage));
+            const comparison = current.month === latest.month
+                ? `CAPE S&P 500 er ${fmtCape(current.value)}, samanborið við ` +
+                  `${capeNumber} fyrir OMXI15 (${dateText.toLowerCase()}).`
+                : `CAPE S&P 500 er ${fmtCape(current.value)} ` +
+                  `(${formatMonth(current.month).toLowerCase()}); ` +
+                  `CAPE OMXI15 er ${capeNumber} (${dateText.toLowerCase()}).`;
+            setText('sp500ComparisonCommentary', comparison);
+        } else {
+            showUnavailable(['sp500CapeCurrent', 'sp500CapeAverage']);
+            setText('sp500ComparisonCommentary', 'CAPE S&P 500 gögn eru ekki tiltæk.');
+        }
 
         // Use the same validated observations and historical average as the KPI.
         renderCapeHistoryChart(capeHistory, average);
