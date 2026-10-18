@@ -1113,8 +1113,8 @@ footer {
         </div>
 
         <div class="updated">
-            Síðast uppfært
-            <strong>13. ágúst 2026</strong>
+            Nýjustu CAPE-gögn
+            <strong id="capeObservationDate">—</strong>
         </div>
 
     </section>
@@ -1126,12 +1126,10 @@ footer {
 
         <article class="kpi">
             <div class="kpi-title">CAPE — OMXI15</div>
-            <div class="kpi-value" id="capeOmxi15Value">21,2</div>
-            <div class="kpi-average">
-                30 ára meðaltal: 21,0
-            </div>
-            <span class="position-label">
-                Nálægt langtímameðaltali
+            <div class="kpi-value" id="capeOmxi15Value">—</div>
+            <div class="kpi-average" id="capeHistoricalAverage">—</div>
+            <span class="position-label" id="capeRelativePosition">
+                Bíð eftir gagnaskrá
             </span>
         </article>
 
@@ -1148,12 +1146,10 @@ footer {
 
         <article class="kpi">
             <div class="kpi-title">CAPE arðsemiskrafa</div>
-            <div class="kpi-value">4,7%</div>
-            <div class="kpi-average">
-                30 ára meðaltal: 4,8%
-            </div>
-            <span class="position-label">
-                Nálægt langtímameðaltali
+            <div class="kpi-value" id="capeEarningsYieldValue">—</div>
+            <div class="kpi-average" id="capeEarningsYieldAverage">—</div>
+            <span class="position-label" id="capeYieldPosition">
+                Bíð eftir gagnaskrá
             </span>
         </article>
 
@@ -1211,7 +1207,7 @@ footer {
                 </h2>
 
                 <p class="panel-subtitle">
-                    OMXI15, mánaðarleg gögn
+                    Myndræn frumgerð — raunveruleg tímaröð verður tengd CSV í næsta áfanga
                 </p>
             </div>
 
@@ -1241,6 +1237,7 @@ footer {
 
                         <line
                             class="series-red"
+                            id="capeAverageGuide"
                             x1="42"
                             y1="146"
                             x2="425"
@@ -1275,9 +1272,9 @@ footer {
                             410,120
                             425,122"/>
 
-                        <text class="axis-text" x="39" y="214">1995</text>
-                        <text class="axis-text" x="155" y="214">2005</text>
-                        <text class="axis-text" x="278" y="214">2015</text>
+                        <text class="axis-text" x="39" y="214">2005</text>
+                        <text class="axis-text" x="155" y="214">2012</text>
+                        <text class="axis-text" x="278" y="214">2019</text>
                         <text class="axis-text" x="400" y="214">2026</text>
 
                     </svg>
@@ -1292,7 +1289,7 @@ footer {
 
                     <div class="legend-item">
                         <span class="legend-swatch red"></span>
-                        30 ára meðaltal
+                        Sögulegt meðaltal CAPE
                     </div>
                 </div>
 
@@ -1534,9 +1531,9 @@ footer {
 
                         <tr>
                             <td>CAPE OMXI15</td>
-                            <td class="num">21,2</td>
-                            <td class="num">—</td>
-                            <td class="num">21,0</td>
+                            <td class="num" id="capeTableCurrent">—</td>
+                            <td class="num" id="capeTableYearAgo">—</td>
+                            <td class="num" id="capeTableAverage">—</td>
                         </tr>
 
                         <tr>
@@ -1548,9 +1545,9 @@ footer {
 
                         <tr>
                             <td>CAPE arðsemiskrafa</td>
-                            <td class="num">4,7%</td>
-                            <td class="num">—</td>
-                            <td class="num">4,8%</td>
+                            <td class="num" id="capeYieldTableCurrent">—</td>
+                            <td class="num" id="capeYieldTableYearAgo">—</td>
+                            <td class="num" id="capeYieldTableAverage">—</td>
                         </tr>
 
                         <tr>
@@ -1611,8 +1608,8 @@ footer {
 
                         <tr class="highlight-row">
                             <td>OMXI15 — Ísland</td>
-                            <td class="num">21,2</td>
-                            <td class="num">21,0</td>
+                            <td class="num" id="capeInternationalCurrent">—</td>
+                            <td class="num" id="capeInternationalAverage">—</td>
                         </tr>
 
                         <tr>
@@ -1626,8 +1623,8 @@ footer {
 
                 <div style="margin-top:15px;">
 
-                    <div class="observation">
-                        OMXI15 er nálægt eigin 30 ára CAPE-meðaltali.
+                    <div class="observation" id="capeInternationalCommentary">
+                        CAPE-samanburður verður birtur þegar gögnin hafa hlaðist.
                     </div>
 
                     <div class="observation">
@@ -1662,8 +1659,8 @@ footer {
 
             <div class="panel-content">
 
-                <div class="observation">
-                    CAPE OMXI15 er 21,2 samanborið við 30 ára meðaltal upp á 21,0.
+                <div class="observation" id="capeObservationText">
+                    CAPE-samanburður verður birtur þegar gögnin hafa hlaðist.
                 </div>
 
                 <div class="observation">
@@ -1671,18 +1668,17 @@ footer {
                     hagsveifluleiðrétt CAPE hlutfall.
                 </div>
 
-                <div class="observation">
-                    CAPE arðsemiskrafa er 4,7% samanborið við 7,16%
-                    ávöxtunarkröfu 5 ára óverðtryggðra ríkisskuldabréfa.
+                <div class="observation" id="capeYieldObservation">
+                    CAPE-arðsemiskrafa verður birt þegar gögnin hafa hlaðist.
                 </div>
 
                 <div class="update-card">
                     <div class="update-card-label">
-                        Næsta reglulega uppfærsla
+                        Nýjustu CAPE-gögn
                     </div>
 
-                    <div class="update-card-date">
-                        September 2026
+                    <div class="update-card-date" id="capeObservationDateCard">
+                        —
                     </div>
                 </div>
 
@@ -1800,9 +1796,9 @@ footer {
                 </p>
             </div>
 
-            <span class="download-all">
+            <a class="download-all" href="market_data.csv" download>
                 ↓ Sækja allt gagnasafnið
-            </span>
+            </a>
 
         </div>
 
@@ -1865,8 +1861,8 @@ footer {
             </table>
 
             <div class="data-note">
-                Beint niðurhal verður virkjað þegar gagnaskrár eru aðskildar
-                frá framsetningu síðunnar í útgáfu 0.2.
+                Sameinað CSV-gagnasafn er tiltækt til niðurhals.
+                Niðurhal einstakra gagnaraða og Excel-skráa bætist við síðar.
             </div>
 
         </div>
@@ -1929,10 +1925,11 @@ footer {
 
 
     <div class="prototype-note">
-        <strong>Útgáfa 0.1.2:</strong>
-        Framsetning síðunnar er komin í fastara form en línurit og nokkrar
-        samanburðartölur eru enn frumgerð. Í útgáfu 0.2 verða gögn aðskilin
-        frá HTML-síðunni og uppfærð úr sameiginlegri gagnaskrá.
+        <strong>Útgáfa 0.2 — CAPE gagnatenging:</strong>
+        OMXI15 CAPE, afleidd CAPE-arðsemiskrafa, söguleg viðmið og tengdar
+        athuganir byggjast nú á market_data.csv. Önnur KPI-gildi, sumar
+        samanburðartölur og línurit eru enn frumgerð og verða tengd
+        gagnaskránni í næstu áföngum.
     </div>
 
 </main>
@@ -2024,56 +2021,147 @@ document.addEventListener('keydown', function (event) {
 </script>
 
 <script>
-async function loadCapeKpiFromCsv() {
+/* Iceland Market Monitor 0.2: one CSV is the source for every displayed CAPE value. */
+async function loadCapeDataFromCsv() {
+    const setText = (id, text) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = text;
+    };
+
+    const fmtCape = value => value.toLocaleString('is-IS', {
+        minimumFractionDigits: 1,
+        maximumFractionDigits: 1
+    });
+
+    const fmtYield = value => value.toLocaleString('is-IS', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }) + '%';
+
+    const formatMonth = month => {
+        const [year, monthNumber] = month.split('-').map(Number);
+        const formatted = new Intl.DateTimeFormat('is-IS', {
+            month: 'long',
+            year: 'numeric',
+            timeZone: 'UTC'
+        }).format(new Date(Date.UTC(year, monthNumber - 1, 1)));
+        return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+    };
+
     try {
         const response = await fetch('market_data.csv', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`CSV request failed: HTTP ${response.status}`);
 
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}`);
-        }
+        const content = (await response.text()).replace(/^\uFEFF/, '');
+        const lines = content.trim().split(/\r?\n/);
+        if (lines.length < 2) throw new Error('The CSV contains no monthly observations');
 
-        const csvText = await response.text();
-        const lines = csvText.trim().split(/\r?\n/);
-
-        if (lines.length < 2) {
-            throw new Error('market_data.csv contains no data rows');
-        }
-
-        const headers = lines[0].split(',').map(header => header.trim());
+        const headers = lines[0].split(',').map(value => value.trim());
+        const monthIndex = headers.indexOf('month');
         const capeIndex = headers.indexOf('cape_omxi15');
-
-        if (capeIndex === -1) {
-            throw new Error('cape_omxi15 column not found');
+        if (monthIndex < 0 || capeIndex < 0) {
+            throw new Error('Required columns month and cape_omxi15 are missing');
         }
 
-        let latestCape = null;
+        const capeHistory = lines.slice(1).map(line => {
+            const cells = line.split(',');
+            const month = (cells[monthIndex] || '').trim();
+            const capeValue = (cells[capeIndex] || '').trim();
+            return { month, cape: capeValue === '' ? NaN : Number(capeValue) };
+        }).filter(row =>
+            /^\d{4}-(0[1-9]|1[0-2])$/.test(row.month) &&
+            Number.isFinite(row.cape) && row.cape > 0
+        ).sort((a, b) => a.month.localeCompare(b.month));
 
-        for (let i = lines.length - 1; i >= 1; i--) {
-            const cells = lines[i].split(',');
-            const value = parseFloat(cells[capeIndex]);
+        if (capeHistory.length === 0) throw new Error('No valid CAPE observations found');
 
-            if (Number.isFinite(value)) {
-                latestCape = value;
-                break;
-            }
+        const uniqueMonths = new Set(capeHistory.map(row => row.month));
+        if (uniqueMonths.size !== capeHistory.length) {
+            throw new Error('Duplicate CAPE observation months in market_data.csv');
         }
 
-        if (latestCape === null) {
-            throw new Error('No valid CAPE value found');
+        const latest = capeHistory[capeHistory.length - 1];
+        const earliest = capeHistory[0];
+        const average = capeHistory.reduce((sum, row) => sum + row.cape, 0) /
+                        capeHistory.length;
+
+        // The yield benchmark is 100 / average CAPE, NOT the average of 100 / CAPE.
+        const earningsYield = 100 / latest.cape;
+        const referenceYield = 100 / average;
+        const previousYearMonth = `${Number(latest.month.slice(0, 4)) - 1}${latest.month.slice(4)}`;
+        const lastYear = capeHistory.find(row => row.month === previousYearMonth);
+        const sinceYear = earliest.month.slice(0, 4);
+        const sinceMonthName = formatMonth(earliest.month).toLowerCase();
+        const dateText = formatMonth(latest.month);
+        const capeNumber = fmtCape(latest.cape);
+        const averageNumber = fmtCape(average);
+        const currentYieldText = fmtYield(earningsYield);
+        const averageYieldText = fmtYield(referenceYield);
+
+        let relationship = 'Nálægt sögulegu meðaltali';
+        if (latest.cape > average * 1.10) relationship = 'Yfir sögulegu meðaltali';
+        if (latest.cape < average * 0.90) relationship = 'Undir sögulegu meðaltali';
+
+        setText('capeObservationDate', dateText);
+        setText('capeObservationDateCard', dateText);
+
+        setText('capeOmxi15Value', capeNumber);
+        setText('capeHistoricalAverage', `Meðaltal frá ${sinceYear}: ${averageNumber}`);
+        setText('capeRelativePosition', relationship);
+
+        setText('capeEarningsYieldValue', currentYieldText);
+        setText('capeEarningsYieldAverage',
+                `Andhverfa meðaltals CAPE: ${averageYieldText}`);
+        setText('capeYieldPosition',
+                Math.abs(earningsYield / referenceYield - 1) <= 0.10
+                    ? 'Nálægt sögulegu viðmiði'
+                    : earningsYield > referenceYield
+                        ? 'Yfir sögulegu viðmiði' : 'Undir sögulegu viðmiði');
+
+        setText('capeTableCurrent', capeNumber);
+        setText('capeTableAverage', averageNumber);
+        setText('capeTableYearAgo', lastYear ? fmtCape(lastYear.cape) : '—');
+
+        setText('capeYieldTableCurrent', currentYieldText);
+        setText('capeYieldTableAverage', averageYieldText);
+        setText('capeYieldTableYearAgo',
+                lastYear ? fmtYield(100 / lastYear.cape) : '—');
+
+        setText('capeInternationalCurrent', capeNumber);
+        setText('capeInternationalAverage', averageNumber);
+
+        setText('capeInternationalCommentary',
+                `OMXI15 CAPE er ${capeNumber}, samanborið við meðaltal ` +
+                `${averageNumber} frá ${sinceYear}.`);
+        setText('capeObservationText',
+                `CAPE OMXI15 er ${capeNumber} (${dateText.toLowerCase()}) ` +
+                `samanborið við meðaltal ${averageNumber} frá ${sinceMonthName}.`);
+        setText('capeYieldObservation',
+                `CAPE arðsemiskrafa er ${currentYieldText}. ` +
+                `Sögulegt viðmið er ${averageYieldText}, reiknað sem ` +
+                `andhverfa meðaltals CAPE frá ${sinceYear}.`);
+
+        // This updates only the historical reference line. The blue CAPE
+        // time series is still illustrative and will be replaced next.
+        const referenceLine = document.getElementById('capeAverageGuide');
+        if (referenceLine) {
+            const y = Math.min(195, Math.max(20, 230 - 4 * average));
+            referenceLine.setAttribute('y1', y.toFixed(2));
+            referenceLine.setAttribute('y2', y.toFixed(2));
         }
-
-        document.getElementById('capeOmxi15Value').textContent =
-            latestCape.toLocaleString('is-IS', {
-                minimumFractionDigits: 1,
-                maximumFractionDigits: 1
-            });
-
     } catch (error) {
-        console.error('Could not load OMXI15 CAPE from market_data.csv:', error);
+        console.error('CAPE data could not be loaded:', error);
+        setText('capeObservationDate', 'Gögn ekki tiltæk');
+        setText('capeObservationDateCard', 'Gögn ekki tiltæk');
+        setText('capeRelativePosition', 'Gögn ekki tiltæk');
+        setText('capeYieldPosition', 'Gögn ekki tiltæk');
+        setText('capeInternationalCommentary',
+                'Ekki tókst að sækja CAPE-gögn.');
+        setText('capeObservationText', 'Ekki tókst að sækja CAPE-gögn.');
+        setText('capeYieldObservation', 'Ekki tókst að sækja CAPE-gögn.');
     }
 }
-
-loadCapeKpiFromCsv();
+loadCapeDataFromCsv();
 </script>
 
 </body>
