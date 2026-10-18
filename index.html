@@ -1026,6 +1026,28 @@ footer {
         font-size: 13px;
     }
 }
+
+/* Publication archive link, shares the site's restrained colour palette. */
+.analysis-archive-row {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 11px;
+}
+.analysis-archive-row a {
+    color: #365f8e;
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+.analysis-archive-row a:hover { text-decoration: underline; }
+.analysis-type {
+    display: inline-block;
+    color: #697583;
+    font-weight: 700;
+    font-size: 9px;
+    margin-bottom: 6px;
+}
+
 </style>
 </head>
 
@@ -1497,7 +1519,7 @@ footer {
         </p>
     </div>
 
-    <div class="analysis-grid">
+    <div class="analysis-grid" id="recentAnalysisGrid">
 
         <article class="analysis-card">
 
@@ -1576,6 +1598,9 @@ footer {
 
     </div>
 
+    <div class="analysis-archive-row">
+        <a href="greinasafn.html">Skoða allt greinasafnið →</a>
+    </div>
 </section>
 
     <!-- DATA -->
@@ -1729,7 +1754,7 @@ footer {
         <strong>Útgáfa 0.2 — gagnatenging:</strong>
         CAPE, P/E (TTM), 5 ára óverðtryggðir ríkisvextir, raunhagnaðarvöxtur,
         alþjóðlegur CAPE-samanburður og öll þrjú línurit byggjast á market_data.csv.
-        Verðbólgugögn hafa enn ekki verið tengd. Ekki er birt úrelt viðmiðunargildi.
+        Verðbólgugögn eru uppfærð með gögnum frá Hagstofu Íslands.
     </div>
 
 </main>
@@ -2530,6 +2555,63 @@ async function loadCapeDataFromCsv() {
     }
 }
 loadCapeDataFromCsv();
+</script>
+
+<script>
+/* The three latest market-related publications are loaded from articles.json.
+   Original cards remain as fallback if the archive file is temporarily unavailable. */
+(async function loadRecentAnalysis() {
+    const grid = document.getElementById('recentAnalysisGrid');
+    if (!grid) return;
+    try {
+        const response = await fetch('articles.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        const payload = await response.json();
+        const all = Array.isArray(payload.articles) ? payload.articles : [];
+        const allowed = new Set(['Hlutabréf og eignaverð','Skuldabréf og vextir','Þjóðhagfræði']);
+        const recent = all.filter(a =>
+            a && a.date && typeof a.title === 'string' &&
+            typeof a.url === 'string' && /^https?:\/\//i.test(a.url) &&
+            (a.kind === 'coverage' || (allowed.has(a.topic) && ['authored','coauthored'].includes(a.kind)))
+        ).sort((a,b) => b.date.localeCompare(a.date)).slice(0,3);
+        if (recent.length !== 3) return;
+        const dateLabel = date => {
+            const [year,month,day] = date.split('-').map(Number);
+            const months = ['janúar','febrúar','mars','apríl','maí','júní','júlí','ágúst','september','október','nóvember','desember'];
+            return `${day}. ${months[month-1]} ${year}`;
+        };
+        const fragment = document.createDocumentFragment();
+        for (const item of recent) {
+            const article = document.createElement('article');
+            article.className = 'analysis-card';
+            const meta = document.createElement('div');
+            meta.className = 'analysis-meta';
+            meta.textContent = item.source + ' · ' + dateLabel(item.date);
+            const type = document.createElement('div');
+            type.className = 'analysis-type';
+            type.textContent = item.kind === 'coverage' ? 'Fjallað um CAPE-gögn' : 'Grein eftir Brynjar Örn Ólafsson';
+            const title = document.createElement('h3');
+            title.textContent = item.title;
+            const description = document.createElement('p');
+            description.textContent = item.kind === 'coverage'
+                ? 'Fjölmiðlaumfjöllun sem vísar í CAPE-gögn.'
+                : (item.topic === 'Hlutabréf og eignaverð' ? 'Greining á hlutabréfa- og eignamörkuðum.'
+                   : item.topic === 'Skuldabréf og vextir' ? 'Greining á vaxta- og skuldabréfamörkuðum.'
+                   : 'Greining á efnahagsþróun og hagvísum.');
+            const link = document.createElement('a');
+            link.className = 'analysis-link';
+            link.href = item.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = item.kind === 'coverage' ? 'Lesa umfjöllun →' : 'Lesa grein →';
+            article.append(meta,type,title,description,link);
+            fragment.append(article);
+        }
+        grid.replaceChildren(fragment);
+    } catch (error) {
+        console.warn('Greinasafn: heldur fyrri greinakortum:',error);
+    }
+})();
 </script>
 
 </body>
