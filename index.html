@@ -2300,18 +2300,25 @@ async function loadCapeDataFromCsv() {
             if (detail) setText(detail, 'Gögn ekki tiltæk');
         };
 
-        // P/E: no historical average is published because negative/near-zero
-        // earnings can make arithmetic averages of P/E economically misleading.
+        // P/E: arithmetic average of all published monthly observations since 1995.
+        // Note: negative or near-zero earnings produce extreme P/E observations,
+        // so this mean is descriptive rather than a robust valuation benchmark.
         const peSeries = getSeries('pe_ttm');
         if (peSeries.length) {
             const current = peSeries[peSeries.length - 1];
             const yearAgo = findAt(peSeries, priorMonth(current.month, 1));
+            const peAverage = peSeries.reduce((sum, row) => sum + row.value, 0) /
+                peSeries.length;
+            const peFirstYear = peSeries[0].month.slice(0, 4);
+            let pePosition = 'Nálægt sögulegu meðaltali';
+            if (current.value > peAverage * 1.10) pePosition = 'Yfir sögulegu meðaltali';
+            if (current.value < peAverage * 0.90) pePosition = 'Undir sögulegu meðaltali';
             setText('peTtmValue', fmtCape(current.value));
-            setText('peTtmContext', `Nýjasta mæling: ${formatMonth(current.month)}`);
-            setText('peTtmPosition', 'Hagnaður síðustu 12 mánaða');
+            setText('peTtmContext', `Meðaltal frá ${peFirstYear}: ${fmtCape(peAverage)}`);
+            setText('peTtmPosition', pePosition);
             setText('peTableCurrent', fmtCape(current.value));
             setText('peTableYearAgo', yearAgo ? fmtCape(yearAgo.value) : '—');
-            setText('peTableAverage', '—');
+            setText('peTableAverage', fmtCape(peAverage));
             const comparison = current.month === latest.month
                 ? `P/E síðustu tólf mánaða er ${fmtCape(current.value)} ` +
                   `${current.value < latest.cape ? 'og er lægra' : current.value > latest.cape ? 'og er hærra' : 'og er jafnt'} ` +
