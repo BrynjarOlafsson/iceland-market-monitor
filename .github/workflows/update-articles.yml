@@ -3,8 +3,8 @@ name: Update market research articles
 on:
   workflow_dispatch:
   # Enable automatic daily checks after the first successful live run:
-  # schedule:
-  #   - cron: '37 11 * * *'
+  schedule:
+    - cron: '37 11 * * *'
 
 permissions:
   contents: write
