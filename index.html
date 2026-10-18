@@ -1271,99 +1271,33 @@ footer {
         </article>
 
 
-        <!-- RETURN REQUIREMENT VS RATES -->
+        <!-- CAPE EARNINGS YIELD AND NON-INDEXED 5-YEAR TREASURY YIELD -->
 
         <article class="panel">
-
             <div class="panel-header">
-                <h2 class="panel-title">
-                    Arðsemiskrafa hlutabréfa og íslenskir vextir
-                </h2>
-
-                <p class="panel-subtitle">
-                    Samanburður arðsemiskröfu til hlutabréfa og íslenskra vaxta (%)
+                <h2 class="panel-title">Arðsemiskrafa hlutabréfa og íslenskir vextir</h2>
+                <p class="panel-subtitle" id="ratesChartSubtitle">
+                    CAPE arðsemiskrafa og 5 ára óverðtryggð ávöxtunarkrafa (%) · Sæki gögn…
                 </p>
             </div>
-
             <div class="chart-body">
-
                 <div class="chart-wrap">
-
-                    <svg
-                        class="chart-svg"
-                        viewBox="0 0 440 230"
-                        preserveAspectRatio="none">
-
-                        <line class="grid-line" x1="42" y1="30" x2="425" y2="30"/>
-                        <line class="grid-line" x1="42" y1="70" x2="425" y2="70"/>
-                        <line class="grid-line" x1="42" y1="110" x2="425" y2="110"/>
-                        <line class="grid-line" x1="42" y1="150" x2="425" y2="150"/>
-                        <line class="grid-line" x1="42" y1="190" x2="425" y2="190"/>
-
-                        <line class="axis-line" x1="42" y1="20" x2="42" y2="195"/>
-                        <line class="axis-line" x1="42" y1="195" x2="425" y2="195"/>
-
-                        <text class="axis-text" x="17" y="193">0%</text>
-                        <text class="axis-text" x="17" y="153">3%</text>
-                        <text class="axis-text" x="17" y="113">6%</text>
-                        <text class="axis-text" x="17" y="73">9%</text>
-                        <text class="axis-text" x="12" y="33">12%</text>
-
-                        <polyline
-                            class="series-blue"
-                            points="
-                            42,83
-                            76,78
-                            110,92
-                            144,84
-                            178,105
-                            212,114
-                            246,94
-                            280,75
-                            314,88
-                            348,73
-                            382,82
-                            425,91"/>
-
-                        <polyline
-                            class="series-slate"
-                            points="
-                            42,140
-                            76,136
-                            110,145
-                            144,150
-                            178,154
-                            212,158
-                            246,162
-                            280,150
-                            314,133
-                            348,112
-                            382,120
-                            425,128"/>
-
-                        <text class="axis-text" x="39" y="214">2015</text>
-                        <text class="axis-text" x="158" y="214">2019</text>
-                        <text class="axis-text" x="279" y="214">2022</text>
-                        <text class="axis-text" x="399" y="214">2026</text>
-
+                    <svg class="chart-svg" id="ratesHistoryChart"
+                         viewBox="0 0 440 230" preserveAspectRatio="none"
+                         role="img" aria-label="CAPE arðsemiskrafa og ávöxtunarkrafa 5 ára óverðtryggðra ríkisskuldabréfa">
                     </svg>
-
                 </div>
-
                 <div class="legend">
                     <div class="legend-item">
                         <span class="legend-swatch"></span>
                         CAPE arðsemiskrafa
                     </div>
-
                     <div class="legend-item">
                         <span class="legend-swatch slate"></span>
                         5 ára óverðtryggð ríkisskuldabréf
                     </div>
                 </div>
-
             </div>
-
         </article>
 
     </section>
@@ -1794,11 +1728,11 @@ footer {
 
 
     <div class="prototype-note">
-        <strong>Útgáfa 0.2 — CAPE gagnatenging:</strong>
-        OMXI15 CAPE, afleidd CAPE-arðsemiskrafa, söguleg viðmið, CAPE-línurit og tengdar
-        athuganir byggjast nú á market_data.csv. Önnur KPI-gildi, sumar
-        samanburðartölur og línurit eru enn frumgerð og verða tengd
-        gagnaskránni í næstu áföngum.
+        <strong>Útgáfa 0.2 — gagnatenging:</strong>
+        OMXI15 CAPE, afleidd CAPE-arðsemiskrafa, söguleg viðmið, tengdar
+        athuganir og öll þrjú aðallínuritin byggjast nú á market_data.csv.
+        Önnur KPI-gildi og sumar samanburðartölur eru enn frumgerð og verða
+        tengd gagnaskránni í næstu áföngum.
     </div>
 
 </main>
@@ -2063,6 +1997,119 @@ function renderRealEarningsChart(rows) {
     return { first: history[0].month, last: latest.month, count: history.length };
 }
 
+
+/* Comparison chart: same monthly CSV, no smoothing or interpolating missing data.
+   The 2018-onward default avoids the extreme post-crisis reciprocal CAPE values
+   obscuring the economically relevant recent interest-rate comparison. */
+function renderRatesHistoryChart(rows) {
+    const svg = document.getElementById('ratesHistoryChart');
+    if (!svg) return null;
+    const ns = 'http://www.w3.org/2000/svg';
+    const startMonth = '2018-01';
+    const validMonths = /^\d{4}-(0[1-9]|1[0-2])$/;
+    const history = rows.filter(row => row.month >= startMonth && validMonths.test(row.month) &&
+        ((Number.isFinite(row.cape) && row.cape > 0) ||
+         Number.isFinite(row.bondYield)));
+    history.sort((a, b) => a.month.localeCompare(b.month));
+    if (history.length < 2) throw new Error('Not enough valid rate comparison observations');
+    if (new Set(history.map(row => row.month)).size !== history.length) {
+        throw new Error('Duplicate months in rates history');
+    }
+
+    const series = history.map(row => ({
+        month: row.month,
+        capeYield: Number.isFinite(row.cape) && row.cape > 0 ? 100 / row.cape : NaN,
+        bondYield: Number.isFinite(row.bondYield) ? 100 * row.bondYield : NaN
+    }));
+    const capePoints = series.filter(row => Number.isFinite(row.capeYield));
+    const bondPoints = series.filter(row => Number.isFinite(row.bondYield));
+    if (capePoints.length < 2 || bondPoints.length < 2) {
+        throw new Error('Both yield series must have at least two observations');
+    }
+    const values = series.flatMap(row => [row.capeYield, row.bondYield])
+        .filter(Number.isFinite);
+    // Use a zero baseline with clean 2-percentage-point ticks for comparability.
+    const minY = Math.min(0, Math.floor(Math.min(...values) / 2) * 2);
+    const maxY = Math.max(2, Math.ceil(Math.max(...values) / 2) * 2);
+    const b = { left: 46, right: 425, top: 20, bottom: 195 };
+    const serial = month => Number(month.slice(0, 4)) * 12 + Number(month.slice(5, 7));
+    const first = serial(series[0].month);
+    const last = serial(series[series.length - 1].month);
+    const x = month => b.left + (serial(month) - first) /
+        Math.max(1, last - first) * (b.right - b.left);
+    const y = value => b.bottom - (value - minY) / (maxY - minY) * (b.bottom - b.top);
+
+    svg.replaceChildren();
+    function draw(tag, attrs, content) {
+        const element = document.createElementNS(ns, tag);
+        for (const [key, value] of Object.entries(attrs)) {
+            element.setAttribute(key, String(value));
+        }
+        if (content !== undefined) element.textContent = String(content);
+        svg.appendChild(element);
+        return element;
+    }
+    for (let value = minY; value <= maxY; value += 2) {
+        const py = y(value);
+        draw('line', { class: 'grid-line', x1: b.left, y1: py,
+                       x2: b.right, y2: py });
+        draw('text', { class: 'axis-text', x: b.left - 8, y: py + 2.5,
+                       'text-anchor': 'end' }, `${value}%`);
+    }
+    draw('line', { class: 'axis-line', x1: b.left, y1: b.top,
+                   x2: b.left, y2: b.bottom });
+    draw('line', { class: 'axis-line', x1: b.left, y1: b.bottom,
+                   x2: b.right, y2: b.bottom });
+
+    const firstYear = Number(series[0].month.slice(0, 4));
+    const lastYear = Number(series[series.length - 1].month.slice(0, 4));
+    const years = [firstYear];
+    for (let year = firstYear + 2; year <= lastYear - 2; year += 2) years.push(year);
+    if (years[years.length - 1] !== lastYear) years.push(lastYear);
+    for (const year of years) {
+        const month = year === firstYear ? series[0].month :
+                      year === lastYear ? series[series.length - 1].month : `${year}-01`;
+        draw('text', {
+            class: 'axis-text', x: x(month), y: 213,
+            'text-anchor': year === firstYear ? 'start' : year === lastYear ? 'end' : 'middle'
+        }, year);
+    }
+
+    // Separate paths at missing values: never imply continuous observations over gaps.
+    for (const [key, className, color] of [
+        ['capeYield', 'series-blue', 'var(--blue)'],
+        ['bondYield', 'series-slate', 'var(--slate)']
+    ]) {
+        let segment = [];
+        function flush() {
+            if (segment.length > 1) {
+                draw('polyline', { class: className, points: segment.join(' ') });
+            }
+            segment = [];
+        }
+        for (const row of series) {
+            if (!Number.isFinite(row[key])) {
+                flush();
+                continue;
+            }
+            segment.push(`${x(row.month).toFixed(2)},${y(row[key]).toFixed(2)}`);
+        }
+        flush();
+        const latest = [...series].reverse().find(row => Number.isFinite(row[key]));
+        draw('circle', { cx: x(latest.month), cy: y(latest[key]), r: 3,
+            fill: color, stroke: '#ffffff', 'stroke-width': 1.2 });
+    }
+    const latestCape = capePoints[capePoints.length - 1];
+    const latestBond = bondPoints[bondPoints.length - 1];
+    svg.setAttribute('aria-label',
+        `CAPE arðsemiskrafa og ávöxtunarkrafa 5 ára óverðtryggðra ríkisskuldabréfa ` +
+        `frá ${series[0].month} til ${series[series.length - 1].month}. ` +
+        `Síðasta CAPE arðsemiskrafa ${latestCape.capeYield.toFixed(2)}%, ` +
+        `síðasta ávöxtunarkrafa ríkisskuldabréfa ${latestBond.bondYield.toFixed(2)}%.`);
+    return { first: series[0].month, last: series[series.length - 1].month,
+             count: series.length, latestCape, latestBond };
+}
+
 /* Iceland Market Monitor 0.2: one CSV is the source for every displayed CAPE value. */
 async function loadCapeDataFromCsv() {
     const setText = (id, text) => {
@@ -2132,6 +2179,32 @@ async function loadCapeDataFromCsv() {
         } catch (chartError) {
             console.error('Real earnings chart could not be rendered:', chartError);
             setText('earningsChartSubtitle', 'Ekki tókst að birta gögn um raunhagnað');
+        }
+
+        // Third chart also uses the existing CSV response (no additional fetch).
+        const bondIndex = headers.indexOf('yield_5y_ni');
+        if (bondIndex < 0) throw new Error('Required yield_5y_ni column is missing');
+        const yieldRows = lines.slice(1).map(line => {
+            const cells = line.split(',');
+            const month = (cells[monthIndex] || '').trim();
+            const capeCell = (cells[capeIndex] || '').trim();
+            const bondCell = (cells[bondIndex] || '').trim();
+            return {
+                month,
+                cape: capeCell === '' ? NaN : Number(capeCell),
+                bondYield: bondCell === '' ? NaN : Number(bondCell)
+            };
+        });
+        try {
+            const renderedRates = renderRatesHistoryChart(yieldRows);
+            if (renderedRates) {
+                setText('ratesChartSubtitle',
+                    `CAPE arðsemiskrafa og 5 ára óverðtryggð ávöxtunarkrafa (%) · ` +
+                    `${formatMonth(renderedRates.first)}–${formatMonth(renderedRates.last)}`);
+            }
+        } catch (chartError) {
+            console.error('Yield comparison chart could not be rendered:', chartError);
+            setText('ratesChartSubtitle', 'Ekki tókst að birta gögn um arðsemiskröfur');
         }
 
         const capeHistory = lines.slice(1).map(line => {
@@ -2221,6 +2294,7 @@ async function loadCapeDataFromCsv() {
         console.error('CAPE data could not be loaded:', error);
         setText('capeChartSubtitle', 'Ekki tókst að sækja CAPE-gögn');
         setText('earningsChartSubtitle', 'Ekki tókst að sækja gögn um raunhagnað');
+        setText('ratesChartSubtitle', 'Ekki tókst að sækja gögn um arðsemiskröfur');
         setText('capeObservationDate', 'Gögn ekki tiltæk');
         setText('capeObservationDateCard', 'Gögn ekki tiltæk');
         setText('capeRelativePosition', 'Gögn ekki tiltæk');
