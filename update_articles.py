@@ -63,6 +63,15 @@ SEARCH_HEADLINE_TERMS = (
 )
 MAX_PAGE_BYTES = 3_000_000
 MAX_CANDIDATES = 90
+MAX_REVIEW = 15
+
+# Optional public news-index discovery. GDELT supplies *links*, not verified
+# publication text or authorship; only publisher pages can establish those.
+GDELT_QUERIES = (
+    'domainis:vb.is "CAPE"',
+    'domainis:vb.is "Brynjar"',
+    'domainis:vb.is "OMXI15"',
+)
 
 
 def normalized(text: str) -> str:
@@ -125,6 +134,43 @@ def search_feed_urls() -> list[tuple[str, str]]:
         'q': '"OMXI15" "CAPE"', 'hl': 'is', 'gl': 'IS', 'ceid': 'IS:is'})
     feeds.append(('Google News RSS: OMXI15 CAPE', cape_news))
     return feeds
+
+
+def gdelt_feed_urls() -> list[tuple[str, str]]:
+    """Public article-index searches for vb.is; no API key needed.
+
+    An empty or rate-limited response does NOT mean no relevant article exists.
+    """
+    return [
+        ('GDELT: ' + query,
+         'https://api.gdeltproject.org/api/v2/doc/doc?' + urlencode({
+             'query': query, 'mode': 'artlist', 'format': 'json',
+             'timespan': '3months', 'maxrecords': 75, 'sort': 'datedesc',
+         }))
+        for query in GDELT_QUERIES
+    ]
+
+
+def discover_gdelt_links(raw: bytes) -> list[tuple[str, None]]:
+    """Extract original publisher URLs from the news index.
+
+    GDELT `seendate` is not the publication date, so no date hint is used.
+    """
+    payload = json.loads(raw.decode('utf-8-sig'))
+    if not isinstance(payload, dict):
+        raise ValueError('GDELT result is not an object')
+    articles = payload.get('articles', [])
+    if not isinstance(articles, list):
+        raise ValueError('GDELT articles is not an array')
+    result = []
+    for row in articles[:250]:
+        if not isinstance(row, dict):
+            continue
+        link = row.get('url') or row.get('url_mobile') or ''
+        link = publisher_link(str(link))
+        if link and allowed_publisher(link) == 'Viðskiptablaðið':
+            result.append((link, None))
+    return list(dict.fromkeys(result))
 
 
 def publisher_link(url: str) -> str | None:
@@ -467,6 +513,8 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False,
                 lambda raw, page=page: discover_vb_listing_links(raw, page))
     for name, feed_url in search_feed_urls():
         collect(name, feed_url, discover_search_feed)
+    for name, feed_url in gdelt_feed_urls():
+        collect(name, feed_url, discover_gdelt_links)
 
     if not retrieved:
         raise RuntimeError('No article-discovery sources were accessible; archive unchanged')
@@ -474,16 +522,22 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False,
     rejected = 0
     article_failures = 0
     added = []
+    manual_review = []
     unarchived_total = sum(1 for key in candidates if key not in known)
     to_check = [item for key, item in candidates.items() if key not in known][:MAX_CANDIDATES]
     for url, publisher, date_hint in to_check:
         raw = safe_fetch(url)
         if raw is None:
             article_failures += 1
+            manual_review.append((url, 'publisher page inaccessible'))
             continue
         result = describe_candidate(url, raw, publisher, date_hint)
         if result is None:
             rejected += 1
+            # A search-index snippet is not evidence of authorship or CAPE
+            # attribution; report for manual review rather than auto-publish.
+            if publisher == 'Viðskiptablaðið':
+                manual_review.append((url, 'authorship/CAPE attribution not verified'))
             continue
         key = canonical(result['url'])
         if key not in known:
@@ -495,7 +549,24 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False,
           f'sources_empty={empty}, sources_unavailable={unavailable}, '
           f'unique_candidates={len(candidates)}, already_archived={len(candidates)-unarchived_total}, '
           f'unarchived_checked={len(to_check)}, page_fetch_failures={article_failures}, '
-          f'not_verified={rejected}, new_verified={len(added)}')
+          f'not_verified={rejected}, review_candidates={len(manual_review)}, new_verified={len(added)}')
+
+    if manual_review:
+        print('MANUAL REVIEW: candidates are NOT published until authorship or a '
+              'CAPE attribution is verified on the publisher page:')
+        for url, reason in manual_review[:MAX_REVIEW]:
+            print(f'  REVIEW {reason}: {url}')
+        if len(manual_review) > MAX_REVIEW:
+            print(f'  REVIEW TRUNCATED: {len(manual_review) - MAX_REVIEW} additional candidates')
+        # Present links on the Actions run Summary without changing any site data.
+        summary_path = os.environ.get('GITHUB_STEP_SUMMARY')
+        if summary_path:
+            with open(summary_path, 'a', encoding='utf8') as handle:
+                handle.write('\n### Article-discovery manual review\n')
+                handle.write('These are leads only, **not verified publications**.\n\n')
+                for url, reason in manual_review[:MAX_REVIEW]:
+                    # Original publisher URLs were validated by allowed_publisher.
+                    handle.write(f'- {reason}: {url}\n')
 
     if added and not dry_run:
         archive.sort(key=lambda r: (r.get('date') or f"{r.get('year', 0)}-01-01", r.get('title', '')), reverse=True)
@@ -510,7 +581,7 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False,
 
     # A success is a best-effort discovery check, never a completeness guarantee.
     # Crucially, a successful direct probe does not establish that discovery works.
-    degraded = bool(unavailable or article_failures or not positive or probe_ok is False)
+    degraded = bool(unavailable or article_failures or manual_review or not positive or probe_ok is False)
     if degraded:
         reasons = []
         if unavailable:
@@ -519,6 +590,8 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False,
             reasons.append(f'{article_failures} candidate article(s) inaccessible')
         if not positive:
             reasons.append('no discovery source supplied leads')
+        if manual_review:
+            reasons.append(f'{len(manual_review)} link(s) require manual verification')
         if probe_ok is False:
             reasons.append('known-article verification probe failed')
         emit_warning('PARTIAL DISCOVERY: ' + '; '.join(reasons) +
@@ -570,6 +643,8 @@ def self_test() -> None:
         if url.endswith('/g/20260000000d/unrelated'):
             return unrelated_html
         # Return parseable empty feeds for the other discovery sources.
+        if 'api.gdeltproject.org' in url:
+            return b'{"articles": []}'
         if ('rss' in url or 'search?' in url):
             return b'<rss><channel></channel></rss>'
         return b'<html><body></body></html>'
@@ -589,6 +664,15 @@ def self_test() -> None:
         assert len(matching) == 1 and matching[0]['kind'] == 'authored'
         assert len(result['articles']) == len(original['articles']) + 1
         assert 'PROBE PASS' in output.getvalue()
+    # A known vb.is lead from a news index is a lead only; no GDELT dates
+    # are mistaken for publisher publication dates.
+    vb_link = ('https://vb.is/frettir/'
+               'islenski-hlutabrefamarkadurinn-nalaegt-sogulegu-verdmati/')
+    gdelt_mock = json.dumps({'articles': [{'url': vb_link, 'seendate': '20261018T000000Z'},
+                                           {'url': 'https://example.org/not-vb'}]}).encode()
+    assert discover_gdelt_links(gdelt_mock) == [(vb_link, None)]
+    print('SELF-TEST PASS: GDELT index supplies valid publisher URL leads; '
+          'no search-index date or attribution is treated as verification.')
     print('SELF-TEST PASS: known article rediscovered from synthetic listing, '
           'correct attribution, archive preserved and no duplicate on second run.')
     print('SELF-TEST LIMIT: mock responses do not prove live publisher/search access.')
