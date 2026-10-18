@@ -2509,7 +2509,7 @@ async function loadCapeDataFromCsv() {
         renderCapeHistoryChart(capeHistory, average, usCapeHistory);
         setText('capeChartSubtitle',
                 `OMXI15 og S&P 500, mánaðarleg gögn · ${formatMonth(earliest.month)}–${dateText}`);
-        setText('capeChartAverageLegend', `Meðaltal CAPE: ${averageNumber}`);
+        setText('capeChartAverageLegend', `Meðaltal OMXI15 CAPE: ${averageNumber}`);
     } catch (error) {
         console.error('CAPE data could not be loaded:', error);
         setText('capeChartSubtitle', 'Ekki tókst að sækja CAPE-gögn');
