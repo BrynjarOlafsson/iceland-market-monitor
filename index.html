@@ -1229,7 +1229,7 @@ footer {
                     </div>
                     <div class="legend-item">
                         <span class="legend-swatch red"></span>
-                        <span id="capeChartAverageLegend">Sögulegt meðaltal CAPE</span>
+                        <span id="capeChartAverageLegend">Meðaltal OMXI15 CAPE</span>
                     </div>
                 </div>
 
@@ -1821,6 +1821,20 @@ document.addEventListener('keydown', function (event) {
 </script>
 
 <script>
+/* Display formatting only. Numerical CSV values and SVG drawing coordinates
+   always retain decimal points; visitors see their page language's convention. */
+const DISPLAY_LOCALE = document.documentElement.lang.toLowerCase().startsWith('en')
+    ? 'en-US' : 'is-IS';
+function formatDisplayNumber(value, fractionDigits = 1) {
+    return new Intl.NumberFormat(DISPLAY_LOCALE, {
+        minimumFractionDigits: fractionDigits,
+        maximumFractionDigits: fractionDigits
+    }).format(value);
+}
+function formatDisplayPercent(value, fractionDigits = 1) {
+    return `${formatDisplayNumber(value, fractionDigits)}%`;
+}
+
 /* Draw OMXI15 and U.S. CAPE on one chronological axis, using the same CSV data. */
 function renderCapeHistoryChart(history, historicalAverage, usHistory = []) {
     const svg = document.getElementById('capeHistoryChart');
@@ -1855,7 +1869,7 @@ function renderCapeHistoryChart(history, historicalAverage, usHistory = []) {
         const level = maximumAxis * tick / 4;
         const py = y(level);
         draw('line', { class: 'grid-line', x1: bounds.left, y1: py, x2: bounds.right, y2: py });
-        draw('text', { class: 'axis-text', x: bounds.left - 9, y: py + 2.5, 'text-anchor': 'end' }, level);
+        draw('text', { class: 'axis-text', x: bounds.left - 9, y: py + 2.5, 'text-anchor': 'end' }, formatDisplayNumber(level, 0));
     }
 
     draw('line', { class: 'axis-line', x1: bounds.left, y1: bounds.top, x2: bounds.left, y2: bounds.bottom });
@@ -1903,10 +1917,11 @@ function renderCapeHistoryChart(history, historicalAverage, usHistory = []) {
     });
 
     const usSummary = usHistory.length
-        ? ` S&P 500 CAPE síðast ${usHistory[usHistory.length - 1].cape.toFixed(2)}.` : '';
+        ? ` S&P 500 CAPE síðast ${formatDisplayNumber(usHistory[usHistory.length - 1].cape, 2)}.` : '';
     svg.setAttribute('aria-label',
         `OMXI15 CAPE frá ${history[0].month} til ${latest.month}. ` +
-        `Nýjasta gildi ${latest.cape.toFixed(2)}; sögulegt meðaltal ${historicalAverage.toFixed(2)}.` +
+        `Nýjasta gildi ${formatDisplayNumber(latest.cape, 2)}; ` +
+        `sögulegt meðaltal ${formatDisplayNumber(historicalAverage, 2)}.` +
         usSummary);
 }
 
@@ -1963,7 +1978,7 @@ function renderRealEarningsChart(rows) {
         });
         draw('text', {
             class: 'axis-text', x: bounds.left - 8, y: py + 2.5, 'text-anchor': 'end'
-        }, value);
+        }, formatDisplayNumber(value, 0));
     }
     if (axisMinimum < 0) {
         draw('line', {
@@ -2005,8 +2020,8 @@ function renderRealEarningsChart(rows) {
     const latest = history[history.length - 1];
     svg.setAttribute('aria-label',
         `Raunhagnaður og raunvirði OMXI15 frá janúar 2011 til ${latest.month}. ` +
-        `Janúar 2011 er 100. Raunhagnaður ${latest.earnings.toFixed(1)}, ` +
-        `raunvirði ${latest.index.toFixed(1)}.`);
+        `Janúar 2011 er 100. Raunhagnaður ${formatDisplayNumber(latest.earnings, 1)}, ` +
+        `raunvirði ${formatDisplayNumber(latest.index, 1)}.`);
     return { first: history[0].month, last: latest.month, count: history.length };
 }
 
@@ -2066,7 +2081,7 @@ function renderRatesHistoryChart(rows) {
         draw('line', { class: 'grid-line', x1: b.left, y1: py,
                        x2: b.right, y2: py });
         draw('text', { class: 'axis-text', x: b.left - 8, y: py + 2.5,
-                       'text-anchor': 'end' }, `${value}%`);
+                       'text-anchor': 'end' }, formatDisplayPercent(value, 0));
     }
     draw('line', { class: 'axis-line', x1: b.left, y1: b.top,
                    x2: b.left, y2: b.bottom });
@@ -2116,8 +2131,8 @@ function renderRatesHistoryChart(rows) {
     svg.setAttribute('aria-label',
         `CAPE arðsemiskrafa og ávöxtunarkrafa 5 ára óverðtryggðra ríkisskuldabréfa ` +
         `frá ${series[0].month} til ${series[series.length - 1].month}. ` +
-        `Síðasta CAPE arðsemiskrafa ${latestCape.capeYield.toFixed(2)}%, ` +
-        `síðasta ávöxtunarkrafa ríkisskuldabréfa ${latestBond.bondYield.toFixed(2)}%.`);
+        `Síðasta CAPE arðsemiskrafa ${formatDisplayPercent(latestCape.capeYield, 2)}, ` +
+        `síðasta ávöxtunarkrafa ríkisskuldabréfa ${formatDisplayPercent(latestBond.bondYield, 2)}.`);
     return { first: series[0].month, last: series[series.length - 1].month,
              count: series.length, latestCape, latestBond };
 }
@@ -2129,19 +2144,12 @@ async function loadCapeDataFromCsv() {
         if (element) element.textContent = text;
     };
 
-    const fmtCape = value => value.toLocaleString('is-IS', {
-        minimumFractionDigits: 1,
-        maximumFractionDigits: 1
-    });
-
-    const fmtYield = value => value.toLocaleString('is-IS', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-    }) + '%';
+    const fmtCape = value => formatDisplayNumber(value, 1);
+    const fmtYield = value => formatDisplayPercent(value, 2);
 
     const formatMonth = month => {
         const [year, monthNumber] = month.split('-').map(Number);
-        const formatted = new Intl.DateTimeFormat('is-IS', {
+        const formatted = new Intl.DateTimeFormat(DISPLAY_LOCALE, {
             month: 'long',
             year: 'numeric',
             timeZone: 'UTC'
@@ -2323,9 +2331,7 @@ async function loadCapeDataFromCsv() {
             `${Number(month.slice(0, 4)) - years}${month.slice(4)}`;
         const findAt = (series, month) => series.find(item => item.month === month);
         const fmtSigned = value =>
-            `${value > 0 ? '+' : value < 0 ? '−' : ''}${Math.abs(value).toLocaleString('is-IS', {
-                minimumFractionDigits: 1, maximumFractionDigits: 1
-            })}%`;
+            `${value > 0 ? '+' : value < 0 ? '−' : ''}${formatDisplayPercent(Math.abs(value), 1)}`;
         const showUnavailable = (ids, detail) => {
             ids.forEach(id => setText(id, '—'));
             if (detail) setText(detail, 'Gögn ekki tiltæk');
@@ -2417,9 +2423,7 @@ async function loadCapeDataFromCsv() {
               historicalGrowthObservations.length
             : NaN;
         const historicalEarningsGrowthText = Number.isFinite(historicalEarningsGrowth)
-            ? historicalEarningsGrowth.toLocaleString('is-IS', {
-                minimumFractionDigits: 2, maximumFractionDigits: 2
-              }) + '%'
+            ? formatDisplayPercent(historicalEarningsGrowth, 2)
             : '—';
         const historicalGrowthSinceYear = historicalGrowthObservations.length
             ? historicalGrowthObservations[0].month.slice(0, 4)
@@ -2467,7 +2471,7 @@ async function loadCapeDataFromCsv() {
             const yearAgo = findAt(inflationSeries, priorMonth(current.month, 1));
             const mean = inflationSeries.reduce((sum, item) => sum + item.value, 0) /
                          inflationSeries.length;
-            const displayInflation = value => value.toFixed(1).replace('.', ',') + '%';
+            const displayInflation = value => formatDisplayPercent(value, 1);
             setText('inflationValue', displayInflation(current.value));
             setText('inflationContext',
                 `Meðaltal frá ${inflationSeries[0].month.slice(0, 4)}: ${displayInflation(mean)}`);
