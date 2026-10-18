@@ -1,0 +1,1566 @@
+{
+  "version": 1,
+  "notes": "User-supplied bibliography plus additional identified publications. A missing URL means the citation is listed without an unverified article link. Third-party CAPE coverage uses kind=coverage.",
+  "articles": [
+    {
+      "title": "Verðlagning hlutabréfa enn hófleg í sögulegu samhengi",
+      "date": "2026-10-01",
+      "year": 2026,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20262942290d/verdlagning-hlutabrefa-enn-hofleg-i-sogulegu-samhengi",
+      "description": "CAPE OMXI15 í september 2026",
+      "extra_links": []
+    },
+    {
+      "title": "Verðlagning félaga í Úrvalsvísitölunni lítið breytt yfir sumarið",
+      "date": "2026-09-01",
+      "year": 2026,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://www.visir.is/g/20262928759d/verdlagning-felaga-i-urvalsvisitolunni-litid-breytt-yfir-sumarid",
+      "description": "CAPE yfir sumarið 2026",
+      "extra_links": []
+    },
+    {
+      "title": "Samanburður eignaverðs 2026",
+      "date": "2026-07-19",
+      "year": 2026,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://vb.is/skodun/samanburdur-eignaverds-2026-/",
+      "description": "Samanburður eignaverðs",
+      "extra_links": []
+    },
+    {
+      "title": "Verðlagning íslenskra hlutabréfa er enn hóflegri en vestanhafs",
+      "date": "2026-07-05",
+      "year": 2026,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20262905666d/verdlagning-islenskra-hlutabrefa-er-enn-hoflegri-en-vestanhafs",
+      "description": "CAPE OMXI15 og S&P500",
+      "extra_links": []
+    },
+    {
+      "title": "Vöxtur hagnaðar félaga í Úrvalsvísitölunni umfram virði",
+      "date": "2026-06-01",
+      "year": 2026,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20262891388d/voxtur-hagnadar-felaga-i-urvalsvisitolunni-umfram-virdi",
+      "description": "Hagnaður og CAPE OMXI15",
+      "extra_links": []
+    },
+    {
+      "title": "Áhrifa stríðs í verðlagningu hlutabréfa",
+      "date": "2026-04-01",
+      "year": 2026,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20262863963d/ahrifa-strids-i-verdlagningu-hlutabrefa",
+      "description": "CAPE OMXI15 í mars 2026",
+      "extra_links": []
+    },
+    {
+      "title": "Verðlagning hlutabréfa við sögulegt meðaltal í lok febrúar",
+      "date": "2026-03-06",
+      "year": 2026,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20262852077d/verdlagning-hlutabrefa-vid-sogulegt-medaltal-i-lok-februar",
+      "description": "OMXI15 CAPE",
+      "extra_links": []
+    },
+    {
+      "title": "Landsréttur skilgreinir mörk innherjaupplýsinga",
+      "date": "2026-02-26",
+      "year": 2026,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Regluverk og markaðir",
+      "url": "https://www.visir.is/g/20262848543d/lands-rettur-skil-greinir-mork-inn-herja-upp-lysinga",
+      "description": "Landsréttur skilgreinir mörk innherjaupplýsinga (2026), höfundur: Brynjar Örn Ólafsson. Birt í Innherja, viðskiptahluta Vísis 26. febrúar 2026",
+      "extra_links": []
+    },
+    {
+      "title": "Viðskipti við erlenda viðurkennda gagnaðila",
+      "date": "2025-12-21",
+      "year": 2025,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "https://vb.is/skodun/vidskipti--vid-erlenda-vidurkennda-gagnadila/",
+      "description": "Viðskipti við erlenda viðurkennda gagnaðila (2025), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 21. desember 2025",
+      "extra_links": []
+    },
+    {
+      "title": "16. grein MAR og sektir á starfsfólk",
+      "date": "2025-12-10",
+      "year": 2025,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Regluverk og markaðir",
+      "url": "https://vb.is/skodun/16--grein-mar-og-sektir-a-starfsfolk/",
+      "description": "16. grein MAR og sektir á starfsfólk (2025), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 10. desember 2025",
+      "extra_links": []
+    },
+    {
+      "title": "Arðsemiskrafa til hlutafjár helst óbreytt en krafan á ríkisbréf lækkar",
+      "date": "2025-12-01",
+      "year": 2025,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://www.visir.is/g/20252810879d/ardsemiskrafa-til-hlutafjar-helst-obreytt-en-krafan-a-rikisbref-laekkar",
+      "description": "CAPE og ríkisbréf",
+      "extra_links": []
+    },
+    {
+      "title": "Virði félaga í Úrvalsvísitölunni á móti hagnaði er enn lágt",
+      "date": "2025-10-06",
+      "year": 2025,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20252784901d/virdi-felaga-i-urvalsvisitolunni-a-moti-hagnadi-er-enn-lagt",
+      "description": "CAPE OMXI15",
+      "extra_links": []
+    },
+    {
+      "title": "Samanburður eignaverðs",
+      "date": "2025-07-08",
+      "year": 2025,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://vb.is/skodun/samanburdur-eignaverds-2025/",
+      "description": "Samanburður eignaverðs (2025), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 8. júlí 2025",
+      "extra_links": []
+    },
+    {
+      "title": "Vaxtaákvörðun 21. maí",
+      "date": "2025-05-18",
+      "year": 2025,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://vb.is/skodun/vaxtaakvordunin-21-mai/",
+      "description": "Vaxtaákvörðun 21. maí (2025), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 18. maí 2025",
+      "extra_links": []
+    },
+    {
+      "title": "CAPE-hlutfall Úrvalsvísitölunnar hækkar samhliða lækkun vaxta",
+      "date": "2024-12-02",
+      "year": 2024,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20242658442d/cape-hlutfall-urvalsvisitolunnar-haekkar-samhlida-laekkun-vaxta",
+      "description": "CAPE OMXI15",
+      "extra_links": []
+    },
+    {
+      "title": "Vextir ársins 2025",
+      "date": "2024-12-01",
+      "year": 2024,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://vb.is/skodun/vextir-arsins-2025-/",
+      "description": "Vextir ársins 2025 (2024), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 1. desember 2024",
+      "extra_links": []
+    },
+    {
+      "title": "Virði hlutabréfa á móti hagsveifluleiðréttum hagnaði ekki hærra síðan í febrúar",
+      "date": "2024-10-01",
+      "year": 2024,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.visir.is/g/20242628606d/virdi-hlutabrefa-a-moti-hagsveifluleidrettum-hagnadi-ekki-haerra-sidan-i-februar",
+      "description": "CAPE OMXI15",
+      "extra_links": []
+    },
+    {
+      "title": "Íslenski markaðurinn metinn nokkuð lægra en sá bandaríski",
+      "date": "2024-09-02",
+      "year": 2024,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "https://www.visir.is/g/20242615309d/islenski-markadurinn-metinn-nokkud-laegra-en-sa-bandariski",
+      "description": "CAPE OMXI15 og S&P500",
+      "extra_links": []
+    },
+    {
+      "title": "Samanburður eignaverðs 2024",
+      "date": "2024-07-09",
+      "year": 2024,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://vb.is/skodun/samanburdur-eignaverds-2024/",
+      "description": "Samanburður eignaverðs 2024 (2024), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 9. júlí 2024",
+      "extra_links": []
+    },
+    {
+      "title": "Seðlabankinn spáir 1,4% raunvöxtum árið 2025",
+      "date": "2024-05-01",
+      "year": 2024,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://vb.is/skodun/sedlabankinn-spair-14-raunvoxtum-/",
+      "description": "Seðlabankinn spáir 1,4% raunvöxtum árið 2025 (2024), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 1. maí 2024",
+      "extra_links": []
+    },
+    {
+      "title": "Vaxtakostnaður fyrirtækja OMXI10",
+      "date": "2023-12-12",
+      "year": 2023,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://vb.is/frettir/vaxtakostnadur-fyrirtaekja-i-omxi10-aukist-til-muna/",
+      "description": "Vaxtakostnaður fyrirtækja OMXI10 (2023), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 12. desember 2023",
+      "extra_links": []
+    },
+    {
+      "title": "Eru langtímavextir of háir?",
+      "date": "2023-08-10",
+      "year": 2023,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://vb.is/skodun/eru-langtimavextir-of-hair/",
+      "description": "Eru langtímavextir of háir? (2023), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 10. ágúst 2023",
+      "extra_links": []
+    },
+    {
+      "title": "Samanburður eignaverðs",
+      "date": "2023-07-13",
+      "year": 2023,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://vb.is/skodun/samanburdur-eignaverds/",
+      "description": "Samanburður eignaverðs (2023), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 13. júlí 2023",
+      "extra_links": []
+    },
+    {
+      "title": "Efnahagshorfur og upphaf vaxtalækkana",
+      "date": "2022-07-07",
+      "year": 2022,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://www.vb.is/skodun/efnahagshorfur-upphaf-vaxtalaekkana/",
+      "description": "Efnahagshorfur og upphaf vaxtalækkana (2022), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 7. júlí 2022",
+      "extra_links": []
+    },
+    {
+      "title": "Enginn spáir hruni",
+      "date": "2021-03-04",
+      "year": 2021,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://www.vb.is/skodun/enginn-spair-hruni/167206/",
+      "description": "Enginn spáir hruni (2021), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 4. mars 2021, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Hagnaður miðað við útflutningsvöxt 2021",
+      "date": "2020-12-17",
+      "year": 2020,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "https://www.vb.is/skodun/hagnadur-midad-vid-utflutningsvoxt-2021/165887/",
+      "description": "Hagnaður miðað við útflutningsvöxt 2021 (2020), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 17. desember 2020, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Mikilvægi Hagstofu Íslands",
+      "date": "2020-09-17",
+      "year": 2020,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://www.vb.is/skodun/mikilvaegi-hagstofu-islands/164169/",
+      "description": "Mikilvægi Hagstofu Íslands (2020), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 17. september 2020, bls.15",
+      "extra_links": []
+    },
+    {
+      "title": "Eignastýring í óvissu",
+      "date": "2020-07-02",
+      "year": 2020,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": null,
+      "description": "Eignastýring í óvissu (2020), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 2. júlí 2020, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Icelandic Bond Market, 125 bps. term premium expected in 2021",
+      "date": "2020-06-19",
+      "year": 2020,
+      "source": "IFS",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": null,
+      "description": "Icelandic Bond Market, 125 bps. term premium expected in 2021 (2020), höfundur: Brynjar Örn Ólafsson. IFS greining, dags. 19. júní 2020",
+      "extra_links": []
+    },
+    {
+      "title": "Output gap and policy rates (2020)",
+      "date": "2020-05-18",
+      "year": 2020,
+      "source": "IFS",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.ifs.is/lisalib/getfile.aspx?itemid=baac4531-991a-11ea-945d-005056bc0bdb",
+      "description": "Output gap and policy rates (2020), höfundur: Brynjar Örn Ólafsson. IFS greining, dags. 18. maí 2020",
+      "extra_links": []
+    },
+    {
+      "title": "Áhættuálag skuldabréfaútboða frá 2010",
+      "date": "2019-09-12",
+      "year": 2019,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": null,
+      "description": "Áhættuálag skuldabréfaútboða frá 2010 (2019), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 12. september 2019, bls. 13. Viðauki",
+      "extra_links": [
+        {
+          "title": "Viðauki",
+          "url": "https://notendur.hi.is/boo4/VB_20190912_vidauki.pdf"
+        }
+      ]
+    },
+    {
+      "title": "Skuldabréfakaup erlendra fjárfesta",
+      "date": "2019-05-23",
+      "year": 2019,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/skuldabrefakaup-erlendra-fjarfesta/154606/",
+      "description": "Skuldabréfakaup erlendra fjárfesta (2019), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 23. maí 2019, bls. 13. Appendix",
+      "extra_links": [
+        {
+          "title": "Appendix",
+          "url": "https://notendur.hi.is/boo4/Appx_20190523.PNG"
+        }
+      ]
+    },
+    {
+      "title": "Væntingar um Marel hf",
+      "date": "2019-04-11",
+      "year": 2019,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/vaentingar-um-marel-hf/153833/",
+      "description": "Væntingar um Marel hf. (2019), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 11. april 2019, bls. 13",
+      "extra_links": []
+    },
+    {
+      "title": "Hagnaður OMXI8 þyrfti að aukast um 130%",
+      "date": "2019-02-28",
+      "year": 2019,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/hagnadur-omxi8-thyrfti-ad-aukast-um-130/153035/",
+      "description": "Hagnaður OMXI8 þyrfti að aukast um 130% (2019), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 28. February 2019, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Af væntri framleiðsluspennu",
+      "date": "2019-01-04",
+      "year": 2019,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "http://www.vb.is/skodun/af-vaentri-framleidsluspennu/151848/",
+      "description": "Af væntri framleiðsluspennu (2019), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 4. janúar 2019, p. 9",
+      "extra_links": []
+    },
+    {
+      "title": "Why do Arion Bank's covered bonds carry the highest premia?",
+      "date": "2018-11-01",
+      "year": 2018,
+      "source": "LinkedIn",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://www.linkedin.com/pulse/why-do-arion-banks-covered-bonds-carry-highest-premia-olafsson?trk=related_artice_Why%20do%20Arion%20Bank%26amp%3Bamp%3B%2339%3Bs%20covered%20bonds%20carry%20the%20highest%20premia%3F_article-card_title",
+      "description": "Why do Arion Bank's covered bonds carry the highest premia? (2018), höfundur: Brynjar Örn Ólafsson. Birt in The Icelandic Financial News 1-Nov-2018, p. 15. Appendix",
+      "extra_links": [
+        {
+          "title": "The Icelandic Financial News 1-Nov-2018, p. 15",
+          "url": "http://www.vb.is/skodun/af-hverju-er-alag-sertryggd-skuldabref-arion-banka-haerra/150729/"
+        },
+        {
+          "title": "Appendix",
+          "url": "https://notendur.hi.is/~boo4/Vidauki_20181101.pdf"
+        }
+      ]
+    },
+    {
+      "title": "Árið 2019",
+      "date": "2018-10-04",
+      "year": 2018,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/arid-2019/150178/",
+      "description": "Árið 2019 (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 4. október 2018, bls. 17",
+      "extra_links": []
+    },
+    {
+      "title": "Hreyfingar miðað við vænta verðbólgu",
+      "date": "2018-08-30",
+      "year": 2018,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "http://www.vb.is/skodun/hreyfingar-midad-vid-vaenta-verdbolgu/149401/",
+      "description": "Hreyfingar miðað við vænta verðbólgu (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 30. ágúst 2018, bls. 17",
+      "extra_links": []
+    },
+    {
+      "title": "Skipulegur afleiðumarkaður",
+      "date": "2018-07-05",
+      "year": 2018,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/skipulegur-afleidumarkadur/148338/",
+      "description": "Skipulegur afleiðumarkaður (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 5. júlí 2018, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Ástæður erlendra aðila í hlutabréfum",
+      "date": "2018-06-21",
+      "year": 2018,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/astaedur-erlendra-fjarfesta-i-hlutabrefum/147984/",
+      "description": "Ástæður erlendra aðila í hlutabréfum (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 21. June 2018, bls. 17",
+      "extra_links": []
+    },
+    {
+      "title": "Einföldun innherjasvika",
+      "date": "2018-05-31",
+      "year": 2018,
+      "source": "Innherji",
+      "kind": "authored",
+      "topic": "Regluverk og markaðir",
+      "url": "http://www.vb.is/skodun/einfoldun-innherjasvika/147532/",
+      "description": "Einföldun innherjasvika (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 31. maí 2018, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Skuldabréf Norðurlanda",
+      "date": "2018-04-04",
+      "year": 2018,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/skuldabref-nordurlanda/146236/",
+      "description": "Skuldabréf Norðurlanda (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 4. apríl 2018, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Hagnaður OMXI8 fylgir illa hagvexti",
+      "date": "2018-03-22",
+      "year": 2018,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/hagnadur-omxi8-fylgir-illa-hagvexti/145923/",
+      "description": "Hagnaður OMXI8 fylgir illa hagvexti (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 22. mars 2018, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá að vetri – endurskoðun",
+      "date": "2018-02-23",
+      "year": 2018,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://hagstofa.is/utgafur/nanar-um-utgafu?id=59315",
+      "description": "Þjóðhagsspá að vetri – endurskoðun (2018), höfundar: Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 23. febrúar 2018",
+      "extra_links": []
+    },
+    {
+      "title": "59 milljarða áhugaleysi á breytilegum vöxtum",
+      "date": "2018-01-18",
+      "year": 2018,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/59-milljarda-ahugaleysi/144442/",
+      "description": "59 milljarða áhugaleysi á breytilegum vöxtum (2018), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 18. janúar 2018, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Sjóðstjórinn og breyskleiki Reykjavíkur",
+      "date": "2017-12-21",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/sjodstjorinn-og-breyskleiki-reykjavikur/143842/",
+      "description": "Sjóðstjórinn og breyskleiki Reykjavíkur (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 21. desember 2017, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Rétt staða í skuldabréfum við samdrátt í útflutningi",
+      "date": "2017-12-07",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/rett-stada-i-skuldabrefum/143467/",
+      "description": "Rétt staða í skuldabréfum við samdrátt í útflutningi (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 7. desember 2017, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Útgáfa ríkisskuldabréfa 200 milljarðar næstu fjögur ár",
+      "date": "2017-11-09",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/utgafa-rikisskuldabrefa-200-milljardar/142754/",
+      "description": "Útgáfa ríkisskuldabréfa 200 milljarðar næstu fjögur ár (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 9. nóvember 2017, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá á vetri 2017",
+      "date": "2017-11-03",
+      "year": 2017,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://hagstofa.is/media/50141/hag_161104.pdf",
+      "description": "Þjóðhagsspá á vetri 2017 (2017), höfundar: Björn Ragnar Björnsson, Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 3. nóvember 2017",
+      "extra_links": []
+    },
+    {
+      "title": "Þróun skuldabréfaeigna og meðaltíma frá 2012",
+      "date": "2017-10-05",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/throun-skuldabrefaeigna-og-medaltima-fra-2012/141895/",
+      "description": "Þróun skuldabréfaeigna og meðaltíma frá 2012 (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 5. október 2017, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Þegar næsta ríkisstjórn fellur",
+      "date": "2017-09-28",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/thegar-naesta-rikisstjorn-fellur/141760/",
+      "description": "Þegar næsta ríkisstjórn fellur (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 28. september 2017, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Af hverju skuldabréf á First North",
+      "date": "2017-09-07",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/af-hverju-skuldabref-first-north/141192/",
+      "description": "Af hverju skuldabréf á First North (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 7. september 2017, bls. 19",
+      "extra_links": []
+    },
+    {
+      "title": "Af óseljanleika fyrirtækjaskuldabréfa",
+      "date": "2017-07-06",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/af-oseljanleika-fyrirtaekjaskuldabrefa/139557/",
+      "description": "Af óseljanleika fyrirtækjaskuldabréfa (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 6. júlí 2017, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá að sumri 2017",
+      "date": "2017-05-31",
+      "year": 2017,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://hagstofa.is/utgafur/nanar-um-utgafu?id=58248",
+      "description": "Þjóðhagsspá að sumri 2017 (2017), höfundar: Björn Ragnar Björnsson, Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 31. maí 2017",
+      "extra_links": []
+    },
+    {
+      "title": "Hlutabréfastöður lífeyrissjóða og erlent innflæði",
+      "date": "2017-05-04",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/hlutabrefastodur-lifeyrissjoda-og-erlent-innflaedi/137842/",
+      "description": "Hlutabréfastöður lífeyrissjóða og erlent innflæði (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 4. maí 2017, bls. 22",
+      "extra_links": []
+    },
+    {
+      "title": "Ákvörðunarlíkan peningastefnunefndar SÍ",
+      "date": "2017-04-06",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/akvordunarlikan-peningastefnunefndar-si/137271/",
+      "description": "Ákvörðunarlíkan peningastefnunefndar SÍ (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 6. apríl 2017, bls. 31",
+      "extra_links": []
+    },
+    {
+      "title": "Fjármögnun fjárfestinga sveitarfélaga",
+      "date": "2017-03-30",
+      "year": 2017,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/fjarmognun-fjarfestinga-sveitarfelaga/137077/",
+      "description": "Fjármögnun fjárfestinga sveitarfélaga (2017), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 30. mars 2017, bls. 29",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá að vetri – endurskoðun",
+      "date": "2017-02-17",
+      "year": 2017,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://hagstofa.is/utgafur/nanar-um-utgafu?id=57870",
+      "description": "Þjóðhagsspá að vetri – endurskoðun (2017), höfundar: Björn Ragnar Björnsson, Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 17. febrúar 2017",
+      "extra_links": []
+    },
+    {
+      "title": "Spágeta 5 ára verðbólguálagsins",
+      "date": "2016-12-22",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/spageta-5-ara-verdbolgualags/134265/",
+      "description": "Spágeta 5 ára verðbólguálagsins (2016), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 22. desember 2016, bls. 21",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá á vetri 2016",
+      "date": "2016-11-04",
+      "year": 2016,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://hagstofa.is/media/50141/hag_161104.pdf",
+      "description": "Þjóðhagsspá á vetri 2016 (2016), höfundar: Björn Ragnar Björnsson, Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 4. nóvember 2016",
+      "extra_links": []
+    },
+    {
+      "title": "Áhrif endurkomu Haga",
+      "date": "2016-07-14",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/ahrif-endurkomu-haga/129386/",
+      "description": "Áhrif endurkomu Haga (2016), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 14. júlí 2016, bls. 27",
+      "extra_links": []
+    },
+    {
+      "title": "Long RIKS21 Short RIKB22 with expiry in October",
+      "date": "2016-06-23",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/frettir/langur-riks21-og-stuttur-rikb22-fram-i-oktober/128773/",
+      "description": "Long RIKS21 Short RIKB22 with expiry in October (2016), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 23. júní 2016, bls. 27",
+      "extra_links": []
+    },
+    {
+      "title": "Þátttaka eiganda RIKB19 í gjaldeyrisútboði",
+      "date": "2016-06-16",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/thatttaka-eigenda-rikb19-i-gjaldeyrisutbodi/128616/",
+      "description": "Þátttaka eiganda RIKB19 í gjaldeyrisútboði (2016), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 16. júní 2016, bls. 27",
+      "extra_links": []
+    },
+    {
+      "title": "VH-hlutfall OMXI8 ekki lægra síðan árið 2012",
+      "date": "2016-06-02",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/vh-hlutfall-ekki-laegra-sidan-2012/128224/",
+      "description": "VH-hlutfall OMXI8 ekki lægra síðan árið 2012 (2016), höfundur: Brynjar Örn Ólafsson. Aðstoð og gögn frá Nasdaq Iceland. Birt í Viðskiptablaðinu 2. júní 2016, bls. 27",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá að sumri 2016",
+      "date": "2016-05-27",
+      "year": 2016,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "http://hagstofa.is/media/49851/hag_160527.pdf",
+      "description": "Þjóðhagsspá að sumri 2016 (2016), höfundar: Björn Ragnar Björnsson, Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 27. maí 2016",
+      "extra_links": []
+    },
+    {
+      "title": "Mælikvarði fyrir bólumyndun á hlutabréfamarkaði",
+      "date": "2016-04-28",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/maelikvardi-fyrir-bolumyndun-hlutabrefamarkadi/127281/",
+      "description": "Mælikvarði fyrir bólumyndun á hlutabréfamarkaði (2016), höfundur: Brynjar Örn Ólafsson. Aðstoð og gögn frá Nasdaq Iceland. Birt í Viðskiptablaðinu 28. apríl 2016, bls. 23",
+      "extra_links": []
+    },
+    {
+      "title": "II. hluti - 50% staða lífeyrissjóða í skráðum hlutabréfum",
+      "date": "2016-03-17",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/ii-hluti-50-stada-lifeyrissjoda-i-skradum-hlutabrefum/126179/",
+      "description": "II. hluti - 50% staða lífeyrissjóða í skráðum hlutabréfum (2016), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 17. mars 2016, bls. 31",
+      "extra_links": []
+    },
+    {
+      "title": "50% staða lífeyrissjóða í skráðum hlutabréfum – I. hluti",
+      "date": "2016-03-10",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/50-stada-lifeyrissjoda-i-skradum-hlutabrefum-i-hluti/125875/",
+      "description": "50% staða lífeyrissjóða í skráðum hlutabréfum – I. hluti (2016), höfundur: Brynjar Örn Ólafsson. Birt á vef Viðskiptablaðsins 10. mars 2016",
+      "extra_links": []
+    },
+    {
+      "title": "Hraðara útflæði vaxta",
+      "date": "2016-03-03",
+      "year": 2016,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/hradara-utflaedi-vaxta/125628/",
+      "description": "Hraðara útflæði vaxta (2016), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 3. mars 2016, bls. 31",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá að vetri - endurskoðun",
+      "date": "2016-02-29",
+      "year": 2016,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "http://hagstofa.is/media/49554/hag_160229.pdf",
+      "description": "Þjóðhagsspá að vetri - endurskoðun (2016), höfundar: Björn Ragnar Björnsson, Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 29. febrúar 2016",
+      "extra_links": []
+    },
+    {
+      "title": "Leitin að neikvæðri fylgni",
+      "date": "2015-12-10",
+      "year": 2015,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://vb.is/skodun/leitin-ad-neikvaedri-fylgni/123442/",
+      "description": "Leitin að neikvæðri fylgni (2015), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 10. desember 2015, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Vörusala Haga hf. og einkaneysluspár",
+      "date": "2015-11-26",
+      "year": 2015,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://vb.is/skodun/vorusala-haga-hf-og-einkaneysluspa/123182/",
+      "description": "Vörusala Haga hf. og einkaneysluspár (2015), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 26. nóvember 2015, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Þjóðhagsspá á vetri 2015",
+      "date": "2015-11-13",
+      "year": 2015,
+      "source": "Hagstofa Íslands",
+      "kind": "coauthored",
+      "topic": "Þjóðhagfræði",
+      "url": "https://hagstofa.is/utgafur/nanar-um-utgafu?id=55330",
+      "description": "Þjóðhagsspá á vetri 2015 (2015), höfundar: Björn Ragnar Björnsson, Brynjar Örn Ólafsson og Marinó Melsteð. Hagtíðindi Hagstofu Íslands, dags. 13. nóvember 2015",
+      "extra_links": []
+    },
+    {
+      "title": "Icelandair Group fram yfir Kaupþing banka",
+      "date": "2015-09-03",
+      "year": 2015,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://vb.is/skodun/120563/",
+      "description": "Icelandair Group fram yfir Kaupþing banka (2015), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 3. september 2015, bls. 26. Frétt",
+      "extra_links": [
+        {
+          "title": "Frétt",
+          "url": "http://vb.is/frettir/120564/"
+        }
+      ]
+    },
+    {
+      "title": "Viðtal við Spegilinn um vaxtamunarviðskipti",
+      "date": "2015-07-30",
+      "year": 2015,
+      "source": "RÚV",
+      "kind": "interview",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://ruv.is/sarpurinn/ras-1/spegillinn/20150730",
+      "description": "Viðtal sem hófst um 20. mínútu, skv. heimildaskrá",
+      "extra_links": []
+    },
+    {
+      "title": "Vaxtamunarviðskipti á lengri endanum",
+      "date": "2015-07-16",
+      "year": 2015,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/119009/",
+      "description": "Vaxtamunarviðskipti á lengri endanum (2015), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 16. júlí 2015. Frétt Umfjöllun um grein í Speglinum",
+      "extra_links": [
+        {
+          "title": "Frétt",
+          "url": "http://www.vb.is/frettir/119012/"
+        },
+        {
+          "title": "Umfjöllun um grein í Speglinum",
+          "url": "http://ruv.is/frett/vaxtamunarvidskipti-enn-a-ny"
+        }
+      ]
+    },
+    {
+      "title": "Rök fyrir kaupum lífeyrissjóðanna í RB 31",
+      "date": "2015-07-02",
+      "year": 2015,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/118680/",
+      "description": "Rök fyrir kaupum lífeyrissjóðanna í RB 31 (2015), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 2. júlí 2015, bls. 26",
+      "extra_links": []
+    },
+    {
+      "title": "Ónýtt verðbréfalán",
+      "date": "2014-10-23",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/onytt-verdbrefalan/110929/",
+      "description": "Ónýtt verðbréfalán (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 23. október 2014, bls. 32",
+      "extra_links": []
+    },
+    {
+      "title": "Af Monte Carlo hermunum",
+      "date": "2014-10-16",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/af-monte-carlo-hermunum/110551/",
+      "description": "Af Monte Carlo hermunum (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 16. október 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "LSS á áætlun þrátt fyrir hækkandi fjármögnunarkostnað",
+      "date": "2014-10-09",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/lss-aaetlun-thratt-fyrir-haekkandi-fjarmognunarkostnad/110410/",
+      "description": "LSS á áætlun þrátt fyrir hækkandi fjármögnunarkostnað (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 9. október 2014, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Þekkt hámarkstap í valréttum",
+      "date": "2014-10-02",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/thekkt-hamarkstap-i-valrettum/110097/",
+      "description": "Þekkt hámarkstap í valréttum (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 2. október 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Ákvörðun tilboðs í ríkisbréfaútboð",
+      "date": "2014-08-14",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/akvordun-tilbods-i-rikisbrefautbod/108477/",
+      "description": "Ákvörðun tilboðs í ríkisbréfaútboð (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 14. ágúst 2014, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Erlendir aðilar notast við verðbólguspár",
+      "date": "2014-07-17",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "http://www.vb.is/skodun/erlendir-adilar-notast-vid-verdbolguspar/107952/",
+      "description": "Erlendir aðilar notast við verðbólguspár (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 17. júlí 2014, bls. 24",
+      "extra_links": []
+    },
+    {
+      "title": "Vandinn við bestu framkvæmd eignastýringar",
+      "date": "2014-07-10",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Regluverk og markaðir",
+      "url": "http://www.vb.is/skodun/vandinn-vid-bestu-framkvaemd-eignastyringar/107471/",
+      "description": "Vandinn við bestu framkvæmd eignastýringar (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 10. júlí 2014, bls. 24",
+      "extra_links": []
+    },
+    {
+      "title": "Flökt OMXIGI í fríinu",
+      "date": "2014-06-19",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/flokt-heildarvisitolu-i-sumarfriinu/106745/",
+      "description": "Flökt OMXIGI í fríinu (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 19. júní 2014, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Samlíking framboðs Avens og ESÍ",
+      "date": "2014-06-12",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/samliking-frambods-avens-og-esi/106493/",
+      "description": "Samlíking framboðs Avens og ESÍ (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 12. júní 2014, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Falin skilyrt tilboð",
+      "date": "2014-06-05",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/falin-skilyrt-tilbod/106235/",
+      "description": "Falin skilyrt tilboð (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 5. júní 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Greiðslugeta Farice ehf",
+      "date": "2014-05-28",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/greidslugeta-farice-ehf/105951/",
+      "description": "Greiðslugeta Farice ehf. (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 28. maí 2014, bls. 28. Frétt",
+      "extra_links": [
+        {
+          "title": "Frétt",
+          "url": "http://www.vb.is/frettir/105981/"
+        }
+      ]
+    },
+    {
+      "title": "Hafnarfjörður skráir 5,5 milljarða skuldabréfaflokk",
+      "date": "2014-05-22",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/hafnarfjordur-skrair-55-milljarda-skuldabrefaflokk/105614/",
+      "description": "Hafnarfjörður skráir 5,5 milljarða skuldabréfaflokk (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 22. maí 2014, bls. 28. Frétt",
+      "extra_links": [
+        {
+          "title": "Frétt",
+          "url": "http://www.vb.is/frettir/105617/"
+        }
+      ]
+    },
+    {
+      "title": "Munaðarlaus RIKS 15 1001",
+      "date": "2014-05-15",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/munadarlaus-riks-15-1001/105415/",
+      "description": "Munaðarlaus RIKS 15 1001 (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 15. maí 2014, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Skuldahlutfall og útboð sveitarfélaga",
+      "date": "2014-04-30",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/skuldahlutfall-og-utbod-sveitarfelaga/104959/",
+      "description": "Skuldahlutfall og útboð sveitarfélaga (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 30. apríl 2014, bls. 26",
+      "extra_links": []
+    },
+    {
+      "title": "Aftur í verðtryggt eftir hlé",
+      "date": "2014-04-24",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/aftur-i-verdtryggt-eftir-hle/104956/",
+      "description": "Aftur í verðtryggt eftir hlé (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 24. apríl 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Vöntun á vaxtarfyrirtækjum á markaði",
+      "date": "2014-04-16",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/vontun-vaxtarfyrirtaekjum-markadi/104519/",
+      "description": "Vöntun á vaxtarfyrirtækjum á markaði (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 16. apríl 2014, bls. 30. Frétt",
+      "extra_links": [
+        {
+          "title": "Frétt",
+          "url": "http://www.vb.is/frettir/105617/"
+        }
+      ]
+    },
+    {
+      "title": "Íbúðabréf: merki og suð",
+      "date": "2014-04-10",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/ibudabref-merki-og-sud/104333/",
+      "description": "Íbúðabréf: merki og suð (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 10. apríl 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Fjárfestingar miðað við verðbólguspár",
+      "date": "2014-04-03",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Þjóðhagfræði",
+      "url": "http://www.vb.is/skodun/fjarfestingar-midad-vid-verdbolguspar/104018/",
+      "description": "Fjárfestingar miðað við verðbólguspár (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 3. apríl 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Greiðslugeta Eikar eftir kaup á Landfestum og SMI",
+      "date": "2014-03-20",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/greidslugeta-eikar-eftir-kaup-landfestum-og-smi/103603/",
+      "description": "Greiðslugeta Eikar eftir kaup á Landfestum og SMI (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 20. mars 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Eik fasteignafélag",
+      "date": "2014-03-13",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/eik-fasteignafelag/103183/",
+      "description": "Eik fasteignafélag (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 13. mars 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Mismunandi álag á fyrirtækjaskuldabréf",
+      "date": "2014-02-20",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/alag-fyrirtaekjaskuldabref/102652/",
+      "description": "Mismunandi álag á fyrirtækjaskuldabréf (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 20. febrúar 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Lágt verðbólguálag",
+      "date": "2014-02-13",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/lagt-verdbolgualag/102070/",
+      "description": "Lágt verðbólguálag (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 13. febrúar 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Greiningartólið KODIAK Excel",
+      "date": "2014-02-13",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "coauthored",
+      "topic": "Annað",
+      "url": "https://notendur.hi.is/~boo4/VB_13022014\\(1).pdf",
+      "description": "Greiningartólið KODIAK Excel (2014), höfundar: Örn Þórðarson og Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 13. febrúar 2014, bls. 21",
+      "extra_links": []
+    },
+    {
+      "title": "Erlendir aðilar bíða áfram með vextina",
+      "date": "2014-02-06",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/erlendir-adilar-bida-afram-med-vextina/101730/",
+      "description": "Erlendir aðilar bíða áfram með vextina (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 6. febrúar 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Hátt áhættuálag óverðtryggðra sértryggðra bréfa",
+      "date": "2014-01-30",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/hatt-ahaettualag-overdtryggdra-sertryggdra-brefa/101454/",
+      "description": "Hátt áhættuálag óverðtryggðra sértryggðra bréfa (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 30. janúar 2014, bls. 28",
+      "extra_links": []
+    },
+    {
+      "title": "Erlendir aðilar brothættir",
+      "date": "2014-01-23",
+      "year": 2014,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/erlendir-adilar-brothaettir/101455/",
+      "description": "Erlendir aðilar brothættir (2014), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 23. janúar 2014, bls. 30",
+      "extra_links": []
+    },
+    {
+      "title": "Hraðar tilboðabreytingar",
+      "date": null,
+      "year": 2014,
+      "source": "Háskóli Íslands",
+      "kind": "authored",
+      "topic": "Regluverk og markaðir",
+      "url": "https://notendur.hi.is/~boo4/20141030_Tilbodabreyting.pdf",
+      "description": "Hraðar tilboðabreytingar (2014), höfundur: Brynjar Örn Ólafsson. Birt á www.hi.is/~boo4",
+      "extra_links": []
+    },
+    {
+      "title": "Útlendingar að þrýsta niður verðtryggðu kröfunni?",
+      "date": "2013-07-31",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://notendur.hi.is/~boo4/FI_Flaedi_20130731.pdf",
+      "description": "Útlendingar að þrýsta niður verðtryggðu kröfunni? (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 31. júlí 2013",
+      "extra_links": []
+    },
+    {
+      "title": "0,3% verðhjöðnun í júlí – bólga framundan",
+      "date": "2013-07-24",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Annað",
+      "url": null,
+      "description": "0,3% verðhjöðnun í júlí – bólga framundan (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 24. júlí 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Hvert leitar höfuðstóll RIKB 13 í maí?",
+      "date": "2013-05-02",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://notendur.hi.is/~boo4/Hvert_fer_RIKB13%2020130502.pdf",
+      "description": "Hvert leitar höfuðstóll RIKB 13 í maí? (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 2. maí 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Stýrivaxtaspá og verðlag hækkaði um 0,2% í apríl",
+      "date": "2013-04-29",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Skuldabréf og vextir",
+      "url": null,
+      "description": "Stýrivaxtaspá og verðlag hækkaði um 0,2% í apríl (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 29. apríl 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Enn óvissa í kringum Íbúðalánasjóð",
+      "date": "2013-04-19",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Annað",
+      "url": "https://notendur.hi.is/~boo4/ovissan_um_ILS_20130419.pdf",
+      "description": "Enn óvissa í kringum Íbúðalánasjóð (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 19. apríl 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Spáum engri verðbólgu í apríl",
+      "date": "2013-04-15",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Þjóðhagfræði",
+      "url": null,
+      "description": "Spáum engri verðbólgu í apríl (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 15. apríl 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Verðlag hækkaði um 0,2% í mars",
+      "date": "2013-03-26",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Þjóðhagfræði",
+      "url": null,
+      "description": "Verðlag hækkaði um 0,2% í mars (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 26. mars 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Engin óvænt tíðindi: Vextir óbreyttir",
+      "date": "2013-03-20",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Skuldabréf og vextir",
+      "url": null,
+      "description": "Engin óvænt tíðindi: Vextir óbreyttir (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 20. mars 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Spáum óbreyttum stýrivöxtum og 0,8% verðbólgu í mars",
+      "date": "2013-03-18",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Þjóðhagfræði",
+      "url": null,
+      "description": "Spáum óbreyttum stýrivöxtum og 0,8% verðbólgu í mars (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 18. mars 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Skrautlegur dagur á skuldabréfamarkaði",
+      "date": "2013-03-14",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Skuldabréf og vextir",
+      "url": null,
+      "description": "Skrautlegur dagur á skuldabréfamarkaði (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 14. mars 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Hagvöxturinn 2012: Vonbrigði",
+      "date": "2013-03-08",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Annað",
+      "url": null,
+      "description": "Hagvöxturinn 2012: Vonbrigði (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 8. mars 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Verðlag hækkaði um 1,6% í febrúar",
+      "date": "2013-02-27",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Þjóðhagfræði",
+      "url": null,
+      "description": "Verðlag hækkaði um 1,6% í febrúar (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 27. febrúar 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Óvissan í kringum Íbúðalánasjóð",
+      "date": "2013-02-22",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Annað",
+      "url": null,
+      "description": "Óvissan í kringum Íbúðalánasjóð (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 22. febrúar 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Spáum 1% verðbólgu í febrúar",
+      "date": "2013-02-20",
+      "year": 2013,
+      "source": "Arion banki",
+      "kind": "team",
+      "topic": "Þjóðhagfræði",
+      "url": null,
+      "description": "Spáum 1% verðbólgu í febrúar (2013), greiningardeild Arion banka. Birt á heimasíðu Arion banka 20. febrúar 2013",
+      "extra_links": []
+    },
+    {
+      "title": "Varnir skuldara",
+      "date": "2012-11-29",
+      "year": 2012,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "http://www.vb.is/skodun/varnir-skuldara/78829/",
+      "description": "Varnir skuldara (2012), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 29. nóvember 2012, bls. 23",
+      "extra_links": []
+    },
+    {
+      "title": "Íslenskur verðbréfalánamarkaður: ávöxtun á ávöxtun",
+      "date": "2012-09-06",
+      "year": 2012,
+      "source": "Nasdaq Iceland",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": null,
+      "description": "Íslenskur verðbréfalánamarkaður: ávöxtun á ávöxtun (2012), höfundur: Brynjar Örn Ólafsson. Birt á tumblr-síðu Nasdaq OMX Iceland 6. september 2012",
+      "extra_links": []
+    },
+    {
+      "title": "Fjárfestingarheimildir lífeyrissjóða",
+      "date": "2012-07-19",
+      "year": 2012,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/fjarfestingarheimildir-lifeyrissjoda/74799/",
+      "description": "Fjárfestingarheimildir lífeyrissjóða (2012), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 19. júlí 2012, bls. 15",
+      "extra_links": []
+    },
+    {
+      "title": "Réttur fjárfesta",
+      "date": "2012-05-31",
+      "year": 2012,
+      "source": "Nasdaq Iceland",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": null,
+      "description": "Réttur fjárfesta (2012), höfundur: Brynjar Örn Ólafsson. Birt á tumblr-síðu Nasdaq OMX Iceland 31. maí 2012",
+      "extra_links": []
+    },
+    {
+      "title": "Besta tímasetning skráningar í kauphöll",
+      "date": "2012-03-01",
+      "year": 2012,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.vb.is/skodun/besta-timasetning-skraningar-i-kaupholl/70500/",
+      "description": "Besta tímasetning skráningar í kauphöll (2012), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 1. mars 2012, bls. 23",
+      "extra_links": []
+    },
+    {
+      "title": "Fyrstu viðbrögð við birtingu vísitölu neysluverðs",
+      "date": "2012-02-09",
+      "year": 2012,
+      "source": "Viðskiptablaðið",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://www.vb.is/skodun/fyrstu-vidbrogd-vid-birtingu-visitolu-neysluverds/69891/",
+      "description": "Fyrstu viðbrögð við birtingu vísitölu neysluverðs (2012), höfundur: Brynjar Örn Ólafsson. Birt í Viðskiptablaðinu 9. febrúar 2012, bls. 23. Frétt",
+      "extra_links": [
+        {
+          "title": "Frétt",
+          "url": "http://www.vb.is/frettir/fyrstu-sekundur-markadi-skipta-fjarfesta-mali/69894/"
+        }
+      ]
+    },
+    {
+      "title": "Verðmæti íslenskra stangaveiðisvæða",
+      "date": null,
+      "year": 2009,
+      "source": "Háskóli Íslands",
+      "kind": "authored",
+      "topic": "Annað",
+      "url": "http://skemman.is/handle/1946/3532",
+      "description": "Verðmæti íslenskra stangaveiðisvæða (2009), höfundur: Brynjar Örn Ólafsson. Lokaritgerð við framhaldsnám í hagfræði (M.Sc.). Leiðbeinandi: Dr. Þórólfur Matthíasson",
+      "extra_links": []
+    },
+    {
+      "title": "Tilmæli Kauphallarinnar varðandi réttinda- og réttindaleysisdag skuldabréfa",
+      "date": "2008-08-27",
+      "year": 2008,
+      "source": "Kauphöll Íslands",
+      "kind": "coauthored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.nasdaqomx.com/digitalAssets/69/69931_tilm__li_r__ttindadagar_20100811_uppf__r__.pdf",
+      "description": "Tilmæli Kauphallarinnar varðandi réttinda- og réttindaleysisdag skuldabréfa (2008), höfundar: Brynjar Örn Ólafsson og Dr. Magnús Harðarson. Útgefið af Kauphöll Íslands 27. ágúst 2008",
+      "extra_links": []
+    },
+    {
+      "title": "Tilmæli Kauphallarinnar varðandi aðferð við útreikning dagvísitalna neysluverðs og lánskjara",
+      "date": "2007-05-31",
+      "year": 2007,
+      "source": "Kauphöll Íslands",
+      "kind": "coauthored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.nasdaqomx.com/digitalAssets/85/85986_26845_skuldabrefatilmaeli4.pdf",
+      "description": "Tilmæli Kauphallarinnar varðandi aðferð við útreikning dagvísitalna neysluverðs og lánskjara (2007), höfundar: Brynjar Örn Ólafsson og Dr. Magnús Harðarson. Útgefið af Kauphöll Íslands 31. maí 2007",
+      "extra_links": []
+    },
+    {
+      "title": "Tilmæli Kauphallarinnar varðandi vaxtareglu víxla",
+      "date": "2007-04-10",
+      "year": 2007,
+      "source": "Kauphöll Íslands",
+      "kind": "coauthored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.nasdaqomx.com/digitalAssets/59/59923_Tilmaeli_Kauphallarinnar_vardandi_vaxtareglu_vixla.pdf",
+      "description": "Tilmæli Kauphallarinnar varðandi vaxtareglu víxla (2007), höfundar: Brynjar Örn Ólafsson og Dr. Magnús Harðarson. Útgefið af Kauphöll Íslands 10. apríl 2007",
+      "extra_links": []
+    },
+    {
+      "title": "Alþjóðleg ávöxtun skuldabréfa árið 2006",
+      "date": "2007-01-31",
+      "year": 2007,
+      "source": "Kauphöll Íslands",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://notendur.hi.is/~boo4/KTislenska.pdf",
+      "description": "Alþjóðleg ávöxtun skuldabréfa árið 2006 (2007), höfundur: Brynjar Örn Ólafsson. Birt í Kauphallartíðindum 31. janúar 2007",
+      "extra_links": []
+    },
+    {
+      "title": "287 milljarða útrás á árinu 2006",
+      "date": "2007-01-30",
+      "year": 2007,
+      "source": "Kauphöll Íslands",
+      "kind": "coauthored",
+      "topic": "Annað",
+      "url": "https://notendur.hi.is/~boo4/KT_utras2006.pdf",
+      "description": "287 milljarða útrás á árinu 2006 (2007), höfundar: Brynjar Örn Ólafsson og Dr. Magnús Harðarson. Birt í Kauphallartíðindum 30. janúar 2007",
+      "extra_links": []
+    },
+    {
+      "title": "Tilmæli Kauphallarinnar varðandi fjölda aukastafa í dagvísitölu og afleiddu uppgjörsverði",
+      "date": "2007-01-09",
+      "year": 2007,
+      "source": "Kauphöll Íslands",
+      "kind": "coauthored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.nasdaqomx.com/digitalAssets/88/88677_tilm--li_ver--b--tastu--ull.pdf",
+      "description": "Tilmæli Kauphallarinnar varðandi fjölda aukastafa í dagvísitölu og afleiddu uppgjörsverði (2007), höfundar: Brynjar Örn Ólafsson og Dr. Magnús Harðarson. Útgefið af Kauphöll Íslands 9. janúar 2007",
+      "extra_links": []
+    },
+    {
+      "title": "Dagatalningaraðferð skuldabréfa og víxla",
+      "date": "2006-09-19",
+      "year": 2006,
+      "source": "Kauphöll Íslands",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://notendur.hi.is/~boo4/Dagatalningara-fer-ir.pdf",
+      "description": "Dagatalningaraðferð skuldabréfa og víxla (2006), höfundur: Brynjar Örn Ólafsson. Birt í Kauphallartíðindum. 19. september 2006",
+      "extra_links": []
+    },
+    {
+      "title": "Þriggja mánaða óverðtryggða skuldabréfavísitalan endurvakin",
+      "date": "2006-09-08",
+      "year": 2006,
+      "source": "Kauphöll Íslands",
+      "kind": "coauthored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://notendur.hi.is/~boo4/3M-NI_isl.pdf",
+      "description": "Þriggja mánaða óverðtryggða skuldabréfavísitalan endurvakin (2006), höfundar: Brynjar Örn Ólafsson og Dr. Magnús Harðarson. Birt í Kauphallartíðindum. 8. september 2006",
+      "extra_links": []
+    },
+    {
+      "title": "Gengisþróun skipti sköpum á skuldabréfamarkaði á árinu 2005",
+      "date": "2006-02-07",
+      "year": 2006,
+      "source": "Kauphöll Íslands",
+      "kind": "authored",
+      "topic": "Skuldabréf og vextir",
+      "url": "https://notendur.hi.is/~boo4/isl_utgafa_feb06.pdf",
+      "description": "Gengisþróun skipti sköpum á skuldabréfamarkaði á árinu 2005 (2006), höfundur: Brynjar Örn Ólafsson. Birt í Kauphallartíðindum. 7. febrúar 2006",
+      "extra_links": []
+    },
+    {
+      "title": "Samanburður á af- og nýskráningum hjá NOREX kauphöllunum",
+      "date": "2005-07-25",
+      "year": 2005,
+      "source": "Kauphöll Íslands",
+      "kind": "coauthored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": null,
+      "description": "Samanburður á af- og nýskráningum hjá NOREX kauphöllunum (2005), höfundar: Brynjar Örn Ólafsson og Dr. Magnús Harðarson. Birt í Kauphallartíðindum. 25. júlí 2005",
+      "extra_links": []
+    },
+    {
+      "title": "Eftirlit Kauphallar Íslands og áhrif stöðvana á viðskiptum á viðskiptamagn og seljanleika skráðra hlutabréfa",
+      "date": null,
+      "year": 2005,
+      "source": "Háskóli Íslands",
+      "kind": "authored",
+      "topic": "Regluverk og markaðir",
+      "url": null,
+      "description": "Eftirlit Kauphallar Íslands og áhrif stöðvana á viðskiptum á viðskiptamagn og seljanleika skráðra hlutabréfa (2005), höfundur: Brynjar Örn Ólafsson. Lokaritgerð við grunnnám í hagfræði (B.Sc. econ.). Leiðbeinandi: Dr. Gylfi Magnússon. Læst vegna trúnaðar",
+      "extra_links": []
+    },
+    {
+      "title": "Mikilvægi Kauphallar Íslands",
+      "date": "2004-06-20",
+      "year": 2004,
+      "source": "Morgunblaðið",
+      "kind": "authored",
+      "topic": "Hlutabréf og eignaverð",
+      "url": "http://www.mbl.is/greinasafn/grein/804633/",
+      "description": "Mikilvægi Kauphallar Íslands (2004), höfundur: Brynjar Örn Ólafsson. Birt í Morgunblaðinu 20. júní 2004",
+      "extra_links": []
+    }
+  ]
+}

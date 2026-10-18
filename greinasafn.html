@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/png" href="favicon.png">
+<title>Greinasafn | Iceland Market Monitor</title>
+<style>
+:root { --navy:#071d3b; --blue:#175fbd; --bg:#f4f6f8; --card:#fff; --border:#dfe4ea; --text:#172033; --muted:#697583; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Arial,Helvetica,sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+a { color:inherit; }
+header { background:#000; color:#fff; border-bottom:1px solid #222; }
+.header-inner { max-width:1540px; margin:auto; padding:25px 28px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.brand { font-size:16px; font-weight:700; letter-spacing:.2px; text-decoration:none; }
+.header-links { display:flex; align-items:center; gap:22px; }
+.header-links a { font-size:12px; color:#d7dce2; text-decoration:none; }
+.header-links a:hover { color:#fff; text-decoration:underline; }
+main { max-width:1230px; margin:0 auto; padding:36px 28px 65px; }
+.intro { border-left:3px solid var(--navy); padding:4px 0 6px 18px; margin-bottom:23px; }
+.eyebrow { font-size:10px; color:var(--muted); font-weight:700; letter-spacing:.9px; text-transform:uppercase; }
+h1 { font-size:29px; margin:7px 0 8px; color:var(--navy); }
+.intro p { margin:0; color:#475461; max-width:830px; font-size:13px; }
+.filters { display:grid; grid-template-columns:minmax(230px,2fr) repeat(3,minmax(140px,1fr)); gap:10px; padding:16px; background:#fff; border:1px solid var(--border); border-radius:8px; }
+.filter { display:flex; flex-direction:column; gap:6px; }
+.filter label { font-size:10px; font-weight:700; color:#576472; }
+.filter input, .filter select { font:inherit; font-size:12px; border-radius:5px; border:1px solid #cfd7df; background:white; width:100%; padding:9px 11px; height:38px; color:var(--text); }
+.filter input:focus-visible, .filter select:focus-visible { outline:2px solid #7d9fc9; outline-offset:1px; }
+.result-count { font-size:11px; color:var(--muted); padding:13px 1px 18px; }
+.year-group { margin-bottom:18px; background:white; border:1px solid var(--border); border-radius:8px; overflow:hidden; }
+.year-title { font-size:17px; font-weight:700; margin:0; padding:14px 18px; background:#f8fafb; border-bottom:1px solid var(--border); color:var(--navy); }
+.archive-entry { display:flex; gap:16px; justify-content:space-between; align-items:flex-start; padding:13px 18px; border-bottom:1px solid #edf0f2; }
+.archive-entry:last-child { border-bottom:none; }
+.entry-main { min-width:0; }
+.entry-title { margin:0 0 5px; font-size:13px; line-height:1.4; font-weight:700; }
+.entry-title a { color:var(--navy); text-decoration:none; }
+.entry-title a:hover { color:#365f8e; text-decoration:underline; }
+.entry-title.no-link { color:#475461; }
+.entry-meta { font-size:10px; color:var(--muted); line-height:1.6; }
+.entry-badge { display:inline-block; font-size:9px; color:#345d8e; background:#eef4fb; padding:4px 7px; border-radius:4px; white-space:nowrap; }
+.entry-badge.coverage { color:#6e5151; background:#f7eeee; }
+.extra-links { font-size:10px; margin-top:4px; display:flex; flex-wrap:wrap; gap:12px; }
+.extra-links a { color:#365f8e; }
+.footnote { font-size:10px; color:#697583; margin-top:23px; line-height:1.65; }
+.empty { background:white; padding:20px; border:1px solid var(--border); border-radius:6px; font-size:12px; }
+footer { background:#000; color:#b6bec7; padding:28px; font-size:10px; }
+.footer-inner { max-width:1230px; margin:auto; }
+@media(max-width:800px) { .filters { grid-template-columns:1fr 1fr; } .filter:first-child { grid-column:span 2; } }
+@media(max-width:520px) { .header-inner { padding:18px 14px; } .brand { font-size:12px; } main { padding:26px 14px 45px; } .filters { grid-template-columns:1fr; } .filter:first-child { grid-column:span 1; } .archive-entry { padding:11px 12px; gap:8px; } .entry-badge { white-space:normal; max-width:105px; text-align:center; } h1 { font-size:25px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a class="brand" href="index.html">ICELAND MARKET MONITOR</a>
+    <nav class="header-links" aria-label="Aðalvalmynd">
+      <a href="index.html">Yfirlit</a>
+      <a href="greinasafn.html" aria-current="page">Greinasafn</a>
+    </nav>
+  </div>
+</header>
+<main>
+  <section class="intro">
+    <div class="eyebrow">Skrif og rannsóknir</div>
+    <h1>Greinasafn</h1>
+    <p>Greinar, greiningar og rannsóknir frá árinu 2004, ásamt umfjöllun annarra fjölmiðla sem vísar í CAPE-gögn. Höfundur og uppruni hvers verks eru sérstaklega tilgreind.</p>
+  </section>
+  <section class="filters" aria-label="Sía greinasafn">
+    <div class="filter"><label for="search">Leita í greinasafni</label><input id="search" type="search" placeholder="Titill, miðill eða efni…" autocomplete="off"></div>
+    <div class="filter"><label for="year">Útgáfuár</label><select id="year"><option value="">Öll ár</option></select></div>
+    <div class="filter"><label for="topic">Efnisflokkur</label><select id="topic"><option value="">Allir flokkar</option></select></div>
+    <div class="filter"><label for="kind">Tegund</label><select id="kind"><option value="">Allar tegundir</option><option value="authored">Eigin greinar</option><option value="coauthored">Samhöfundur</option><option value="team">Greiningardeild</option><option value="coverage">Fjallað um CAPE-gögn</option><option value="interview">Viðtal</option></select></div>
+  </section>
+  <div class="result-count" id="resultCount" role="status">Sæki greinasafn…</div>
+  <div id="archiveList"><p class="empty">Greinasafnið hleðst inn.</p></div>
+  <p class="footnote">Greinasafnið byggist á útgáfulista og opinberum vefslóðum. Eldri tenglar kunna að hafa breyst og sum rit eru aðeins skráð með bókfræðilegri tilvísun. Umfjöllun annars fjölmiðils er skráð sérstaklega og ekki eignuð höfundi CAPE-gagnanna.</p>
+</main>
+<footer><div class="footer-inner">Iceland Market Monitor · © 2026 Brynjar Örn Ólafsson · <a href="index.html">Til baka á yfirlit</a></div></footer>
+<script>
+(async function() {
+  const $ = id => document.getElementById(id);
+  const container = $('archiveList');
+  const filters = ['search','year','topic','kind'].map($);
+  const labels = {authored:'Eigin grein',coauthored:'Samhöfundur',team:'Greiningardeild',coverage:'Fjallað um CAPE-gögn',interview:'Viðtal'};
+  const dateLabel = date => {
+    if (!date) return null;
+    const [year,month,day] = date.split('-').map(Number);
+    const months=['janúar','febrúar','mars','apríl','maí','júní','júlí','ágúst','september','október','nóvember','desember'];
+    return `${day}. ${months[month-1]} ${year}`;
+  };
+  function make(tag, cls, content) {
+    const el = document.createElement(tag);
+    if (cls) el.className = cls;
+    if (content != null) el.textContent = String(content);
+    return el;
+  }
+  function validUrl(url) { return typeof url === 'string' && /^https?:\/\//i.test(url); }
+  function cleanSearch(str) { return String(str||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('is'); }
+  try {
+    const response = await fetch('articles.json', {cache:'no-store'});
+    if (!response.ok) throw new Error('HTTP ' + response.status);
+    const payload = await response.json();
+    const data = Array.isArray(payload.articles) ? payload.articles.filter(a=>a && a.title && a.year) : [];
+    if (!data.length) throw new Error('Engar færslur í gagnaskrá');
+    const years = [...new Set(data.map(a=>a.year))].sort((a,b)=>b-a);
+    const topics = [...new Set(data.map(a=>a.topic).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'is'));
+    years.forEach(y => $('year').append(new Option(y,y)));
+    topics.forEach(t => $('topic').append(new Option(t,t)));
+    function render() {
+      const q = cleanSearch($('search').value.trim());
+      const y = $('year').value;
+      const t = $('topic').value;
+      const k = $('kind').value;
+      const items = data.filter(a =>
+        (!y || String(a.year)===y) && (!t || a.topic===t) && (!k || a.kind===k) &&
+        (!q || cleanSearch([a.title,a.source,a.topic,a.description].join(' ')).includes(q))
+      ).sort((a,b)=>(b.date||b.year+'-01-01').localeCompare(a.date||a.year+'-01-01'));
+      $('resultCount').textContent = items.length + ' af ' + data.length + ' færslum';
+      const fragment=document.createDocumentFragment();
+      const groups = new Map();
+      for (const item of items) {
+        if (!groups.has(item.year)) groups.set(item.year,[]);
+        groups.get(item.year).push(item);
+      }
+      for (const [year, group] of groups) {
+        const section=make('section','year-group');
+        section.append(make('h2','year-title',year+' · '+group.length));
+        for (const item of group) {
+          const row=make('article','archive-entry');
+          const main=make('div','entry-main');
+          const heading=make('h3','entry-title');
+          if (validUrl(item.url)) {
+            const link=make('a',null,item.title);link.href=item.url;link.target='_blank';link.rel='noopener noreferrer';heading.append(link);
+          } else { heading.classList.add('no-link');heading.textContent=item.title; }
+          main.append(heading);
+          const meta=make('div','entry-meta',(item.source||'Ótilgreint')+' · '+(dateLabel(item.date)||item.year)+(item.url ? '' : ' · Enginn staðfestur vefhlekkur'));
+          main.append(meta);
+          if (Array.isArray(item.extra_links)&&item.extra_links.length) {
+            const extras=make('div','extra-links');
+            for (const x of item.extra_links) {
+              if (!validUrl(x.url)) continue;
+              const a=make('a',null,x.title);a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';extras.append(a);
+            }
+            if (extras.childElementCount) main.append(extras);
+          }
+          const kind=make('span','entry-badge'+(item.kind==='coverage'?' coverage':''),labels[item.kind]||'Skrif');
+          row.append(main,kind);section.append(row);
+        }
+        fragment.append(section);
+      }
+      if (!groups.size) fragment.append(make('p','empty','Engar færslur passa við valdar síur.'));
+      container.replaceChildren(fragment);
+    }
+    filters.forEach(f=>f.addEventListener(f.id==='search'?'input':'change',render));
+    render();
+  } catch(e) {
+    $('resultCount').textContent='Greinasafn ekki tiltækt';
+    container.replaceChildren(make('p','empty','Ekki tókst að sækja greinasafnið. Prófaðu að endurhlaða síðuna.'));
+    console.error(e);
+  }
+})();
+</script>
+</body>
+</html>
