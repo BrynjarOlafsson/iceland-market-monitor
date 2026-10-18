@@ -1,0 +1,41 @@
+name: Update Iceland CPI inflation
+
+on:
+  workflow_dispatch:
+  # Once the manual test succeeds, enable automatic daily checks by removing '#':
+  # schedule:
+  #   - cron: '17 10 * * *'   # 10:17 UTC daily
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-market-cpi
+  cancel-in-progress: false
+
+jobs:
+  update-inflation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch annual CPI inflation from Statistics Iceland
+        run: python update_inflation.py --csv market_data.csv
+      - name: Commit CSV only if changed
+        shell: bash
+        run: |
+          if git diff --quiet -- market_data.csv; then
+            echo "Inflation series already up to date; nothing to commit."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add market_data.csv
+          git commit -m 'Update annual CPI inflation from Statistics Iceland'
+          git push
