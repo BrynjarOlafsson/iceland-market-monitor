@@ -3,8 +3,8 @@ name: Update Iceland CPI inflation
 on:
   workflow_dispatch:
   # Once the manual test succeeds, enable automatic daily checks by removing '#':
-  # schedule:
-  #   - cron: '17 10 * * *'   # 10:17 UTC daily
+  schedule:
+    - cron: '17 10 * * *'   # 10:17 UTC daily
 
 permissions:
   contents: write
