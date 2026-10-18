@@ -2005,7 +2005,7 @@ function renderRatesHistoryChart(rows) {
     const svg = document.getElementById('ratesHistoryChart');
     if (!svg) return null;
     const ns = 'http://www.w3.org/2000/svg';
-    const startMonth = '2018-01';
+    const startMonth = '2015-12';
     const validMonths = /^\d{4}-(0[1-9]|1[0-2])$/;
     const history = rows.filter(row => row.month >= startMonth && validMonths.test(row.month) &&
         ((Number.isFinite(row.cape) && row.cape > 0) ||
