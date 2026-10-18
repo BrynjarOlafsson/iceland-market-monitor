@@ -1040,13 +1040,6 @@ footer {
     text-decoration: none;
 }
 .analysis-archive-row a:hover { text-decoration: underline; }
-.analysis-type {
-    display: inline-block;
-    color: #697583;
-    font-weight: 700;
-    font-size: 9px;
-    margin-bottom: 6px;
-}
 
 </style>
 </head>
@@ -2587,9 +2580,6 @@ loadCapeDataFromCsv();
             const meta = document.createElement('div');
             meta.className = 'analysis-meta';
             meta.textContent = item.source + ' · ' + dateLabel(item.date);
-            const type = document.createElement('div');
-            type.className = 'analysis-type';
-            type.textContent = item.kind === 'coverage' ? 'Fjallað um CAPE-gögn' : 'Grein eftir Brynjar Örn Ólafsson';
             const title = document.createElement('h3');
             title.textContent = item.title;
             const description = document.createElement('p');
@@ -2604,7 +2594,7 @@ loadCapeDataFromCsv();
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
             link.textContent = item.kind === 'coverage' ? 'Lesa umfjöllun →' : 'Lesa grein →';
-            article.append(meta,type,title,description,link);
+            article.append(meta,title,description,link);
             fragment.append(article);
         }
         grid.replaceChildren(fragment);
