@@ -10,6 +10,7 @@ Keep the hand-curated archive intact. No commercial search API key required.
 from __future__ import annotations
 
 import argparse
+import os
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from html import unescape
@@ -17,6 +18,8 @@ import json
 from pathlib import Path
 import re
 import sys
+import tempfile
+from unittest.mock import patch
 from urllib.parse import parse_qs, urlencode, urljoin, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
@@ -29,6 +32,17 @@ AUTHOR = 'brynjar orn olafsson'
 VISIR_LISTINGS = (
     'https://www.visir.is/f/umraedan',
     'https://www.visir.is/f/umraedan/1',
+    'https://www.visir.is/f/innherji',
+)
+# Optional HTML fallbacks for the RSS feed (some environments block these too).
+VB_LISTINGS = (
+    'https://vb.is/frettir/',
+    'https://vb.is/skodun/',
+)
+# This URL is a diagnostic probe only; it is NEVER added as a discovery lead.
+KNOWN_ARTICLE_URL = (
+    'https://www.visir.is/g/20262942290d/'
+    'verdlagning-hlutabrefa-enn-hofleg-i-sogulegu-samhengi'
 )
 VB_RSS = 'https://www.vb.is/rss/'
 MONTHS = {
@@ -40,7 +54,9 @@ MONTHS = {
 SEARCH_QUERIES = (
     '"Brynjar Örn Ólafsson" site:visir.is/g/',
     '"Brynjar Örn Ólafsson" site:vb.is',
-    '"CAPE" "Brynjar" site:vb.is',
+    '"Brynjar" "CAPE" site:visir.is/g/',
+    '"Brynjar" "CAPE" site:vb.is/frettir/',
+    '"OMXI15" "CAPE" site:vb.is',
 )
 SEARCH_HEADLINE_TERMS = (
     'cape', 'omxi', 'urvalsvisit', 'hlutabref', 'verdlagning', 'eignaverd', 'brynjar',
@@ -104,7 +120,10 @@ def search_feed_urls() -> list[tuple[str, str]]:
     # point to news.google.com rather than the publisher and may be unusable.
     google = 'https://news.google.com/rss/search?' + urlencode({
         'q': '"Brynjar Örn Ólafsson"', 'hl': 'is', 'gl': 'IS', 'ceid': 'IS:is'})
-    feeds.append(('Google News RSS', google))
+    feeds.append(('Google News RSS: author', google))
+    cape_news = 'https://news.google.com/rss/search?' + urlencode({
+        'q': '"OMXI15" "CAPE"', 'hl': 'is', 'gl': 'IS', 'ceid': 'IS:is'})
+    feeds.append(('Google News RSS: OMXI15 CAPE', cape_news))
     return feeds
 
 
@@ -192,6 +211,23 @@ def discover_vb_links(xml: bytes) -> list[tuple[str, str | None]]:
         if any(word in normalized(text) for word in SEARCH_HEADLINE_TERMS):
             links.append((link, date))
     return list(dict.fromkeys(links))
+
+
+def discover_vb_listing_links(html: bytes, base_url: str) -> list[tuple[str, str | None]]:
+    """Use category pages as backup leads; final publication requires page verification.
+
+    Do not infer authorship from the listing, and do not accept unrelated news.
+    """
+    soup = BeautifulSoup(html, 'html.parser')
+    links = []
+    for a in soup.select('a[href]'):
+        url = urljoin(base_url, a.get('href', ''))
+        if allowed_publisher(url) != 'Viðskiptablaðið':
+            continue
+        label = normalized(a.get_text(' ', strip=True))
+        if any(term in label for term in SEARCH_HEADLINE_TERMS):
+            links.append((url, None))
+    return list(dict.fromkeys(links))[:150]
 
 
 def first_meta(soup: BeautifulSoup, keys: tuple[str, ...]) -> str:
@@ -312,8 +348,21 @@ def describe_candidate(url: str, html: bytes, source: str, date_hint: str | None
         first_meta(soup, ('author', 'article:author', 'byl')),
         author_of_ld(soup),
     )))
-    intro = normalized(soup.get_text(' ', strip=True)[:1300])
-    authored = (AUTHOR in byline or bool(re.search(r'\bbrynjar orn olafsson\s+skrifar\b', intro)))
+    # Some Icelandic publishers display the byline beside the headline,
+    # without author metadata. Restrict this fallback to the headline region
+    # so an author's name in the article's CAPE background note is not
+    # mistaken for evidence of authorship.
+    h1 = soup.find('h1')
+    headline_context = []
+    if h1:
+        for node in (h1.parent, h1.parent.parent if h1.parent else None):
+            if node:
+                fragment = node.get_text(' ', strip=True)
+                if len(fragment) < 1800:
+                    headline_context.append(fragment)
+    author_near_title = normalized(' '.join(headline_context))
+    authored = (AUTHOR in byline or bool(re.search(
+        r'\bbrynjar orn olafsson\s+skrifar\b', author_near_title)))
 
     if authored:
         kind = 'authored'
@@ -340,7 +389,31 @@ def describe_candidate(url: str, html: bytes, source: str, date_hint: str | None
     }
 
 
-def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False) -> tuple[int, int]:
+def emit_warning(message: str) -> None:
+    """Produce an actionable warning in the GitHub Actions annotations UI."""
+    print('WARNING: ' + message)
+    if os.environ.get('GITHUB_ACTIONS') == 'true':
+        print('::warning title=Article discovery::' + message.replace('\n', ' '))
+
+
+def probe_known_article() -> bool:
+    """Diagnostic only: prove a known publisher page remains parsable.
+
+    Deliberately never contributes a discovery lead or modifies the archive.
+    """
+    raw = safe_fetch(KNOWN_ARTICLE_URL)
+    if raw is None:
+        print('PROBE UNAVAILABLE: known October Innherji article could not be fetched')
+        return False
+    result = describe_candidate(KNOWN_ARTICLE_URL, raw, 'Innherji')
+    passed = bool(result and result['kind'] == 'authored' and result['date'] == '2026-10-01')
+    print(('PROBE PASS' if passed else 'PROBE FAIL') +
+          ': known October 2026 article page, authorship and date verification')
+    return passed
+
+
+def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False,
+           run_probe: bool = True) -> tuple[int, int]:
     data = json.loads(archive_path.read_text(encoding='utf8'))
     if not isinstance(data, dict) or not isinstance(data.get('articles'), list):
         raise ValueError('Expected articles.json to contain an articles array')
@@ -348,8 +421,11 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False) -> tuple[in
     known = {canonical(rec['url']) for rec in archive if rec.get('url')}
     candidates: dict[str, tuple[str, str, str | None]] = {}
     retrieved = 0
-    blocked = 0
+    positive = 0
+    empty = 0
     unavailable = 0
+
+    probe_ok = probe_known_article() if run_probe else None
 
     def record(url: str, date_hint: str | None = None) -> None:
         publisher = allowed_publisher(url)
@@ -359,11 +435,11 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False) -> tuple[in
                 candidates[key] = (url, publisher, date_hint)
 
     def collect(name: str, url: str, parser) -> None:
-        nonlocal retrieved, blocked, unavailable
+        nonlocal retrieved, positive, empty, unavailable
         raw = safe_fetch(url)
         if raw is None:
-            blocked += 1
-            print(f'SOURCE BLOCKED/UNAVAILABLE: {name}')
+            unavailable += 1
+            print(f'SOURCE UNAVAILABLE: {name}')
             return
         try:
             matches = parser(raw)
@@ -372,15 +448,23 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False) -> tuple[in
             print(f'SOURCE INVALID: {name}: {exc}')
             return
         retrieved += 1
+        if matches:
+            positive += 1
+        else:
+            empty += 1
         before = len(candidates)
         for link, date in matches:
             record(link, date)
-        print(f'SOURCE OK: {name}: {len(matches)} leads; {len(candidates)-before} distinct candidates')
+        print(f'SOURCE OK: {name}: {len(matches)} leads; '
+              f'{len(candidates)-before} distinct candidates')
 
     for page in VISIR_LISTINGS:
-        collect('Innherji listing', page,
+        collect('Innherji listing (' + page.rsplit('/', 1)[-1] + ')', page,
                 lambda raw, page=page: [(url, None) for url in discover_visir_links(raw, page)])
     collect('Viðskiptablaðið RSS', VB_RSS, discover_vb_links)
+    for page in VB_LISTINGS:
+        collect('Viðskiptablaðið HTML listing (' + page.rsplit('/', 2)[-2] + ')', page,
+                lambda raw, page=page: discover_vb_listing_links(raw, page))
     for name, feed_url in search_feed_urls():
         collect(name, feed_url, discover_search_feed)
 
@@ -407,17 +491,12 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False) -> tuple[in
             archive.append(result)
             added.append(result)
 
-    print(f'SUMMARY: feeds ok={retrieved}, unavailable={blocked+unavailable}; '
-          f'candidates={len(candidates)}, unarchived checked={len(to_check)}, '
-          f'pages inaccessible={article_failures}, not verified={rejected}, '
-          f'new verified={len(added)}')
-    if blocked or unavailable or article_failures:
-        print('PARTIAL DISCOVERY: some sources or article pages unavailable; '
-              'no completeness guarantee')
-    if unarchived_total > MAX_CANDIDATES:
-        print('NOTE: Candidate processing was capped for this run')
-    for entry in added:
-        print(f"ADDED: {entry['date']} | {entry['kind']} | {entry['source']} | {entry['title']}")
+    print(f'SUMMARY: sources_ok={retrieved}, sources_with_leads={positive}, '
+          f'sources_empty={empty}, sources_unavailable={unavailable}, '
+          f'unique_candidates={len(candidates)}, already_archived={len(candidates)-unarchived_total}, '
+          f'unarchived_checked={len(to_check)}, page_fetch_failures={article_failures}, '
+          f'not_verified={rejected}, new_verified={len(added)}')
+
     if added and not dry_run:
         archive.sort(key=lambda r: (r.get('date') or f"{r.get('year', 0)}-01-01", r.get('title', '')), reverse=True)
         tmp = archive_path.with_suffix('.json.tmp')
@@ -427,13 +506,105 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False) -> tuple[in
     elif dry_run:
         print('DRY RUN: no file written')
     else:
-        print('NO CHANGE: archive already includes all verified discoveries')
+        print('NO CHANGE: no newly verified publications; existing archive preserved')
+
+    # A success is a best-effort discovery check, never a completeness guarantee.
+    # Crucially, a successful direct probe does not establish that discovery works.
+    degraded = bool(unavailable or article_failures or not positive or probe_ok is False)
+    if degraded:
+        reasons = []
+        if unavailable:
+            reasons.append(f'{unavailable} source(s) unavailable')
+        if article_failures:
+            reasons.append(f'{article_failures} candidate article(s) inaccessible')
+        if not positive:
+            reasons.append('no discovery source supplied leads')
+        if probe_ok is False:
+            reasons.append('known-article verification probe failed')
+        emit_warning('PARTIAL DISCOVERY: ' + '; '.join(reasons) +
+                     '. A zero-new-article result does not prove completeness.')
+    else:
+        print('DISCOVERY CHECK: sources returned leads and no fetch errors; '
+              'new-publication coverage is still best-effort.')
+    if unarchived_total > MAX_CANDIDATES:
+        emit_warning(f'Candidate processing capped at {MAX_CANDIDATES}; '
+                     'some articles were not reviewed in this run')
+    for entry in added:
+        print(f"ADDED: {entry['date']} | {entry['kind']} | {entry['source']} | {entry['title']}")
     return len(candidates), len(added)
+
+
+def self_test() -> None:
+    """Exercise discovery -> verification -> archival insert WITHOUT touching production.
+
+    The known October article is removed from a temporary copy. Mock publisher
+    responses then test both discovery and categorization deterministically.
+    This does not test live search feed reachability or recall.
+    """
+    from contextlib import redirect_stdout
+    import io
+    known = canonical(KNOWN_ARTICLE_URL)
+    original = json.loads(ARCHIVE_PATH.read_text(encoding='utf8'))
+    original['articles'] = [x for x in original['articles']
+                            if canonical(x.get('url') or '') != known]
+    known_html = f"""<!doctype html><html><head>
+      <meta property="og:title" content="Verðlagning hlutabréfa enn hófleg í sögulegu samhengi">
+      <meta property="article:published_time" content="2026-10-01T08:19:00Z">
+      <meta name="author" content="Brynjar Örn Ólafsson"></head>
+      <body><article><h1>Verðlagning hlutabréfa enn hófleg í sögulegu samhengi</h1>
+      <p>Verðlagning OMXI15 CAPE.</p></article></body></html>""".encode()
+    listing_html = f"""<html><body><article>
+       <a href="{KNOWN_ARTICLE_URL}">Verðlagning hlutabréfa enn hófleg í sögulegu samhengi</a>
+       <div>Brynjar Örn Ólafsson skrifar</div></article>
+       <article><a href="/g/20260000000d/unrelated">Önnur frétt</a>
+       <div>Annar höfundur skrifar</div></article></body></html>""".encode()
+    unrelated_html = """<html><head><meta property="og:title" content="Óskyld frétt"/>
+       <meta property="article:published_time" content="2026-09-01"/>
+       <meta name="author" content="Annar höfundur"/></head>
+       <body><article><p>Engin umfjöllun um CAPE.</p></article></body></html>""".encode()
+    def mock_fetch(url):
+        if canonical(url) == known:
+            return known_html
+        if url == VISIR_LISTINGS[0]:
+            return listing_html
+        if url.endswith('/g/20260000000d/unrelated'):
+            return unrelated_html
+        # Return parseable empty feeds for the other discovery sources.
+        if ('rss' in url or 'search?' in url):
+            return b'<rss><channel></channel></rss>'
+        return b'<html><body></body></html>'
+
+    with tempfile.TemporaryDirectory() as directory:
+        tmp = Path(directory) / 'articles.json'
+        tmp.write_text(json.dumps(original, ensure_ascii=False), encoding='utf8')
+        with patch(__name__ + '.safe_fetch', side_effect=mock_fetch):
+            output = io.StringIO()
+            with redirect_stdout(output):
+                _, first_additions = update(tmp)
+                _, second_additions = update(tmp)
+            result = json.loads(tmp.read_text(encoding='utf8'))
+        matching = [x for x in result['articles'] if canonical(x.get('url') or '') == known]
+        assert first_additions == 1, (first_additions, output.getvalue())
+        assert second_additions == 0, (second_additions, output.getvalue())
+        assert len(matching) == 1 and matching[0]['kind'] == 'authored'
+        assert len(result['articles']) == len(original['articles']) + 1
+        assert 'PROBE PASS' in output.getvalue()
+    print('SELF-TEST PASS: known article rediscovered from synthetic listing, '
+          'correct attribution, archive preserved and no duplicate on second run.')
+    print('SELF-TEST LIMIT: mock responses do not prove live publisher/search access.')
 
 
 if __name__ == '__main__':
     cli = argparse.ArgumentParser(description=__doc__)
     cli.add_argument('--archive', type=Path, default=ARCHIVE_PATH)
     cli.add_argument('--dry-run', action='store_true', help='Display discoveries without writing JSON')
+    cli.add_argument('--no-probe', action='store_true', help='Skip known-article diagnostic')
+    cli.add_argument('--self-test', action='store_true', help='Test a known missing article in a TEMPORARY archive, offline')
     args = cli.parse_args()
-    update(args.archive, dry_run=args.dry_run)
+    if args.self_test:
+        self_test()
+    else:
+        # Always verify the parser and archive write logic using a temporary copy.
+        # No network access or production file changes occur during this check.
+        self_test()
+        update(args.archive, dry_run=args.dry_run, run_probe=not args.no_probe)
