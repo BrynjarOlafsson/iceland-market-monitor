@@ -2368,21 +2368,61 @@ async function loadCapeDataFromCsv() {
             return current && past && past.value > 0
                 ? 100 * (current.value / past.value - 1) : NaN;
         };
+
+        // Historical benchmark: arithmetic average of monthly YoY real-earnings
+        // growth observations, starting 12 months after the first earnings month.
+        // Include negative earnings bases (except zero): this reproduces the
+        // author's 3.410469% benchmark through September 2026. The result can be
+        // sensitive to small and negative denominators; it is not a CAGR.
+        // The current KPI still omits a growth rate when its base is nonpositive.
+        const historicalGrowthObservations = earningsSeries.map(row => {
+            const past = findAt(earningsSeries, priorMonth(row.month, 1));
+            return {
+                month: row.month,
+                growth: past && past.value !== 0
+                    ? 100 * (row.value / past.value - 1) : NaN
+            };
+        }).filter(row => Number.isFinite(row.growth));
+        const historicalEarningsGrowth = historicalGrowthObservations.length
+            ? historicalGrowthObservations.reduce((sum, row) => sum + row.growth, 0) /
+              historicalGrowthObservations.length
+            : NaN;
+        const historicalEarningsGrowthText = Number.isFinite(historicalEarningsGrowth)
+            ? historicalEarningsGrowth.toLocaleString('is-IS', {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+              }) + '%'
+            : '—';
+        const historicalGrowthSinceYear = historicalGrowthObservations.length
+            ? historicalGrowthObservations[0].month.slice(0, 4)
+            : null;
+
         if (earningsSeries.length) {
             const current = earningsSeries[earningsSeries.length - 1];
             const growth = growthAt(current.month);
             const yearAgoGrowth = growthAt(priorMonth(current.month, 1));
             const currentText = Number.isFinite(growth) ? fmtSigned(growth) : '—';
             setText('earningsGrowthValue', currentText);
-            setText('earningsGrowthContext',
-                `Raunhagnaður, breyting síðustu 12 mán. · ${formatMonth(current.month)}`);
-            setText('earningsGrowthPosition', Number.isFinite(growth)
-                ? (growth < 0 ? 'Hagnaður dregst saman' : growth > 0 ? 'Hagnaður eykst' : 'Óbreyttur hagnaður')
-                : 'Ársvöxtur ekki skilgreindur');
+            setText('earningsGrowthContext', historicalGrowthSinceYear
+                ? `Meðaltal frá ${historicalGrowthSinceYear}: ${historicalEarningsGrowthText}`
+                : 'Sögulegt meðaltal ekki tiltækt');
+
+            // Same relative 10% classification threshold as CAPE and P/E.
+            let growthPosition = 'Ársvöxtur ekki skilgreindur';
+            if (Number.isFinite(growth) && !Number.isFinite(historicalEarningsGrowth)) {
+                growthPosition = 'Sögulegt meðaltal ekki tiltækt';
+            } else if (Number.isFinite(growth)) {
+                growthPosition = 'Nálægt sögulegu meðaltali';
+                if (growth > historicalEarningsGrowth * 1.10) {
+                    growthPosition = 'Yfir sögulegu meðaltali';
+                } else if (growth < historicalEarningsGrowth * 0.90) {
+                    growthPosition = 'Undir sögulegu meðaltali';
+                }
+            }
+            setText('earningsGrowthPosition', growthPosition);
             setText('growthTableCurrent', currentText);
             setText('growthTableYearAgo', Number.isFinite(yearAgoGrowth)
                 ? fmtSigned(yearAgoGrowth) : '—');
-            setText('growthTableAverage', '—');
+            setText('growthTableAverage', historicalEarningsGrowthText);
         } else {
             showUnavailable(['earningsGrowthValue', 'growthTableCurrent',
                              'growthTableYearAgo', 'growthTableAverage'], 'earningsGrowthContext');
