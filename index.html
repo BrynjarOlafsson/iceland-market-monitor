@@ -420,6 +420,15 @@ main {
     vector-effect: non-scaling-stroke;
 }
 
+/* S&P 500 CAPE comparison: thinner dark-grey line, Iceland remains dominant. */
+.series-us-cape {
+    fill: none;
+    stroke: var(--slate);
+    stroke-width: 1.6;
+    opacity: .90;
+    vector-effect: non-scaling-stroke;
+}
+
 .series-red {
     fill: none;
     stroke: var(--red);
@@ -1215,6 +1224,10 @@ footer {
                     </div>
 
                     <div class="legend-item">
+                        <span class="legend-swatch slate"></span>
+                        S&amp;P 500 CAPE
+                    </div>
+                    <div class="legend-item">
                         <span class="legend-swatch red"></span>
                         <span id="capeChartAverageLegend">Sögulegt meðaltal CAPE</span>
                     </div>
@@ -1808,15 +1821,16 @@ document.addEventListener('keydown', function (event) {
 </script>
 
 <script>
-/* Draw real monthly CAPE observations; all positions and scales are derived from the CSV. */
-function renderCapeHistoryChart(history, historicalAverage) {
+/* Draw OMXI15 and U.S. CAPE on one chronological axis, using the same CSV data. */
+function renderCapeHistoryChart(history, historicalAverage, usHistory = []) {
     const svg = document.getElementById('capeHistoryChart');
     if (!svg) return;
     const ns = 'http://www.w3.org/2000/svg';
     svg.replaceChildren();
 
     const bounds = { left: 42, right: 425, top: 20, bottom: 195 };
-    const maxValue = Math.max(historicalAverage, ...history.map(row => row.cape));
+    const maxValue = Math.max(historicalAverage, ...history.map(row => row.cape),
+                              ...usHistory.map(row => row.cape));
     const maximumAxis = Math.max(20, Math.ceil(maxValue / 20) * 20);
     const totalHeight = bounds.bottom - bounds.top;
     const monthNumber = month => Number(month.slice(0, 4)) * 12 + Number(month.slice(5, 7));
@@ -1867,7 +1881,19 @@ function renderCapeHistoryChart(history, historicalAverage) {
         x2: bounds.right, y2: y(historicalAverage)
     });
 
-    // Monthly observations, with true chronological spacing.
+    // Draw the U.S. comparison first, so the thicker blue Icelandic line stays foremost.
+    if (usHistory.length >= 2) {
+        const usPoints = usHistory.map(row =>
+            `${x(row.month).toFixed(2)},${y(row.cape).toFixed(2)}`).join(' ');
+        draw('polyline', { class: 'series-us-cape', points: usPoints });
+        const latestUs = usHistory[usHistory.length - 1];
+        draw('circle', {
+            cx: x(latestUs.month), cy: y(latestUs.cape), r: 2.5,
+            fill: 'var(--slate)', stroke: '#ffffff', 'stroke-width': 1.1
+        });
+    }
+
+    // Monthly OMXI15 observations, with true chronological spacing.
     const points = history.map(row => `${x(row.month).toFixed(2)},${y(row.cape).toFixed(2)}`).join(' ');
     draw('polyline', { class: 'series-blue', points });
     const latest = history[history.length - 1];
@@ -1876,9 +1902,12 @@ function renderCapeHistoryChart(history, historicalAverage) {
         fill: 'var(--blue)', stroke: '#ffffff', 'stroke-width': 1.2
     });
 
+    const usSummary = usHistory.length
+        ? ` S&P 500 CAPE síðast ${usHistory[usHistory.length - 1].cape.toFixed(2)}.` : '';
     svg.setAttribute('aria-label',
         `OMXI15 CAPE frá ${history[0].month} til ${latest.month}. ` +
-        `Nýjasta gildi ${latest.cape.toFixed(2)}; sögulegt meðaltal ${historicalAverage.toFixed(2)}.`);
+        `Nýjasta gildi ${latest.cape.toFixed(2)}; sögulegt meðaltal ${historicalAverage.toFixed(2)}.` +
+        usSummary);
 }
 
 
@@ -2472,10 +2501,14 @@ async function loadCapeDataFromCsv() {
             setText('sp500ComparisonCommentary', 'CAPE S&P 500 gögn eru ekki tiltæk.');
         }
 
-        // Use the same validated observations and historical average as the KPI.
-        renderCapeHistoryChart(capeHistory, average);
+        // Compare CAPE series over the Icelandic CAPE coverage only. Keep its
+        // historical average unchanged; missing U.S. months do not alter OMXI15.
+        const usCapeHistory = spSeries
+            .filter(row => row.month >= earliest.month && row.month <= latest.month)
+            .map(row => ({ month: row.month, cape: row.value }));
+        renderCapeHistoryChart(capeHistory, average, usCapeHistory);
         setText('capeChartSubtitle',
-                `OMXI15, mánaðarleg gögn · ${formatMonth(earliest.month)}–${dateText}`);
+                `OMXI15 og S&P 500, mánaðarleg gögn · ${formatMonth(earliest.month)}–${dateText}`);
         setText('capeChartAverageLegend', `Meðaltal CAPE: ${averageNumber}`);
     } catch (error) {
         console.error('CAPE data could not be loaded:', error);
