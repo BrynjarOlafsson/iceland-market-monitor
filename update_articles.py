@@ -19,7 +19,9 @@ from pathlib import Path
 import re
 import sys
 import tempfile
+import time
 from unittest.mock import patch
+from urllib.error import HTTPError
 from urllib.parse import parse_qs, urlencode, urljoin, urlsplit, urlunsplit
 from urllib.request import Request, urlopen
 import xml.etree.ElementTree as ET
@@ -67,11 +69,10 @@ MAX_REVIEW = 15
 
 # Optional public news-index discovery. GDELT supplies *links*, not verified
 # publication text or authorship; only publisher pages can establish those.
-GDELT_QUERIES = (
-    'domainis:vb.is "CAPE"',
-    'domainis:vb.is "Brynjar"',
-    'domainis:vb.is "OMXI15"',
-)
+GDELT_QUERY = 'domainis:vb.is (CAPE OR OMXI15 OR Brynjar)'
+# Respect rate limits. Only retry once if the server specifically requests a
+# short wait. Long or unspecified waits are left to the next daily run.
+GDELT_RETRY_MAX_SECONDS = 8
 
 
 def normalized(text: str) -> str:
@@ -101,14 +102,45 @@ def canonical(url: str) -> str:
     return urlunsplit((parts.scheme.lower(), host, path, '', ''))
 
 
+def retry_after_seconds(value: str | None) -> float | None:
+    """Parse Retry-After as seconds or HTTP date; None means do not retry."""
+    if not value:
+        return None
+    try:
+        return max(0.0, float(value.strip()))
+    except ValueError:
+        try:
+            date = parsedate_to_datetime(value)
+            if date.tzinfo is None:
+                date = date.replace(tzinfo=timezone.utc)
+            return max(0.0, (date - datetime.now(timezone.utc)).total_seconds())
+        except (ValueError, TypeError, IndexError):
+            return None
+
+
 def get_bytes(url: str) -> bytes:
     request = Request(url, headers={
-        'User-Agent': 'Mozilla/5.0 (compatible; IcelandMarketMonitor/0.4; public-article-monitor)',
+        'User-Agent': 'Mozilla/5.0 (compatible; IcelandMarketMonitor/0.7; public-article-monitor)',
         'Accept': 'application/rss+xml, application/atom+xml, application/xml, text/html;q=0.9, */*;q=0.5',
         'Accept-Language': 'is,en;q=0.7',
     })
-    with urlopen(request, timeout=20) as response:
-        return response.read(MAX_PAGE_BYTES + 1)[:MAX_PAGE_BYTES]
+    gdelt = urlsplit(url).hostname == 'api.gdeltproject.org'
+    try:
+        with urlopen(request, timeout=20) as response:
+            return response.read(MAX_PAGE_BYTES + 1)[:MAX_PAGE_BYTES]
+    except HTTPError as exc:
+        if not (gdelt and exc.code == 429):
+            raise
+        wait = retry_after_seconds(exc.headers.get('Retry-After'))
+        if wait is None or wait > GDELT_RETRY_MAX_SECONDS:
+            print('GDELT RATE LIMITED: HTTP 429; no short Retry-After provided. '
+                  'Skipping until next scheduled check.', file=sys.stderr)
+            raise
+        print(f'GDELT RATE LIMITED: waiting {wait:.1f}s before one retry.', file=sys.stderr)
+        time.sleep(wait)
+        # Exactly one retry; any repeated 429 propagates to safe_fetch.
+        with urlopen(request, timeout=20) as response:
+            return response.read(MAX_PAGE_BYTES + 1)[:MAX_PAGE_BYTES]
 
 
 def safe_fetch(url: str) -> bytes | None:
@@ -137,18 +169,16 @@ def search_feed_urls() -> list[tuple[str, str]]:
 
 
 def gdelt_feed_urls() -> list[tuple[str, str]]:
-    """Public article-index searches for vb.is; no API key needed.
+    """ONE narrow vb.is news-index request per run (reduce 429 pressure).
 
-    An empty or rate-limited response does NOT mean no relevant article exists.
+    GDELT is a discovery aid only. An empty/rate-limited response is never
+    evidence that there were no new relevant articles.
     """
-    return [
-        ('GDELT: ' + query,
-         'https://api.gdeltproject.org/api/v2/doc/doc?' + urlencode({
-             'query': query, 'mode': 'artlist', 'format': 'json',
-             'timespan': '3months', 'maxrecords': 75, 'sort': 'datedesc',
-         }))
-        for query in GDELT_QUERIES
-    ]
+    url = 'https://api.gdeltproject.org/api/v2/doc/doc?' + urlencode({
+        'query': GDELT_QUERY, 'mode': 'artlist', 'format': 'json',
+        'timespan': '3months', 'maxrecords': 50, 'sort': 'datedesc',
+    })
+    return [('GDELT: combined vb.is CAPE/OMXI15/Brynjar', url)]
 
 
 def discover_gdelt_links(raw: bytes) -> list[tuple[str, None]]:
@@ -442,6 +472,67 @@ def emit_warning(message: str) -> None:
         print('::warning title=Article discovery::' + message.replace('\n', ' '))
 
 
+def save_archive_atomically(archive_path: Path, data: dict) -> None:
+    """Write archive only after full validation; never truncate on error."""
+    tmp_name = None
+    try:
+        with tempfile.NamedTemporaryFile('w', encoding='utf-8',
+                                         dir=archive_path.parent,
+                                         prefix='.articles_', suffix='.json',
+                                         delete=False) as handle:
+            tmp_name = handle.name
+            json.dump(data, handle, ensure_ascii=False, indent=2)
+            handle.write('\n')
+        os.replace(tmp_name, archive_path)
+    finally:
+        if tmp_name and os.path.exists(tmp_name):
+            os.unlink(tmp_name)
+
+
+def add_manually_reviewed_article(archive_path: Path, url: str, title: str,
+                                  date: str, kind: str, description: str) -> bool:
+    """Explicit curator-controlled fallback for publishers that block robots.
+
+    This mode NEVER guesses authorship or publication date. The person invoking
+    it must check these details against the publisher before confirming.
+    """
+    source = allowed_publisher(url)
+    if source is None:
+        raise ValueError('Manual entry requires a supported direct HTTPS publisher URL')
+    if kind not in ('authored', 'coverage'):
+        raise ValueError('Manual kind must be authored or coverage')
+    try:
+        parsed_date = datetime.strptime(date, '%Y-%m-%d').date()
+    except ValueError as exc:
+        raise ValueError('Manual date must be a real YYYY-MM-DD date') from exc
+    if parsed_date > datetime.now(timezone.utc).date():
+        raise ValueError('Manual publication date cannot be in the future')
+    if not title.strip() or len(title) > 300 or len(description) > 800:
+        raise ValueError('Manual title must be 1–300 chars; description at most 800')
+    data = json.loads(archive_path.read_text(encoding='utf-8'))
+    if not isinstance(data, dict) or not isinstance(data.get('articles'), list):
+        raise ValueError('Invalid articles.json structure')
+    if any(canonical(record.get('url') or '') == canonical(url)
+           for record in data['articles']):
+        print(f'MANUAL NO CHANGE: already archived: {url}')
+        return False
+    data['articles'].append({
+        'title': title.strip(), 'date': date, 'year': parsed_date.year,
+        'source': source, 'kind': kind,
+        'topic': 'Hlutabréf og eignaverð' if kind == 'coverage' else topic_of(title),
+        'url': url, 'description': description.strip() or (
+            'Fjölmiðlaumfjöllun sem vísar í CAPE-gögn.' if kind == 'coverage'
+            else 'Grein eftir Brynjar Örn Ólafsson.'),
+        'extra_links': [],
+    })
+    data['articles'].sort(key=lambda row: (
+        row.get('date') or f"{row.get('year', 0)}-01-01", row.get('title', '')),
+        reverse=True)
+    save_archive_atomically(archive_path, data)
+    print(f'MANUAL ADDED: {date} | {kind} | {source} | {title.strip()}')
+    return True
+
+
 def probe_known_article() -> bool:
     """Diagnostic only: prove a known publisher page remains parsable.
 
@@ -570,9 +661,7 @@ def update(archive_path: Path = ARCHIVE_PATH, dry_run: bool = False,
 
     if added and not dry_run:
         archive.sort(key=lambda r: (r.get('date') or f"{r.get('year', 0)}-01-01", r.get('title', '')), reverse=True)
-        tmp = archive_path.with_suffix('.json.tmp')
-        tmp.write_text(json.dumps(data, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
-        tmp.replace(archive_path)
+        save_archive_atomically(archive_path, data)
         print(f'ARCHIVE SAVED: {archive_path} ({len(archive)} total entries)')
     elif dry_run:
         print('DRY RUN: no file written')
@@ -671,6 +760,47 @@ def self_test() -> None:
     gdelt_mock = json.dumps({'articles': [{'url': vb_link, 'seendate': '20261018T000000Z'},
                                            {'url': 'https://example.org/not-vb'}]}).encode()
     assert discover_gdelt_links(gdelt_mock) == [(vb_link, None)]
+    # One GDELT request, regardless of how many terms it covers.
+    assert len(gdelt_feed_urls()) == 1
+    assert 'CAPE+OR+OMXI15+OR+Brynjar' in gdelt_feed_urls()[0][1]
+    # Under rate limiting, retry ONLY after a short explicit Retry-After.
+    assert retry_after_seconds(None) is None
+    assert retry_after_seconds('4') == 4.0
+    assert retry_after_seconds('120') > GDELT_RETRY_MAX_SECONDS
+    from email.message import Message
+    from urllib.error import HTTPError
+    def fake_429(retry_after):
+        headers = Message()
+        if retry_after is not None:
+            headers['Retry-After'] = retry_after
+        return HTTPError(gdelt_feed_urls()[0][1], 429, 'Too Many Requests', headers, None)
+    with patch(__name__ + '.urlopen', side_effect=[fake_429('1'),
+                                                  __import__('io').BytesIO(b'{"articles": []}')]) as u, \
+         patch(__name__ + '.time.sleep') as sleep:
+        assert get_bytes(gdelt_feed_urls()[0][1]) == b'{"articles": []}'
+        assert u.call_count == 2 and sleep.call_count == 1
+    with patch(__name__ + '.urlopen', side_effect=fake_429(None)) as u, \
+         patch(__name__ + '.time.sleep') as sleep:
+        try:
+            get_bytes(gdelt_feed_urls()[0][1])
+            raise AssertionError('429 without Retry-After should fail safely')
+        except HTTPError:
+            assert u.call_count == 1 and sleep.call_count == 0
+    # Explicit manual addition and duplicate handling never affect production.
+    with tempfile.TemporaryDirectory() as directory:
+        tmp = Path(directory) / 'articles.json'
+        tmp.write_text(json.dumps(original, ensure_ascii=False), encoding='utf-8')
+        added = add_manually_reviewed_article(
+            tmp, 'https://vb.is/frettir/test-manual-entry/',
+            'Prófun á skráningu', '2026-09-15', 'coverage', 'Staðfest umfjöllun')
+        duplicate = add_manually_reviewed_article(
+            tmp, 'https://vb.is/frettir/test-manual-entry/',
+            'Prófun á skráningu', '2026-09-15', 'coverage', 'Staðfest umfjöllun')
+        checked = json.loads(tmp.read_text(encoding='utf-8'))
+        assert added and not duplicate
+        assert len(checked['articles']) == len(original['articles']) + 1
+    print('SELF-TEST PASS: one GDELT query, bounded 429 retry, manual-entry '
+          'confirmation workflow and duplicate protection.')
     print('SELF-TEST PASS: GDELT index supplies valid publisher URL leads; '
           'no search-index date or attribution is treated as verification.')
     print('SELF-TEST PASS: known article rediscovered from synthetic listing, '
@@ -683,9 +813,22 @@ if __name__ == '__main__':
     cli.add_argument('--archive', type=Path, default=ARCHIVE_PATH)
     cli.add_argument('--dry-run', action='store_true', help='Display discoveries without writing JSON')
     cli.add_argument('--no-probe', action='store_true', help='Skip known-article diagnostic')
-    cli.add_argument('--self-test', action='store_true', help='Test a known missing article in a TEMPORARY archive, offline')
+    cli.add_argument('--self-test', action='store_true', help='Test using a TEMPORARY archive, offline')
+    cli.add_argument('--add-manual', metavar='URL', help='Curator-verified publisher URL to insert')
+    cli.add_argument('--title', help='Title confirmed against publisher')
+    cli.add_argument('--date', help='Publication date YYYY-MM-DD confirmed against publisher')
+    cli.add_argument('--kind', choices=('authored', 'coverage'), help='Verified authorship or CAPE coverage')
+    cli.add_argument('--description', default='', help='Optional short factual description')
+    cli.add_argument('--confirm-reviewed', action='store_true',
+                     help='Explicitly confirm you personally checked title, date and attribution')
     args = cli.parse_args()
-    if args.self_test:
+    if args.add_manual:
+        if not args.confirm_reviewed or not all((args.title, args.date, args.kind)):
+            cli.error('Manual addition requires --title, --date, --kind, and --confirm-reviewed')
+        add_manually_reviewed_article(args.archive, args.add_manual,
+                                      args.title, args.date, args.kind,
+                                      args.description)
+    elif args.self_test:
         self_test()
     else:
         # Always verify the parser and archive write logic using a temporary copy.
