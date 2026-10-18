@@ -27,6 +27,7 @@ import urllib.request
 URL = "https://px.hagstofa.is/pxis/api/v1/is/Efnahagur/visitolur/1_vnv/1_vnv/VIS01000.px"
 REQUEST = {
     "query": [
+        {"code": "Mánuður", "selection": {"filter": "all", "values": ["*"]}},
         {"code": "Vísitala", "selection": {"filter": "item", "values": ["CPI"]}},
         {"code": "Liður", "selection": {"filter": "item", "values": ["change_A"]}},
     ],
@@ -69,12 +70,32 @@ def parse_pxweb(data: dict) -> dict[str, float]:
     cols, records = data.get("columns"), data.get("data")
     if not isinstance(cols, list) or not isinstance(records, list) or not records:
         raise ValueError("Unexpected PXWeb JSON structure (columns/data missing or empty)")
-    code_list = [str(c.get("code", "")) for c in cols]
+    # PXWeb columns with type="c" are *content/measure* columns. They describe
+    # the values array and do not contribute entries to each record's key.
+    # Some PXWeb versions include all 3 columns (including 'Liður') but only
+    # 2 key entries (month and CPI). The previous parser rejected valid data.
+    key_columns = [col for col in cols if col.get("type", "").lower() != "c"]
     output = {}
     for row in records:
+        if not isinstance(row, dict):
+            raise ValueError("Unexpected PXWeb record type")
         keys, values = row.get("key"), row.get("values")
-        if not isinstance(keys, list) or len(keys) != len(cols) or not isinstance(values, list) or len(values) != 1:
-            raise ValueError("Unexpected PXWeb record shape")
+        if not isinstance(keys, list) or not isinstance(values, list) or len(values) != 1:
+            raise ValueError("Unexpected PXWeb record: expected key list and one numeric value")
+        active_columns = key_columns
+        if len(keys) != len(active_columns):
+            # Compatibility fallback for servers that omit the type="c" tag.
+            non_measure_cols = [col for col in cols if col.get("code") != "Liður"]
+            if len(keys) == len(non_measure_cols) and len(non_measure_cols) == len(cols) - 1:
+                active_columns = non_measure_cols
+            else:
+                raise ValueError(
+                    "Unexpected PXWeb record shape: "
+                    f"{len(keys)} keys for {len(cols)} columns "
+                    f"(types={[col.get('type') for col in cols]!r}, "
+                    f"codes={[col.get('code') for col in cols]!r})"
+                )
+        code_list = [str(col.get("code", "")) for col in active_columns]
         # Reject any unexpected CPI or indicator values, even if the API query is modified.
         for key, code in zip(keys, code_list):
             if code == "Vísitala" and key != "CPI":
