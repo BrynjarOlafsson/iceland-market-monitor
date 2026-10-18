@@ -1241,107 +1241,33 @@ footer {
         </article>
 
 
-        <!-- REAL EARNINGS / OMXI15 -->
+        <!-- REAL EARNINGS / OMXI15 (MONTHLY CSV DATA) -->
 
         <article class="panel">
-
             <div class="panel-header">
-                <h2 class="panel-title">
-                    Raunhagnaður og raunvirði OMXI15
-                </h2>
-
-                <p class="panel-subtitle">
-                    Vísitala = 100 í janúar 2010
+                <h2 class="panel-title">Raunhagnaður og raunvirði OMXI15</h2>
+                <p class="panel-subtitle" id="earningsChartSubtitle">
+                    Vísitala = 100 í janúar 2011 · Sæki gögn…
                 </p>
             </div>
-
             <div class="chart-body">
-
                 <div class="chart-wrap">
-
-                    <svg
-                        class="chart-svg"
-                        viewBox="0 0 440 230"
-                        preserveAspectRatio="none">
-
-                        <line class="grid-line" x1="42" y1="30" x2="425" y2="30"/>
-                        <line class="grid-line" x1="42" y1="70" x2="425" y2="70"/>
-                        <line class="grid-line" x1="42" y1="110" x2="425" y2="110"/>
-                        <line class="grid-line" x1="42" y1="150" x2="425" y2="150"/>
-                        <line class="grid-line" x1="42" y1="190" x2="425" y2="190"/>
-
-                        <line class="axis-line" x1="42" y1="20" x2="42" y2="195"/>
-                        <line class="axis-line" x1="42" y1="195" x2="425" y2="195"/>
-
-                        <text class="axis-text" x="14" y="193">100</text>
-                        <text class="axis-text" x="14" y="153">150</text>
-                        <text class="axis-text" x="14" y="113">200</text>
-                        <text class="axis-text" x="14" y="73">250</text>
-                        <text class="axis-text" x="14" y="33">300</text>
-
-                        <polyline
-                            class="series-blue"
-                            points="
-                            42,190
-                            68,185
-                            94,176
-                            120,168
-                            146,157
-                            172,145
-                            198,137
-                            224,128
-                            250,117
-                            276,111
-                            302,92
-                            328,79
-                            354,63
-                            380,39
-                            405,24
-                            425,18"/>
-
-                        <polyline
-                            class="series-slate"
-                            points="
-                            42,190
-                            68,187
-                            94,181
-                            120,175
-                            146,167
-                            172,164
-                            198,159
-                            224,151
-                            250,146
-                            276,137
-                            302,125
-                            328,115
-                            354,99
-                            380,81
-                            405,70
-                            425,62"/>
-
-                        <text class="axis-text" x="39" y="214">2010</text>
-                        <text class="axis-text" x="157" y="214">2015</text>
-                        <text class="axis-text" x="278" y="214">2020</text>
-                        <text class="axis-text" x="399" y="214">2026</text>
-
+                    <svg class="chart-svg" id="earningsHistoryChart"
+                         viewBox="0 0 440 230" preserveAspectRatio="none"
+                         role="img" aria-label="Þróun raunhagnaðar og raunvirðis OMXI15">
                     </svg>
-
                 </div>
-
                 <div class="legend">
                     <div class="legend-item">
                         <span class="legend-swatch"></span>
                         Raunhagnaður OMXI15
                     </div>
-
                     <div class="legend-item">
                         <span class="legend-swatch slate"></span>
                         Raunvirði OMXI15
                     </div>
                 </div>
-
             </div>
-
         </article>
 
 
@@ -2037,6 +1963,106 @@ function renderCapeHistoryChart(history, historicalAverage) {
         `Nýjasta gildi ${latest.cape.toFixed(2)}; sögulegt meðaltal ${historicalAverage.toFixed(2)}.`);
 }
 
+
+/* Indexed real OMXI15 earnings and index. Base 2011-01: 2010-01 earnings were
+   negative, so normalizing them to +100 would invert the economic meaning. */
+function renderRealEarningsChart(rows) {
+    const svg = document.getElementById('earningsHistoryChart');
+    if (!svg) return null;
+    const ns = 'http://www.w3.org/2000/svg';
+    const baseMonth = '2011-01';
+    const base = rows.find(row => row.month === baseMonth);
+    if (!base || !(base.earnings > 0) || !(base.index > 0)) {
+        throw new Error('Positive January 2011 earnings and index required for chart base');
+    }
+    const history = rows.filter(row => row.month >= baseMonth &&
+        Number.isFinite(row.earnings) && Number.isFinite(row.index) && row.index > 0)
+        .map(row => ({
+            month: row.month,
+            earnings: 100 * row.earnings / base.earnings,
+            index: 100 * row.index / base.index
+        }));
+    if (history.length < 2) throw new Error('Not enough real earnings observations');
+    const monthCount = new Set(history.map(row => row.month));
+    if (history.length !== monthCount.size) throw new Error('Duplicate real series months');
+
+    svg.replaceChildren();
+    const bounds = { left: 45, right: 425, top: 20, bottom: 195 };
+    const rawValues = history.flatMap(row => [row.earnings, row.index]);
+    const axisMinimum = Math.min(0, Math.floor(Math.min(...rawValues) / 50) * 50);
+    const axisMaximum = Math.ceil(Math.max(...rawValues) / 50) * 50;
+    const numberOfSteps = (axisMaximum - axisMinimum) / 50;
+    const serial = m => Number(m.slice(0, 4)) * 12 + Number(m.slice(5, 7));
+    const first = serial(history[0].month);
+    const last = serial(history[history.length - 1].month);
+    const x = month => bounds.left + (serial(month) - first) / Math.max(1, last - first) * (bounds.right - bounds.left);
+    const y = value => bounds.bottom - (value - axisMinimum) / (axisMaximum - axisMinimum) * (bounds.bottom - bounds.top);
+
+    function draw(tag, attrs, content) {
+        const element = document.createElementNS(ns, tag);
+        for (const [key, value] of Object.entries(attrs)) {
+            element.setAttribute(key, String(value));
+        }
+        if (content !== undefined) element.textContent = String(content);
+        svg.appendChild(element);
+        return element;
+    }
+
+    for (let step = 0; step <= numberOfSteps; step++) {
+        const value = axisMinimum + step * 50;
+        const py = y(value);
+        draw('line', {
+            class: 'grid-line', x1: bounds.left, y1: py, x2: bounds.right, y2: py
+        });
+        draw('text', {
+            class: 'axis-text', x: bounds.left - 8, y: py + 2.5, 'text-anchor': 'end'
+        }, value);
+    }
+    if (axisMinimum < 0) {
+        draw('line', {
+            class: 'axis-line', x1: bounds.left, y1: y(0),
+            x2: bounds.right, y2: y(0)
+        });
+    }
+    draw('line', { class: 'axis-line', x1: bounds.left, y1: bounds.top,
+                  x2: bounds.left, y2: bounds.bottom });
+    draw('line', { class: 'axis-line', x1: bounds.left, y1: bounds.bottom,
+                  x2: bounds.right, y2: bounds.bottom });
+
+    const firstYear = Number(history[0].month.slice(0, 4));
+    const lastYear = Number(history[history.length - 1].month.slice(0, 4));
+    const years = [firstYear];
+    for (let year = Math.ceil((firstYear + 1) / 5) * 5; year <= lastYear - 2; year += 5) {
+        years.push(year);
+    }
+    if (years[years.length - 1] !== lastYear) years.push(lastYear);
+    for (const year of years) {
+        const month = year === firstYear ? history[0].month :
+                      year === lastYear ? history[history.length - 1].month : `${year}-01`;
+        draw('text', {
+            class: 'axis-text', x: x(month), y: 213,
+            'text-anchor': year === firstYear ? 'start' : year === lastYear ? 'end' : 'middle'
+        }, year);
+    }
+
+    for (const [key, className] of [['earnings', 'series-blue'], ['index', 'series-slate']]) {
+        const points = history.map(row => `${x(row.month).toFixed(2)},${y(row[key]).toFixed(2)}`).join(' ');
+        draw('polyline', { class: className, points });
+        const latest = history[history.length - 1];
+        draw('circle', {
+            cx: x(latest.month), cy: y(latest[key]), r: 3,
+            fill: key === 'earnings' ? 'var(--blue)' : 'var(--slate)',
+            stroke: '#ffffff', 'stroke-width': 1.2
+        });
+    }
+    const latest = history[history.length - 1];
+    svg.setAttribute('aria-label',
+        `Raunhagnaður og raunvirði OMXI15 frá janúar 2011 til ${latest.month}. ` +
+        `Janúar 2011 er 100. Raunhagnaður ${latest.earnings.toFixed(1)}, ` +
+        `raunvirði ${latest.index.toFixed(1)}.`);
+    return { first: history[0].month, last: latest.month, count: history.length };
+}
+
 /* Iceland Market Monitor 0.2: one CSV is the source for every displayed CAPE value. */
 async function loadCapeDataFromCsv() {
     const setText = (id, text) => {
@@ -2077,6 +2103,35 @@ async function loadCapeDataFromCsv() {
         const capeIndex = headers.indexOf('cape_omxi15');
         if (monthIndex < 0 || capeIndex < 0) {
             throw new Error('Required columns month and cape_omxi15 are missing');
+        }
+
+        // The second historical chart uses the very same CSV response.
+        const earningsIndex = headers.indexOf('real_earnings_12m');
+        const realIndexIndex = headers.indexOf('omxi15_real');
+        if (earningsIndex < 0 || realIndexIndex < 0) {
+            throw new Error('Required real earnings and real index columns are missing');
+        }
+        const realRows = lines.slice(1).map(line => {
+            const cells = line.split(',');
+            const month = (cells[monthIndex] || '').trim();
+            const earningsCell = (cells[earningsIndex] || '').trim();
+            const indexCell = (cells[realIndexIndex] || '').trim();
+            return {
+                month,
+                earnings: earningsCell === '' ? NaN : Number(earningsCell),
+                index: indexCell === '' ? NaN : Number(indexCell)
+            };
+        }).filter(row => /^\d{4}-(0[1-9]|1[0-2])$/.test(row.month))
+          .sort((a, b) => a.month.localeCompare(b.month));
+        try {
+            const rendered = renderRealEarningsChart(realRows);
+            if (rendered) {
+                setText('earningsChartSubtitle',
+                    `Vísitala = 100 í janúar 2011 · ${formatMonth(rendered.first)}–${formatMonth(rendered.last)}`);
+            }
+        } catch (chartError) {
+            console.error('Real earnings chart could not be rendered:', chartError);
+            setText('earningsChartSubtitle', 'Ekki tókst að birta gögn um raunhagnað');
         }
 
         const capeHistory = lines.slice(1).map(line => {
@@ -2165,6 +2220,7 @@ async function loadCapeDataFromCsv() {
     } catch (error) {
         console.error('CAPE data could not be loaded:', error);
         setText('capeChartSubtitle', 'Ekki tókst að sækja CAPE-gögn');
+        setText('earningsChartSubtitle', 'Ekki tókst að sækja gögn um raunhagnað');
         setText('capeObservationDate', 'Gögn ekki tiltæk');
         setText('capeObservationDateCard', 'Gögn ekki tiltæk');
         setText('capeRelativePosition', 'Gögn ekki tiltæk');
