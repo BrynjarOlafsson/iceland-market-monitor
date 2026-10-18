@@ -1160,9 +1160,9 @@ footer {
 
         <article class="kpi">
             <div class="kpi-title">Verðbólga</div>
-            <div class="kpi-value">—</div>
-            <div class="kpi-average">Verðbólgugögn ekki tengd</div>
-            <span class="position-label">Bíður gagnatengingar</span>
+            <div class="kpi-value" id="inflationValue">—</div>
+            <div class="kpi-average" id="inflationContext">Verðbólgugögn ekki tiltæk</div>
+            <span class="position-label" id="inflationPosition">Bíður gagnatengingar</span>
         </article>
 
         <article class="kpi">
@@ -1346,9 +1346,9 @@ footer {
 
                         <tr>
                             <td>Verðbólga</td>
-                            <td class="num">—</td>
-                            <td class="num">—</td>
-                            <td class="num">—</td>
+                            <td class="num" id="inflationTableCurrent">—</td>
+                            <td class="num" id="inflationTableYearAgo">—</td>
+                            <td class="num" id="inflationTableAverage">—</td>
                         </tr>
 
                         <tr>
@@ -2385,6 +2385,29 @@ async function loadCapeDataFromCsv() {
             showUnavailable(['earningsGrowthValue', 'growthTableCurrent',
                              'growthTableYearAgo', 'growthTableAverage'], 'earningsGrowthContext');
             setText('earningsGrowthPosition', 'Gögn ekki tiltæk');
+        }
+
+        // Statistics Iceland annual CPI inflation, sourced via PXWeb and saved
+        // as percentage points: inflation_yoy=5.6 means 5.6%, NOT 0.056.
+        // The newest CPI month may be later than the most recent CAPE month.
+        const inflationSeries = getSeries('inflation_yoy');
+        if (inflationSeries.length) {
+            const current = inflationSeries[inflationSeries.length - 1];
+            const yearAgo = findAt(inflationSeries, priorMonth(current.month, 1));
+            const mean = inflationSeries.reduce((sum, item) => sum + item.value, 0) /
+                         inflationSeries.length;
+            const displayInflation = value => value.toFixed(1).replace('.', ',') + '%';
+            setText('inflationValue', displayInflation(current.value));
+            setText('inflationContext',
+                `Meðaltal frá ${inflationSeries[0].month.slice(0, 4)}: ${displayInflation(mean)}`);
+            setText('inflationPosition', `Nýjasta mæling: ${formatMonth(current.month)}`);
+            setText('inflationTableCurrent', displayInflation(current.value));
+            setText('inflationTableYearAgo', yearAgo ? displayInflation(yearAgo.value) : '—');
+            setText('inflationTableAverage', displayInflation(mean));
+        } else {
+            showUnavailable(['inflationValue', 'inflationTableCurrent',
+                             'inflationTableYearAgo', 'inflationTableAverage'], 'inflationContext');
+            setText('inflationPosition', 'Bíður gagna frá Hagstofu Íslands');
         }
 
         const spSeries = getSeries('cape_sp500', v => Number.isFinite(v) && v > 0);
